@@ -5,10 +5,36 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script>
+       $(document).ready(function(){
+          $('.dropdown-toggle').dropdown();
+      });
+  </script>
+
 </head>
 <body>
-
-<%= yield %>
-
+  <nav class="navbar navbar-default">
+        <a class="navbar-brand" href="#">
+          <img src="https://www.incschools.org/wp-content/themes/incs/assets/img/logo.png" alt="INCS">
+        </a>
+    <ul class="nav nav-pills navbar-right">
+      <li role="presentation" class="active"><a href="#">Home</a></li>
+      <li role="presentation"><a href="#">Log In</a></li>
+      <li role="presentation" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            Register <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Teacher Registration</a></li>
+            <li><a href="#">School Registration</a></li>
+          </ul>
+        </li>
+    </ul>
+    </nav>
+  <div class="container" style="padding-top:20px;">
+    <%= yield %>
+  </div>
 </body>
 </html>
