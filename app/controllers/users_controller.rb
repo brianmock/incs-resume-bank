@@ -12,6 +12,9 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
+    if User.find_by(id: session[:user_id])
+      @resumes = User.find_by(id: session[:user_id]).resumes
+    end
   end
 
   # GET /users/new
@@ -31,7 +34,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }

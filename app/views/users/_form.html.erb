@@ -12,21 +12,78 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :prefix %>
+    <%= f.text_field :prefix %>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
+
   <div class="field">
-    <%= f.label :password %><br>
+    <%= f.label :password %>
     <%= f.password_field :password %>
   </div>
+
+  <div class="field">
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :street %>
+    <%= f.text_field :street %>
+  </div>
+
+  <div class="field">
+    <%= f.label :street_second %>
+    <%= f.text_field :street_second %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city %>
+    <%= f.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state %>
+    <%= f.select :state, options_for_select(us_states),{}, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :zip %>
+    <%= f.text_field :zip %>
+  </div>
+
+  <div class="field">
+    <%= f.label :country %>
+    <%= f.select :country, options_for_select(countries),{}, class: 'form-control' %>
+  </div><br><br>
+
+  <div class="field">
+    <%= f.label(:name, "In addition to being added to our live resume bank, would you like this to also serve as your registration for the INCS 2016 Teacher Job Fair on March 5th, 2016?") %><br>
+    <%= f.radio_button(:register, "Yes") %>
+    <%= f.label(:name, "Yes, register me for the 2016 Teacher Job Fair.") %><br>
+    <%= f.radio_button(:register, "No") %>
+    <%= f.label(:name, "No, I would only like to be added to the online resume bank.") %><br>
+    <%= f.radio_button(:register, "Maybe") %>
+    <%= f.label(:name, "I'm not sure, and would like to receive additional information about the 2016 Teacher Job Fair.") %>
+  </div>
+
   <div class="field">
     <%= f.label(:name, "Teacher") %>
     <%= f.radio_button(:access, "teacher") %>
     <%= f.label(:name, "School") %>
     <%= f.radio_button(:access, "school") %>
   </div>
-  <br>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Register', :name => 'register', :class => "btn btn-info" %>
   </div>
+   <br>
+    <br>
 <% end %>
