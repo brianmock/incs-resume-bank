@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   get 'users/new_teacher' => 'users#new_teacher'
   get 'users/new_school' => 'users#new_school'
 
+  get 'users/school/:id' => 'users#show_school', as: :school
+
   resources :users
+
+  post 'users/search' => 'users#search'
 
 
   resources :resumes, only: [:index, :new, :create, :destroy]

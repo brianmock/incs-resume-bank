@@ -11,9 +11,12 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
-    if User.find_by(id: session[:user_id])
-      @resumes = User.find_by(id: session[:user_id]).resumes
+    if User.find(session[:user_id]).access == "teacher"
+      redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
+    end
+    @current_user = User.find(session[:user_id])
+    if User.find_by(id: params[:id])
+      @resumes = User.find_by(id: params[:id]).resumes
     end
   end
 
@@ -38,30 +41,49 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         #save licenses
-        params["licenses"].each do |lic|
-          @user.licenses << License.find_by(name: lic)
+        if params["licenses"]
+          params["licenses"].each do |lic|
+            @user.licenses << License.find_by(name: lic)
+          end
         end
         #save positions
-        params["positions"].each do |pos|
-          @user.positions << Position.find_by(title: pos)
+        if params["positions"]
+          params["positions"].each do |pos|
+            @user.positions << Position.find_by(title: pos)
+          end
         end
         #save endorsements
-        params["endorses"].each do |endo|
-          @user.endorsements << Endorsement.find_by(name: endo)
+        if params["endorses"]
+          params["endorses"].each do |endo|
+            @user.endorsements << Endorsement.find_by(name: endo)
+          end
         end
         #save subjects
-        params["subs"].each do |sub|
-          @user.subjects << Subject.find_by(subject: sub)
+        if params["subs"]
+          params["subs"].each do |sub|
+            @user.subjects << Subject.find_by(subject: sub)
+          end
         end
         #save organizations
-        params["orgs"].each do |org|
-          @user.organizations << Organization.find_by(name: org)
+        if params["orgs"]
+          params["orgs"].each do |org|
+            @user.organizations << Organization.find_by(name: org)
+          end
         end
         session[:user_id] = @user.id
-        format.html { redirect_to user_path(@user) }
+        if @user.access == "teacher"
+          format.html { redirect_to user_path(@user) }
+        elsif @user.access == "school"
+          format.html { redirect_to school_path(@user) }
+        end
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new }
+        if @user.access == "teacher"
+          format.html { render :new_teacher }
+        elsif @user.access == "school"
+          format.html { render :new_school}
+        end
+
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
