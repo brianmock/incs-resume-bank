@@ -11,14 +11,21 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
-    if User.find_by(id: session[:user_id])
-      @resumes = User.find_by(id: session[:user_id]).resumes
+    if User.find(session[:user_id]).access == "teacher"
+      redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
+    end
+    @current_user = User.find(session[:user_id])
+    if User.find_by(id: params[:id])
+      @resumes = User.find_by(id: params[:id]).resumes
     end
   end
 
   # GET /users/new
-  def new
+  def new_teacher
+    @user = User.new
+  end
+
+  def new_school
     @user = User.new
   end
 
@@ -31,13 +38,52 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user }
+        #save licenses
+        if params["licenses"]
+          params["licenses"].each do |lic|
+            @user.licenses << License.find_by(name: lic)
+          end
+        end
+        #save positions
+        if params["positions"]
+          params["positions"].each do |pos|
+            @user.positions << Position.find_by(title: pos)
+          end
+        end
+        #save endorsements
+        if params["endorses"]
+          params["endorses"].each do |endo|
+            @user.endorsements << Endorsement.find_by(name: endo)
+          end
+        end
+        #save subjects
+        if params["subs"]
+          params["subs"].each do |sub|
+            @user.subjects << Subject.find_by(subject: sub)
+          end
+        end
+        #save organizations
+        if params["orgs"]
+          params["orgs"].each do |org|
+            @user.organizations << Organization.find_by(name: org)
+          end
+        end
+        session[:user_id] = @user.id
+        if @user.access == "teacher"
+          format.html { redirect_to user_path(@user) }
+        elsif @user.access == "school"
+          format.html { redirect_to school_path(@user) }
+        end
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new }
+        if @user.access == "teacher"
+          format.html { render :new_teacher }
+        elsif @user.access == "school"
+          format.html { render :new_school}
+        end
+
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -81,7 +127,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :access)
+      params.require(:user).permit(:username, :email, :password, :access, :prefix, :first_name, :last_name, :phone_number, :street, :street_second, :city, :state, :zip, :country, :register, :il_licensed, :licenses, :degree, :major, :masters_concentration, :endorses, :previous, :subs, :relocation, :orgs, :additional, :years, :grade_pref, :positions, :school)
     end
 
     def authorize

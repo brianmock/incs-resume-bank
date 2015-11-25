@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20151124210518) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string   "school"
     t.string   "prefix"
     t.string   "first_name"
     t.string   "last_name"
@@ -129,6 +130,7 @@ ActiveRecord::Schema.define(version: 20151124210518) do
     t.boolean  "relocation"
     t.string   "password_digest"
     t.string   "access"
+    t.string   "additional"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end

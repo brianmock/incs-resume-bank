@@ -8,7 +8,11 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
-      redirect_to user_path(@user)
+      if @user.access == "teacher"
+        redirect_to user_path(@user)
+      elsif @user.access == "school"
+        redirect_to school_path(@user)
+      end
     else
       @message = 'Invalid email/password combination'
       render 'new'

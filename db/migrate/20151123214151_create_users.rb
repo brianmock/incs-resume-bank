@@ -1,6 +1,7 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
+      t.string :school
       t.string :prefix
       t.string :first_name
       t.string :last_name
@@ -23,6 +24,7 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :relocation
       t.string :password_digest
       t.string :access
+      t.string :additional
 
       t.timestamps null: false
     end
