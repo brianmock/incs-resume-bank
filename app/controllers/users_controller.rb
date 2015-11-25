@@ -18,7 +18,11 @@ class UsersController < ApplicationController
   end
 
   # GET /users/new
-  def new
+  def new_teacher
+    @user = User.new
+  end
+
+  def new_school
     @user = User.new
   end
 
@@ -31,10 +35,30 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user }
+        #save licenses
+        params["licenses"].each do |lic|
+          @user.licenses << License.find_by(name: lic)
+        end
+        #save positions
+        params["positions"].each do |pos|
+          @user.positions << Position.find_by(title: pos)
+        end
+        #save endorsements
+        params["endorses"].each do |endo|
+          @user.endorsements << Endorsement.find_by(name: endo)
+        end
+        #save subjects
+        params["subs"].each do |sub|
+          @user.subjects << Subject.find_by(subject: sub)
+        end
+        #save organizations
+        params["orgs"].each do |org|
+          @user.organizations << Organization.find_by(name: org)
+        end
+        session[:user_id] = @user.id
+        format.html { redirect_to user_path(@user) }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -81,7 +105,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :access)
+      params.require(:user).permit(:username, :email, :password, :access, :prefix, :first_name, :last_name, :phone_number, :street, :street_second, :city, :state, :zip, :country, :register, :il_licensed, :licenses, :degree, :major, :masters_concentration, :endorses, :previous, :subs, :relocation, :orgs, :additional, :years, :grade_pref, :positions, :school)
     end
 
     def authorize

@@ -1,0 +1,185 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :access, value: "teacher" %>
+  <div class="field">
+    <%= f.label :prefix %>
+    <%= f.text_field :prefix %>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number, :placeholder => "(111) 111-1111" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :street %>
+    <%= f.text_field :street %>
+  </div>
+
+  <div class="field">
+    <%= f.label :street_second %>
+    <%= f.text_field :street_second %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city %>
+    <%= f.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state %>
+    <%= f.select :state, options_for_select(us_states),{}, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :zip %>
+    <%= f.text_field :zip %>
+  </div>
+
+  <div class="field">
+    <%= f.label :country %>
+    <%= f.select :country, options_for_select(countries),{}, class: 'form-control' %>
+  </div><br><br>
+
+  <div class="field">
+    <em>
+    <%= f.label(:name, "In addition to being added to our live resume bank, would you like this to also serve as your registration for the INCS 2016 Teacher Job Fair on March 5th, 2016?") %></em><br>
+    <%= f.radio_button(:register, "Yes") %>
+    <%= f.label(:name, "Yes, register me for the 2016 Teacher Job Fair.") %><br>
+    <%= f.radio_button(:register, "No") %>
+    <%= f.label(:name, "No, I would only like to be added to the online resume bank.") %><br>
+    <%= f.radio_button(:register, "Maybe") %>
+    <%= f.label(:name, "I'm not sure, and would like to receive additional information about the 2016 Teacher Job Fair.") %>
+  </div>
+  <br>
+  <div class="field">
+    <label><em>What type of position are you looking for? (Check all that apply) *</em></label><br>
+    <% Position.all.each do |pos| %>
+    <input type="checkbox" name="positions[]" value="<%= pos.title %>" />
+    <label><%= pos.title %></label><br>
+    <% end %>
+  </div><br>
+
+  <div class="field">
+    <em>
+    <%= f.label(:name, "Are you Licensed to Teach in Illinois? *") %></em><br>
+    <%= f.radio_button(:il_licensed, "Yes") %>
+    <%= f.label(:name, "Yes") %><br>
+    <%= f.radio_button(:il_licensed, "No") %>
+    <%= f.label(:name, "No") %><br>
+    <%= f.radio_button(:il_licensed, "Other") %>
+    <%= f.label(:name, "I am licensed in another state and would like to receive additional information about licensure requirements in Illinois.") %>
+  </div>
+  <br>
+
+  <div class="field">
+    <label><em>Type of License Held *</em></label><br>
+    <% License.all.each do |lic| %>
+    <input type="checkbox" name="licenses[]" value="<%= lic.name %>" />
+    <label><%= lic.name %></label><br>
+    <% end %>
+  </div><br>
+
+  <div class="field">
+    <%= f.label :degree %>
+    <%= f.select :degree, options_for_select(degrees),{}, class: 'form-control' %>
+  </div><br>
+
+  <div class="field">
+    <%= f.label :major %>
+    <%= f.text_field :major %>
+  </div>
+  <div class="field">
+    <%= f.label :masters_concentration %>
+    <%= f.text_field :masters_concentration %>
+  </div><br>
+
+  <div class="field">
+    <label><em>Endorsements Completed (Check all that apply) *</em></label><br>
+    <% Endorsement.all.each do |endo| %>
+    <input type="checkbox" name="endorses[]" value="<%= endo.name %>" />
+    <label><%= endo.name %></label><br>
+    <% end %>
+  </div><br>
+
+  <div class="field">
+    <%= f.label(:name, "Years of Teaching/School Administration Experience *") %>
+    <%= f.select :years, options_for_select(exp_years),{}, class: 'form-control' %>
+  </div><br>
+
+  <div class="field">
+    <%= f.label(:name, "Preferred Grade Level") %>
+    <%= f.select :grade_pref, options_for_select(grades),{}, class: 'form-control' %>
+  </div><br>
+
+  <div class="field">
+    <em>
+    <%= f.label(:name, "Do you have previous experience in a charter?") %></em><br>
+    <%= f.radio_button(:previous, true) %>
+    <%= f.label(:name, "Yes") %><br>
+    <%= f.radio_button(:previous, false) %>
+    <%= f.label(:name, "No") %><br>
+  </div><br>
+
+  <div class="field">
+    <label><em>Preferred Subject(s) *</em></label><br>
+    <input type="checkbox" name="subs[]" value="None" />
+    <label>None</label><br>
+    <% Subject.all.each do |sub| %>
+    <input type="checkbox" name="subs[]" value="<%= sub.subject %>" />
+    <label><%= sub.subject %></label><br>
+    <% end %>
+  </div><br>
+
+  <div class="field">
+    <%= f.label(:relocation, "Are you open to relocation?") %><br>
+    <%= f.radio_button(:previous, true) %>
+    <%= f.label(:relocation, "Yes") %><br>
+    <%= f.radio_button(:previous, false) %>
+    <%= f.label(:relocation, "No") %><br>
+  </div><br>
+
+  <div class="field">
+    <label><em>Membership or Alumni Organization (Check all that apply)</em></label><br>
+    <% Organization.all.each do |org| %>
+    <input type="checkbox" name="orgs[]" value="<%= org.name %>" />
+    <label><%= org.name %></label><br>
+    <% end %>
+  </div><br>
+
+  <div class="field">
+    <%= f.label(:name, "Additional information") %><br>
+    <%= f.text_area :additional, cols: "100", rows: "10" %>
+  </div><br>
+
+  <div class="actions">
+    <%= f.submit 'Register', :name => 'register', :class => "btn btn-info" %>
+  </div>
+   <br>
+    <br>
+<% end %>

@@ -7,16 +7,10 @@
   <%= csrf_meta_tags %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script>
-       $(document).ready(function(){
-          $('.dropdown-toggle').dropdown();
-      });
-  </script>
-
 </head>
 <body>
   <nav class="navbar navbar-default">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
           <img src="https://www.incschools.org/wp-content/themes/incs/assets/img/logo.png" alt="INCS">
         </a>
     <ul class="nav nav-pills navbar-right">
@@ -30,8 +24,8 @@
               Register <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="/users/new">Teacher Registration</a></li>
-              <li><a href="/users/new">School Registration</a></li>
+              <li><a href="/users/new_teacher">Teacher Registration</a></li>
+              <li><a href="/users/new_school">School Registration</a></li>
             </ul>
           </li>
         <% end %>

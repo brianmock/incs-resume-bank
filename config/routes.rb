@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'welcome/index'
+  get 'users/new_teacher' => 'users#new_teacher'
+  get 'users/new_school' => 'users#new_school'
 
   resources :users
+
 
   resources :resumes, only: [:index, :new, :create, :destroy]
   root "welcome#index"

@@ -328,4 +328,48 @@ module UsersHelper
       ["Unknown or Invalid Region",'ZZ'],
     ]
   end
+
+  def degrees
+    [
+      "Associates",
+      "Associates in progress",
+      "Bachelors",
+      "Bachelors in progress",
+      "Masters",
+      "Masters in progress",
+      "Doctorate",
+      "Doctorate in progress"
+    ]
+  end
+
+  def exp_years
+    [
+      "0",
+      "1-3",
+      "4-6",
+      "6-10",
+      "10+",
+      "N/A or not a teacher"
+    ]
+  end
+
+  def grades
+    [
+      "Pre-k",
+      "Kindergarten",
+      "First",
+      "Second",
+      "Third",
+      "Fourth",
+      "Fifth",
+      "Sixth",
+      "Seventh",
+      "Eighth",
+      "Ninth",
+      "Tenth",
+      "Eleventh",
+      "Twelfth",
+      "Post-secondary"
+    ]
+  end
 end
