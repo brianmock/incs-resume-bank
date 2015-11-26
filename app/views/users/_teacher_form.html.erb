@@ -33,16 +33,16 @@
 
   <div class="field">
     <%= f.label :phone_number %>
-    <%= f.text_field :phone_number, :placeholder => "(111) 111-1111" %>
+    <%= f.phone_field :phone_number %>
   </div>
 
   <div class="field">
-    <%= f.label :street %>
+    <%= f.label(:name, "Address Line 1") %>
     <%= f.text_field :street %>
   </div>
 
   <div class="field">
-    <%= f.label :street_second %>
+    <%= f.label(:name, "Address Line 2") %>
     <%= f.text_field :street_second %>
   </div>
 

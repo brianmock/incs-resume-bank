@@ -6,7 +6,8 @@
 
 <% if @current_user.access == "teacher" %>
 <br />
-<%= link_to "Upload Resume", new_resume_path, class: "btn btn-primary" %>
+<%= link_to "Upload Resume", new_resume_path, class: "btn btn-primary" %><br><br>
+<label>Note: Your resume will be available only to charter school leaders who express a recruitment need and will not be available to the general public. Your resume will be deactivated after 60 days. To re-activate, simply log back in and select "re-activate account."</label>
 <br />
 <br />
 <% end %>
@@ -15,6 +16,7 @@
     <tr>
       <th>Document</th>
       <th>Download Link</th>
+      <th>Active</th>
 
     </tr>
   </thead>
@@ -23,14 +25,17 @@
       <tr>
          <td><%= resume.name %></td>
          <td><%= link_to "View or Download", resume.attachment_url %></td>
+         <td> Yes </td>
          <% if @current_user.access == "teacher" %>
-          <td><%= button_to "Delete", resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you want to delete #{resume.name}?" %></td>
+          <td>
+          <%= button_to "Reactivate", resume, method: :post, class: "btn btn-info", confirm: "Are you sure that you want to reactivate #{resume.name}?" %></td><td><%= button_to "Delete", resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you want to delete #{resume.name}?" %>
+          </td>
          <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-  <h3>User Details</h3>
+  <h3>Job Seeker Details</h3>
 <label>Name:</label> <%= @user.prefix%>. <%= @user.first_name%> <%=@user.last_name%><br>
 <label>Email:</label> <%= @user.email%><br>
 <label>Phone:</label> <%= @user.phone_number %><br>

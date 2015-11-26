@@ -353,6 +353,16 @@ module UsersHelper
     ]
   end
 
+  def exp_years_search
+    [
+      "0",
+      "1-3",
+      "4-6",
+      "6-10",
+      "10+",
+    ]
+  end
+
   def grades
     [
       "Pre-k",
