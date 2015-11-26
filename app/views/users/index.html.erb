@@ -1,0 +1,9 @@
+<% @users.each do |user| %>
+<div class="result">
+  <label>Name:</label> <%= user.prefix %>. <%= user.first_name %> <%= user.last_name %><br>
+  <label>Years of Experience: </label> <%= user.years %><br>
+  <label>Licenses Held:</label> <%= user.licenses.map do |lic| lic.name end.join(', ') %><br>
+  <label><a href="/users/<%= user.id %>">Link to profile</a></label><br><br>
+</div>
+<% end %>
+

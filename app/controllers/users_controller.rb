@@ -29,6 +29,11 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def search
+    @users = User.where(years: params["years"]).select {|user| (user.positions.pluck(:title) & params["positions"]).empty? == false}
+    render :index
+  end
+
   # GET /users/1/edit
   def edit
     redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
