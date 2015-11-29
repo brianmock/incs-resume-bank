@@ -1,3 +1,5 @@
+<td><%= link_to "View uploaded resume", @resume.attachment_url %></td><br><br><br>
+
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -12,6 +14,7 @@
   <% end %>
 
   <%= f.hidden_field :access, value: "teacher" %>
+  <input type="hidden" name="resume_id" value="<%= @resume.id %>" />
   <div class="field">
     <%= f.label :prefix %>
     <%= f.text_field :prefix %>
@@ -19,7 +22,19 @@
     <%= f.text_field :first_name %>
     <%= f.label :last_name %>
     <%= f.text_field :last_name %>
+  </div><br>
+
+  <div class="field">
+    <em>
+    <%= f.label(:name, "Please select the option that best fits you *") %></em><br>
+    <%= f.radio_button(:register, "bank") %>
+    <%= f.label(:name, "I would like to add my resume to the online resume bank only.") %><br>
+    <%= f.radio_button(:register, "both") %>
+    <%= f.label(:name, "I would like to add my resume to the online resume bank AND would like for this to serve as my registration for the ") %><%= link_to " 2016 Teacher Job Fair on March 5th, 2016.", "https://www.incschools.org/events/teacher-job-fair/" %><br>
+    <%= f.radio_button(:register, "jobfaironly") %>
+    <%= f.label(:name, "I would only like to register for the 2016 Teacher Job Fair and would NOT like my resume to be added to the online resume bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.") %>
   </div>
+  <br>
 
   <div class="field">
     <%= f.label :email %>
@@ -67,17 +82,6 @@
   </div><br><br>
 
   <div class="field">
-    <em>
-    <%= f.label(:name, "In addition to being added to our live resume bank, would you like this to also serve as your registration for the INCS 2016 Teacher Job Fair on March 5th, 2016?") %></em><br>
-    <%= f.radio_button(:register, "Yes") %>
-    <%= f.label(:name, "Yes, register me for the 2016 Teacher Job Fair.") %><br>
-    <%= f.radio_button(:register, "No") %>
-    <%= f.label(:name, "No, I would only like to be added to the online resume bank.") %><br>
-    <%= f.radio_button(:register, "Maybe") %>
-    <%= f.label(:name, "I'm not sure, and would like to receive additional information about the 2016 Teacher Job Fair.") %>
-  </div>
-  <br>
-  <div class="field">
     <label><em>What type of position are you looking for? (Check all that apply) *</em></label><br>
     <% Position.all.each do |pos| %>
     <input type="checkbox" name="positions[]" value="<%= pos.title %>" />
@@ -93,7 +97,8 @@
     <%= f.radio_button(:il_licensed, "No") %>
     <%= f.label(:name, "No") %><br>
     <%= f.radio_button(:il_licensed, "Other") %>
-    <%= f.label(:name, "I am licensed in another state and would like to receive additional information about licensure requirements in Illinois.") %>
+    <%= f.label(:name, "I am licensed in another state.")%>
+    <%= link_to "Click here for Illinois license information", "/uploads/licCheatSheet.pdf" %>
   </div>
   <br>
 

@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20151124210518) do
     t.integer  "teacher_id"
     t.string   "name"
     t.string   "attachment"
+    t.boolean  "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

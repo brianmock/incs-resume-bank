@@ -1,3 +1,10 @@
-<h1>Welcome to the INCS Resume Bank</h1>
+<div class="centered">
+<span class="main-header"><h1>Welcome to the INCS Resume Bank</h1></span>
 
-<p>Use the navigation options above to register or log in</p>
+  <div class="main-container">
+    <%= button_to "Teacher Registration", new_resume_path, method: :get, class: "btn btn-info main-btn"%>
+  </div>
+  <div class="main-container">
+    <%= button_to "School Registration", users_new_school_path, method: :get, class: "btn btn-info main-btn"%>
+  </div>
+</div>

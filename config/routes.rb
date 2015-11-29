@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post 'users/search' => 'users#search'
 
 
-  resources :resumes, only: [:index, :new, :create, :destroy]
+  resources :resumes, only: [:index, :new, :create, :destroy, :update]
   root "welcome#index"
 
   # The priority is based upon order of creation: first created -> highest priority.

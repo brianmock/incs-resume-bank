@@ -24,15 +24,6 @@
         <li role="presentation"><%= link_to "Log out", { controller: :sessions, action: :destroy, id: session[:user_id] }, method: :delete %></li>
       <% else %>
         <li role="presentation"><%=link_to "Log In", new_session_path %></li>
-        <li role="presentation" class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-              Register <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="/users/new_teacher">Teacher Registration</a></li>
-              <li><a href="/users/new_school">School Registration</a></li>
-            </ul>
-          </li>
         <% end %>
     </ul>
     </nav>

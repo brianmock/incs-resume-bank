@@ -8,12 +8,15 @@
   </div>
 <% end %>
 
+<h3>Please upload your resume before continuing with registration. You will have the option to remove your resume from the online resume bank on the next page but a resume is required for registration to the job fair.</h3>
+
 <div class="well">
   <%= form_for @resume, html: { multipart: true} do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
     <%= f.label :attachment %>
     <%= f.file_field :attachment %>
+    <%= f.hidden_field :active, value: false %>
     <%= f.submit "Upload", class: "btn btn-primary" %>
   <% end %>
 </div>

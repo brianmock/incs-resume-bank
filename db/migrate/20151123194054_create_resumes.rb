@@ -4,6 +4,7 @@ class CreateResumes < ActiveRecord::Migration
       t.belongs_to :teacher, index: true
       t.string :name
       t.string :attachment
+      t.boolean :active
 
       t.timestamps null: false
     end

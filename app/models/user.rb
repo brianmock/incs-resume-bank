@@ -11,4 +11,13 @@ class User < ActiveRecord::Base
   has_many :endorsements, through: :endorsements_completed
   has_many :preferences, foreign_key: "teacher_id"
   has_many :subjects, through: :preferences
+
+
+  def is_active?
+    if self.resumes.select {|res| res.active == true}.empty?
+      return false
+    else
+      return true
+    end
+  end
 end
