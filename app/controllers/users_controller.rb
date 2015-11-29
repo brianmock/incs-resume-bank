@@ -48,57 +48,59 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         #save uploaded resume
-        @resume = Resume.find_by(id: params["resume_id"].to_i)
-        if @resume != nil
-          @resume.teacher_id = @user.id
-          if @user.register == "jobfaironly"
-            @resume.active = false
-          else
-            @resume.active = true
+        if @user.access == "teacher"
+          @resume = Resume.find_by(id: params["resume_id"].to_i)
+          if @resume != nil
+            @resume.teacher_id = @user.id
+            if @user.register == "jobfaironly"
+              @resume.active = false
+            else
+              @resume.active = true
+            end
+            @resume.save
           end
-          @resume.save
-        end
-        #save licenses
-        if params["licenses"]
-          params["licenses"].each do |lic|
-            @user.licenses << License.find_by(name: lic)
+          #save licenses
+          if params["licenses"]
+            params["licenses"].each do |lic|
+              @user.licenses << License.find_by(name: lic)
+            end
           end
-        end
-        #save positions
-        if params["positions"]
-          params["positions"].each do |pos|
-            @user.positions << Position.find_by(title: pos)
+          #save positions
+          if params["positions"]
+            params["positions"].each do |pos|
+              @user.positions << Position.find_by(title: pos)
+            end
           end
-        end
-        #save endorsements
-        if params["endorses"]
-          params["endorses"].each do |endo|
-            @user.endorsements << Endorsement.find_by(name: endo)
+          #save endorsements
+          if params["endorses"]
+            params["endorses"].each do |endo|
+              @user.endorsements << Endorsement.find_by(name: endo)
+            end
           end
-        end
-        #save subjects
-        if params["subs"]
-          params["subs"].each do |sub|
-            @user.subjects << Subject.find_by(subject: sub)
+          #save subjects
+          if params["subs"]
+            params["subs"].each do |sub|
+              @user.subjects << Subject.find_by(subject: sub)
+            end
           end
-        end
-        #save organizations
-        if params["orgs"]
-          params["orgs"].each do |org|
-            @user.organizations << Organization.find_by(name: org)
+          #save organizations
+          if params["orgs"]
+            params["orgs"].each do |org|
+              @user.organizations << Organization.find_by(name: org)
+            end
           end
         end
         session[:user_id] = @user.id
         if @user.access == "teacher"
           format.html { redirect_to user_path(@user) }
-        elsif @user.access == "school"
-          format.html { redirect_to school_path(@user) }
+        elsif @user.access == "pending"
+          format.html { redirect_to root_path }
         end
         format.json { render :show, status: :created, location: @user }
       else
         if @user.access == "teacher"
           format.html { render :new_teacher }
-        elsif @user.access == "school"
+        elsif @user.access == "pending"
           format.html { render :new_school}
         end
 
@@ -149,6 +151,8 @@ class UsersController < ApplicationController
     end
 
     def authorize
-
+      if User.find_by(id: session[:user_id]).access == "pending"
+        redirect_to root_path
+      end
     end
 end
