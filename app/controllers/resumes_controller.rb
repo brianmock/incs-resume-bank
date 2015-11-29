@@ -9,12 +9,23 @@ class ResumesController < ApplicationController
 
   def create
     @resume = Resume.new(resume_params)
-    @resume.teacher_id = session[:user_id]
-    @user = User.find(session[:user_id])
+    # @resume.teacher_id = session[:user_id]
+    # @user = User.find(session[:user_id])
     if @resume.save
-      redirect_to user_path(@user), notice: "The resume #{@resume.name} has been uploaded."
+      redirect_to users_new_teacher_path(@user), notice: "The resume #{@resume.name} has been uploaded."
     else
       render "new"
+    end
+  end
+
+  def update
+    @resume = Resume.find(params[:id])
+    @user = User.find(@resume.teacher_id)
+    @resume.active = !@resume.active
+    if @resume.save
+      redirect_to user_path(@user)
+    else
+      redirect_to user_path(@user), notice: "The resume #{@resume.name} could not be updated"
     end
   end
 
@@ -27,6 +38,6 @@ class ResumesController < ApplicationController
 
   private
   def resume_params
-    params.require(:resume).permit(:name, :attachment)
+    params.require(:resume).permit(:name, :attachment, :active)
   end
 end

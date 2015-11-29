@@ -6,8 +6,8 @@
 
 <% if @current_user.access == "teacher" %>
 <br />
-<%= link_to "Upload Resume", new_resume_path, class: "btn btn-primary" %><br><br>
-<label>Note: Your resume will be available only to charter school leaders who express a recruitment need and will not be available to the general public. Your resume will be deactivated after 60 days. To re-activate, simply log back in and select "re-activate account."</label>
+<%= link_to "Upload additional documents", new_resume_path, class: "btn btn-primary" %><br><br>
+<label>Note: Your resume will be available only to charter school leaders who express a recruitment need and will not be available to the general public. Your resume will be deactivated after 60 days. To re-activate, simply log in and select the activate button below</label>
 <br />
 <br />
 <% end %>
@@ -16,7 +16,9 @@
     <tr>
       <th>Document</th>
       <th>Download Link</th>
+      <% if @current_user.access == "teacher" %>
       <th>Active</th>
+      <% end %>
 
     </tr>
   </thead>
@@ -25,10 +27,21 @@
       <tr>
          <td><%= resume.name %></td>
          <td><%= link_to "View or Download", resume.attachment_url %></td>
-         <td> Yes </td>
+         <% if @current_user.access != "teacher"%>
+         <% elsif resume.active == true %>
+            <td> Yes </td>
+         <% else %>
+            <td> No </td>
+         <% end %>
          <% if @current_user.access == "teacher" %>
           <td>
-          <%= button_to "Reactivate", resume, method: :post, class: "btn btn-info", confirm: "Are you sure that you want to reactivate #{resume.name}?" %></td><td><%= button_to "Delete", resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you want to delete #{resume.name}?" %>
+          <% if resume.active == false %>
+           <%= button_to "Activate", resume, method: :put, class: "btn btn-info", confirm: "Are you sure that you want to reactivate #{resume.name}?" %>
+          <% else %>
+            <%= button_to "Deactivate", resume, method: :put, class: "btn btn-info"%>
+          <% end %>
+           </td>
+           <td><%= button_to "Delete", resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you want to delete #{resume.name}?" %>
           </td>
          <% end %>
       </tr>
@@ -41,11 +54,13 @@
 <label>Phone:</label> <%= @user.phone_number %><br>
 <label>City of Residence</label> <%= @user.city %><br>
 <label>Licensed in Illinois:</label> <%= @user.il_licensed %><br>
+<label>Licenses</label> <%= @user.licenses.map{|lic| lic.name }.join(", ") %><br>
+<label>Positions Desired</label> <%= @user.positions.map{|pos| pos.title }.join(", ") %><br>
+<label>Grade Preference:</label> <%= @user.grade_pref %><br>
 <label>Highest Degree:</label> <%= @user.degree %><br>
 <label>College Major:</label> <%= @user.major %><br>
 <label>Years of Experience:</label> <%= @user.years %><br>
-<label>Grade Preference:</label> <%= @user.grade_pref %><br>
 <label>Willing to Relocate:</label> <% if @user.relocation %>Yes<%else%>No<%end%><br>
-<label>Registered for Job Fair:</label> <%= @user.register %><br>
+<label>Registered for Job Fair:</label> <% if @user.relocation != "bank" %>Yes<% else %>No<%end%><br>
 <label>Additional Information:</label> <%= @user.additional %><br>
 

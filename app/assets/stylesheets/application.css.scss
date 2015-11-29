@@ -15,6 +15,25 @@
  */
  @import "bootstrap";
 
+.centered {
+  margin: 0 30% 0 25%;
+  width:80%;
+}
+.main-container {
+  display: inline-block;
+  margin: auto 0;
+}
+
+.main-header {
+
+}
+.main-btn {
+  width:200px;
+  height:100px;
+  margin:auto 0;
+  padding:0 15px;
+}
+
  .navbar-default {
   height:110px;
   background-color: white;

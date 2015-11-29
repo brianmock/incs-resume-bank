@@ -22,6 +22,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new_teacher
+    @resume = Resume.last
     @user = User.new
   end
 
@@ -31,6 +32,7 @@ class UsersController < ApplicationController
 
   def search
     @users = User.where(years: params["years"]).select {|user| (user.positions.pluck(:title) & params["positions"]).empty? == false}
+    @users = @users.select {|user| user.is_active?}
     render :index
   end
 
@@ -45,6 +47,17 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
+        #save uploaded resume
+        @resume = Resume.find_by(id: params["resume_id"].to_i)
+        if @resume != nil
+          @resume.teacher_id = @user.id
+          if @user.register == "jobfaironly"
+            @resume.active = false
+          else
+            @resume.active = true
+          end
+          @resume.save
+        end
         #save licenses
         if params["licenses"]
           params["licenses"].each do |lic|
@@ -132,7 +145,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :access, :prefix, :first_name, :last_name, :phone_number, :street, :street_second, :city, :state, :zip, :country, :register, :il_licensed, :licenses, :degree, :major, :masters_concentration, :endorses, :previous, :subs, :relocation, :orgs, :additional, :years, :grade_pref, :positions, :school)
+      params.require(:user).permit(:username, :email, :password, :access, :prefix, :first_name, :last_name, :phone_number, :street, :street_second, :city, :state, :zip, :country, :register, :il_licensed, :licenses, :degree, :major, :masters_concentration, :endorses, :previous, :subs, :relocation, :orgs, :additional, :years, :grade_pref, :positions, :school, :resume_id)
     end
 
     def authorize
