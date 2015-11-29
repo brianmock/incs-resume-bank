@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize, :except => [:new]
+  before_filter :authorize, :except => [:new_teacher, :new_school]
 
   # GET /users
   # GET /users.json
@@ -13,6 +13,9 @@ class UsersController < ApplicationController
   def show
     if User.find(session[:user_id]).access == "teacher"
       redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
+    end
+    if User.find(params[:id]).access == "school" || User.find(params[:id]).access == "pending"
+      redirect_to root_path
     end
     @current_user = User.find(session[:user_id])
     if User.find_by(id: params[:id])
@@ -36,9 +39,26 @@ class UsersController < ApplicationController
     render :index
   end
 
+  def pending
+    @users = User.where(access: "pending")
+    render :pending_index
+  end
+
   # GET /users/1/edit
   def edit
     redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
+  end
+
+  # Put /users/1/activate
+  def activate
+    @user = User.find_by(id: params[:id])
+    if @user.access == "pending"
+      @user.access = "school"
+      if @user.save
+        UserMailer.school_activated_email(@user).deliver_now
+      end
+    end
+    redirect_to users_pending_path
   end
 
   # POST /users
@@ -92,8 +112,10 @@ class UsersController < ApplicationController
         end
         session[:user_id] = @user.id
         if @user.access == "teacher"
+          UserMailer.teacher_email(@user).deliver_now
           format.html { redirect_to user_path(@user) }
         elsif @user.access == "pending"
+          UserMailer.school_email(@user).deliver_now
           format.html { redirect_to root_path }
         end
         format.json { render :show, status: :created, location: @user }
@@ -151,8 +173,10 @@ class UsersController < ApplicationController
     end
 
     def authorize
-      if User.find_by(id: session[:user_id]).access == "pending"
-        redirect_to root_path
+      if session[:user_id]
+        if User.find_by(id: session[:user_id]).access == "pending"
+          redirect_to root_path
+        end
       end
     end
 end
