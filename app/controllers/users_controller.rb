@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize, :except => [:new]
+  before_filter :authorize, :except => [:new_teacher, :new_school]
 
   # GET /users
   # GET /users.json
@@ -13,6 +13,9 @@ class UsersController < ApplicationController
   def show
     if User.find(session[:user_id]).access == "teacher"
       redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
+    end
+    if User.find(params[:id]).access == "school" || User.find(params[:id]).access == "pending"
+      redirect_to root_path
     end
     @current_user = User.find(session[:user_id])
     if User.find_by(id: params[:id])
@@ -36,9 +39,26 @@ class UsersController < ApplicationController
     render :index
   end
 
+  def pending
+    @users = User.where(access: "pending")
+    render :pending_index
+  end
+
   # GET /users/1/edit
   def edit
     redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
+  end
+
+  # Put /users/1/activate
+  def activate
+    @user = User.find_by(id: params[:id])
+    if @user.access == "pending"
+      @user.access = "school"
+      if @user.save
+        UserMailer.school_activated_email(@user).deliver_now
+      end
+    end
+    redirect_to users_pending_path
   end
 
   # POST /users
@@ -48,57 +68,61 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         #save uploaded resume
-        @resume = Resume.find_by(id: params["resume_id"].to_i)
-        if @resume != nil
-          @resume.teacher_id = @user.id
-          if @user.register == "jobfaironly"
-            @resume.active = false
-          else
-            @resume.active = true
+        if @user.access == "teacher"
+          @resume = Resume.find_by(id: params["resume_id"].to_i)
+          if @resume != nil
+            @resume.teacher_id = @user.id
+            if @user.register == "jobfaironly"
+              @resume.active = false
+            else
+              @resume.active = true
+            end
+            @resume.save
           end
-          @resume.save
-        end
-        #save licenses
-        if params["licenses"]
-          params["licenses"].each do |lic|
-            @user.licenses << License.find_by(name: lic)
+          #save licenses
+          if params["licenses"]
+            params["licenses"].each do |lic|
+              @user.licenses << License.find_by(name: lic)
+            end
           end
-        end
-        #save positions
-        if params["positions"]
-          params["positions"].each do |pos|
-            @user.positions << Position.find_by(title: pos)
+          #save positions
+          if params["positions"]
+            params["positions"].each do |pos|
+              @user.positions << Position.find_by(title: pos)
+            end
           end
-        end
-        #save endorsements
-        if params["endorses"]
-          params["endorses"].each do |endo|
-            @user.endorsements << Endorsement.find_by(name: endo)
+          #save endorsements
+          if params["endorses"]
+            params["endorses"].each do |endo|
+              @user.endorsements << Endorsement.find_by(name: endo)
+            end
           end
-        end
-        #save subjects
-        if params["subs"]
-          params["subs"].each do |sub|
-            @user.subjects << Subject.find_by(subject: sub)
+          #save subjects
+          if params["subs"]
+            params["subs"].each do |sub|
+              @user.subjects << Subject.find_by(subject: sub)
+            end
           end
-        end
-        #save organizations
-        if params["orgs"]
-          params["orgs"].each do |org|
-            @user.organizations << Organization.find_by(name: org)
+          #save organizations
+          if params["orgs"]
+            params["orgs"].each do |org|
+              @user.organizations << Organization.find_by(name: org)
+            end
           end
         end
         session[:user_id] = @user.id
         if @user.access == "teacher"
+          UserMailer.teacher_email(@user).deliver_now
           format.html { redirect_to user_path(@user) }
-        elsif @user.access == "school"
-          format.html { redirect_to school_path(@user) }
+        elsif @user.access == "pending"
+          UserMailer.school_email(@user).deliver_now
+          format.html { redirect_to root_path }
         end
         format.json { render :show, status: :created, location: @user }
       else
         if @user.access == "teacher"
           format.html { render :new_teacher }
-        elsif @user.access == "school"
+        elsif @user.access == "pending"
           format.html { render :new_school}
         end
 
@@ -149,6 +173,10 @@ class UsersController < ApplicationController
     end
 
     def authorize
-
+      if session[:user_id]
+        if User.find_by(id: session[:user_id]).access == "pending"
+          redirect_to root_path
+        end
+      end
     end
 end

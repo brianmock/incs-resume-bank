@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get 'users/new_school' => 'users#new_school'
 
   get 'users/school/:id' => 'users#show_school', as: :school
+  get 'users/pending' => 'users#pending'
+
+  put 'users/:id/activate' => 'users#activate'
 
   resources :users
 

@@ -36,7 +36,7 @@
          <% if @current_user.access == "teacher" %>
           <td>
           <% if resume.active == false %>
-           <%= button_to "Activate", resume, method: :put, class: "btn btn-info", confirm: "Are you sure that you want to reactivate #{resume.name}?" %>
+           <%= button_to "Activate", resume, method: :put, class: "btn btn-info" %>
           <% else %>
             <%= button_to "Deactivate", resume, method: :put, class: "btn btn-info"%>
           <% end %>
