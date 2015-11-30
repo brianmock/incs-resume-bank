@@ -379,7 +379,6 @@ module UsersHelper
       "Tenth",
       "Eleventh",
       "Twelfth",
-      "Post-secondary"
     ]
   end
 end

@@ -57,6 +57,7 @@
 <label>Licenses</label> <%= @user.licenses.map{|lic| lic.name }.join(", ") %><br>
 <label>Positions Desired</label> <%= @user.positions.map{|pos| pos.title }.join(", ") %><br>
 <label>Grade Preference:</label> <%= @user.grade_pref %><br>
+<label>Preferred Subjects:</label> <%= @user.subjects.map{|subj| subj.subject}.join(", ")%><br>
 <label>Highest Degree:</label> <%= @user.degree %><br>
 <label>College Major:</label> <%= @user.major %><br>
 <label>Years of Experience:</label> <%= @user.years %><br>
