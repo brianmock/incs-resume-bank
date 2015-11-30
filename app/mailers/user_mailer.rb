@@ -17,4 +17,10 @@ class UserMailer < ApplicationMailer
     @url = "http://www.incsresumebank.org"
     mail(to:@user.email, subject: "Your account has been activated")
   end
+
+  def forgot_password(user)
+    @user = user
+    @url = "http://www.incsresumebank.org"
+    mail(to:@user.email, subject: "Your password has been reset")
+  end
 end

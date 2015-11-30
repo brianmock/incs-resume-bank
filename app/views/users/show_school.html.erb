@@ -1,20 +1,30 @@
 <h1>Search for resumes below!</h1>
 
 <%= form_tag('/users/search') do %>
-<div class="field">
-    <label><em>What type of position are you looking for? (Check all that apply) *</em></label><br>
+  <div class="field">
+    <label><em>What type of position are you looking for? (Check all that apply)</em></label><br>
     <% Position.all.each do |pos| %>
-    <input type="checkbox" name="positions[]" value="<%= pos.title %>" />
-    <label><%= pos.title %></label><br>
+      <input type="checkbox" name="positions[]" value="<%= pos.title %>" />
+      <label><%= pos.title %></label><br>
     <% end %>
   </div><br>
 
   <div class="field">
-    <%= label_tag(:name, "Years of Teaching/School Administration Experience *") %><br>
+    <%= label_tag(:name, "Years of Teaching/School Administration Experience") %><br>
     <% exp_years_search.each do |exp| %>
     <%= radio_button_tag(:years, exp) %>
     <label><%= exp %></label><br>
     <% end %>
   </div><br>
-<%= submit_tag 'Search', class: "btn btn-info" %>
+
+  <div class="field">
+    <%= label_tag(:name, "What subjects are you interested in hiring for?") %><br>
+    <ul class="checkbox-grid">
+      <% Subject.all.order(:subject).each do |subj| %>
+        <li><input type="checkbox" name="subjects[]" value="<%= subj.subject %>" />
+        <label><%= subj.subject %></label></li>
+      <% end %>
+    </ul><br>
+  </div>
+<br><%= submit_tag 'Search', class: "btn btn-info" %>
 <% end %>

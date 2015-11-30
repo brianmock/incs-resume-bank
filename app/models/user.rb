@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
+  validates_uniqueness_of :email
   has_many :resumes, foreign_key: "teacher_id"
   has_many :licenses_helds, foreign_key: "teacher_id"
   has_many :licenses, through: :licenses_helds

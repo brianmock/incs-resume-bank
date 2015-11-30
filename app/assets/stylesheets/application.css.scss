@@ -15,6 +15,24 @@
  */
  @import "bootstrap";
 
+.checkbox-grid li {
+    display: block;
+    float: left;
+    width: 25%;
+}
+
+.form-control {
+  max-width: 350px;
+}
+
+.teacher-label {
+  width: 15%;
+}
+
+.teacher-label2 {
+  width: 20%;
+}
+
 .centered {
   margin: 0 30% 0 25%;
   width:80%;
