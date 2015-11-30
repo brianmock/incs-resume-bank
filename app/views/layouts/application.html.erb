@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>IncsResumeBank</title>
+  <link rel="icon" type="image/x-icon" href="https://www.incschools.org/wp-content/themes/incs/assets/img/favicon_16x16.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://www.incschools.org/wp-content/themes/incs/assets/img/favicon_32x32.png">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -18,13 +20,17 @@
       <% if session[:user_id] %>
         <% if User.find(session[:user_id]).access == "teacher" %>
           <li role="presentation"><a href="/users/<%=session[:user_id]%>">Profile</a></li>
+        <% elsif User.find(session[:user_id]).access == "pending" %>
+          <li role="presentation"><a href="/">Registration pending</a></li>
+        <% elsif User.find(session[:user_id]).access == "admin" %>
+          <li role="presentation"><a href="/users/pending">Pending Registrations</a></li>
         <% elsif User.find(session[:user_id]).access == "school" %>
           <li role="presentation"><a href="/users/school/<%=session[:user_id]%>">Search</a></li>
         <% end %>
         <li role="presentation"><%= link_to "Log out", { controller: :sessions, action: :destroy, id: session[:user_id] }, method: :delete %></li>
       <% else %>
         <li role="presentation"><%=link_to "Log In", new_session_path %></li>
-        <% end %>
+      <% end %>
     </ul>
     </nav>
   <div class="container" style="padding-top:20px;">

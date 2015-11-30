@@ -9,10 +9,16 @@ class ResumesController < ApplicationController
 
   def create
     @resume = Resume.new(resume_params)
-    # @resume.teacher_id = session[:user_id]
-    # @user = User.find(session[:user_id])
+    if session[:user_id]
+      @resume.teacher_id = session[:user_id]
+      @user = User.find(session[:user_id])
+    end
     if @resume.save
-      redirect_to users_new_teacher_path(@user), notice: "The resume #{@resume.name} has been uploaded."
+      if @resume.teacher_id == nil
+        redirect_to users_new_teacher_path(@user), notice: "The resume #{@resume.name} has been uploaded."
+      else
+        redirect_to user_path(@user)
+      end
     else
       render "new"
     end

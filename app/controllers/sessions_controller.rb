@@ -12,6 +12,10 @@ class SessionsController < ApplicationController
         redirect_to user_path(@user)
       elsif @user.access == "school"
         redirect_to school_path(@user)
+      elsif @user.access == "pending"
+        redirect_to root_path
+      elsif @user.access == "admin"
+        redirect_to root_path
       end
     else
       @message = 'Invalid email/password combination'
