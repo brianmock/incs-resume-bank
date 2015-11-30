@@ -30,6 +30,8 @@ gem 'autoprefixer-rails'
 
 gem 'bcrypt'
 
+gem 'carrierwave-dropbox'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
