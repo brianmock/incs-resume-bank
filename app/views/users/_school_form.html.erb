@@ -13,6 +13,10 @@
 
   <%= f.hidden_field :access, value: "pending" %>
   <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name, size: 45 %><br>
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name, size: 45 %><br>
     <%= f.label :school %><br>
     <%= f.text_field :school, size: 60 %><br>
     <%= f.label :email %><br>

@@ -15,6 +15,23 @@
  */
  @import "bootstrap";
 
+body {
+  font-family:"Open Sans", "Avenir Next", "Calibri", "Arial";
+}
+
+.nav-pills > li > a {
+    background-color:#07adba;
+    color:#f2f2f2;
+    font-size:15px;
+    height:35px;
+    line-height:17px;
+}
+
+.nav-pills > li > a:hover{
+    background-color:#15BDCA;
+    color:#f2f2f2;
+}
+
 .checkbox-grid li {
     display: block;
     float: left;
@@ -34,12 +51,28 @@
 }
 
 .centered {
-  margin: 0 30% 0 25%;
-  width:80%;
+  width:100%;
 }
 .main-container {
   display: inline-block;
-  margin: auto 0;
+  margin-left: 12%;
+  font-size:45px;
+  background-color: #fff
+}
+
+.main-btn {
+  width:230px;
+  height:100px;
+  margin:auto 0;
+  padding:0 15px;
+  font-size:20px;
+  background-color: #005088
+}
+
+.main-header {
+  text-align:center;
+  position:relative;
+  bottom:45px;
 }
 
 .result {
@@ -49,12 +82,39 @@
 .main-header {
 
 }
-.main-btn {
-  width:200px;
-  height:100px;
-  margin:auto 0;
-  padding:0 15px;
+
+.footer {
+  position:fixed;
+  height:25px;
+  width:100%;
+  bottom:0;
 }
+
+.prim-1 {
+  display:inline-block;
+  height:25px;
+  width:25%;
+  background-color:#26BCD6;
+}
+.prim-2 {
+  display:inline-block;
+  height:25px;
+  width:25%;
+  background-color:#65AB45;
+}
+.prim-3 {
+  display:inline-block;
+  height:25px;
+  width:25%;
+  background-color:#EE7622;
+}
+.prim-4 {
+  display:inline-block;
+  height:25px;
+  width:25%;
+  background-color:#B41782;
+}
+
 
  .navbar-default {
   height:110px;
