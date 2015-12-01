@@ -63,5 +63,5 @@
 <label>Years of Experience:</label> <%= @user.years %><br>
 <label>Willing to Relocate:</label> <% if @user.relocation %>Yes<%else%>No<%end%><br>
 <label>Registered for Job Fair:</label> <% if @user.relocation != "bank" %>Yes<% else %>No<%end%><br>
-<label>Additional Information:</label> <%= @user.additional %><br>
+<label>Additional Information:</label> <div class="additional-info"><p><%= @user.additional %></p></div><br>
 
