@@ -17,6 +17,7 @@
 
 body {
   font-family:"Open Sans", "Avenir Next", "Calibri", "Arial";
+  margin-bottom:-25px;
 }
 
 .nav-pills > li > a {
@@ -30,6 +31,15 @@ body {
 .nav-pills > li > a:hover{
     background-color:#15BDCA;
     color:#f2f2f2;
+}
+
+.container {
+  margin-bottom: 25px;
+}
+
+.additional-info {
+  max-width: 500px;
+  word-wrap: break-word;
 }
 
 .checkbox-grid li {
