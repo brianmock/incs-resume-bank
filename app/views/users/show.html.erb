@@ -36,9 +36,9 @@
          <% if @current_user.access == "teacher" %>
           <td>
           <% if resume.active == false %>
-           <%= button_to "Activate", resume, method: :put, class: "btn btn-info" %>
+           <%= button_to "Activate", resume, method: :put, class: "btn btn-info btn-activate" %>
           <% else %>
-            <%= button_to "Deactivate", resume, method: :put, class: "btn btn-info"%>
+            <%= button_to "Deactivate", resume, method: :put, class: "btn btn-info btn-deactivate"%>
           <% end %>
            </td>
            <td><%= button_to "Delete", resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you want to delete #{resume.name}?" %>
