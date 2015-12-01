@@ -1,10 +1,12 @@
 <div class="centered">
 <h1 class="main-header">Welcome to the INCS Resume Bank</h1>
 
-  <div class="main-container">
-    <%= button_to "Teacher Registration", new_resume_path, method: :get, class: "btn btn-info main-btn"%>
-  </div>
-  <div class="main-container">
-    <%= button_to "School Registration", users_new_school_path, method: :get, class: "btn btn-info main-btn"%>
-  </div>
+  <% if session[:user_id] == nil %>
+    <div class="main-container">
+      <%= button_to "Teacher Registration", new_resume_path, method: :get, class: "btn btn-info main-btn"%>
+    </div>
+    <div class="main-container">
+      <%= button_to "School Registration", users_new_school_path, method: :get, class: "btn btn-info main-btn"%>
+    </div>
+  <% end %>
 </div>
