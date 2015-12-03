@@ -10,7 +10,7 @@
   </div><br>
 
   <div class="field">
-    <%= label_tag(:name, "Years of Teaching/School Administration Experience") %><br>
+    <em><%= label_tag(:name, "Years of Teaching/School Administration Experience") %></em><br>
     <% exp_years_search.each do |exp| %>
     <%= radio_button_tag(:years, exp) %>
     <label><%= exp %></label><br>
@@ -18,7 +18,7 @@
   </div><br>
 
   <div class="field">
-    <%= label_tag(:name, "What subjects are you interested in hiring for?") %><br>
+    <em><%= label_tag(:name, "What subjects are you interested in hiring for?") %></em><br>
     <ul class="checkbox-grid">
       <% Subject.all.order(:subject).each do |subj| %>
         <li><input type="checkbox" name="subjects[]" value="<%= subj.subject %>" />
