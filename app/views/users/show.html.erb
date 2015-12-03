@@ -7,10 +7,11 @@
 <% if @current_user.access == "teacher" %>
 <br />
 <%= link_to "Upload additional documents", new_resume_path, class: "btn btn-primary" %><br><br>
-<label>Note: Your resume will be available only to charter school leaders who express a recruitment need and will not be available to the general public. Your resume will be deactivated after 60 days. To re-activate, simply log in and select the activate button below</label>
+<label>Note: Your resume will be available only to charter school leaders who express a recruitment need and will not be available to the general public. Your resume will be deactivated after 30 days. To re-activate, simply log in and select the activate button below</label>
 <br />
 <br />
 <% end %>
+
 <table class="table table-bordered table-condensed table-hover table-responsive">
   <thead>
     <tr>
@@ -24,6 +25,8 @@
   </thead>
   <tbody>
     <% @resumes.each do |resume| %>
+      <% if resume.active == false && @current_user.access == "school" %>
+      <% else %>
       <tr>
          <td class="res-row"><%= resume.name %></td>
          <td class="res-row"><%= link_to "View or Download", resume.attachment_url %></td>
@@ -45,12 +48,14 @@
           </td>
          <% end %>
       </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
   <h3>Job Seeker Details</h3>
 <label>Name:</label> <%= @user.prefix%>. <%= @user.first_name%> <%=@user.last_name%><br>
 <label>Email:</label> <%= @user.email%><br>
+<label>Registered for Job Fair:</label> <% if @user.register != "bank" %>Yes<% else %>No<%end%><br>
 <label>Phone:</label> <%= @user.phone_number %><br>
 <label>City of Residence:</label> <%= @user.city %><br>
 <label>Licensed in Illinois:</label> <%= @user.il_licensed %><br>
@@ -62,6 +67,8 @@
 <label>College Major:</label> <%= @user.major %><br>
 <label>Years of Experience:</label> <%= @user.years %><br>
 <label>Willing to Relocate:</label> <% if @user.relocation %>Yes<%else%>No<%end%><br>
-<label>Registered for Job Fair:</label> <% if @user.relocation != "bank" %>Yes<% else %>No<%end%><br>
+<label>Previous Organizations:</label> <%= @user.organizations.map{|org| org.name }.join(", ") %><br>
 <label>Additional Information:</label> <div class="additional-info"><p><%= @user.additional %></p></div><br>
+
+<%= button_to "Edit Information", edit_user_path, :class => "btn", :method => :get %><br>
 

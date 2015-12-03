@@ -1,4 +1,4 @@
-<td><%= link_to "View uploaded resume", @resume.attachment_url %></td><br><br><br>
+<% if @resume != nil %><td><%= link_to "View uploaded resume", @resume.attachment_url %></td><% end %><br><br><br>
 
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
@@ -14,7 +14,7 @@
   <% end %>
 
   <%= f.hidden_field :access, value: "teacher" %>
-  <input type="hidden" name="resume_id" value="<%= @resume.id %>" />
+  <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
   <div class="field">
     <em><%= f.label :prefix %></em>
     <%= f.text_field :prefix %>
