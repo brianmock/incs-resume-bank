@@ -28,6 +28,22 @@ body {
     line-height:17px;
 }
 
+body > div > table > tbody > tr > td{
+  text-align: center;
+}
+
+body > div > table > thead > tr > th{
+  text-align: center;
+}
+.res-cell {
+  border:none !important;
+  border-top:1px solid #ddd !important;
+  background-color: #fff !important;
+}
+
+.res-row {
+  line-height:35px !important;
+}
 .new_resume > input {
   display:inline-block;
 }
@@ -207,4 +223,8 @@ body {
   background-color: white;
   list-style: none;
   font-size: 20px;
+}
+
+body > div > table > tbody > tr > td {
+  line-height: 35px;
 }

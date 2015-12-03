@@ -11,7 +11,7 @@
 <br />
 <br />
 <% end %>
-<table class="table table-bordered table-striped table-condensed table-hover table-responsive">
+<table class="table table-bordered table-condensed table-hover table-responsive">
   <thead>
     <tr>
       <th>Document</th>
@@ -25,23 +25,23 @@
   <tbody>
     <% @resumes.each do |resume| %>
       <tr>
-         <td><%= resume.name %></td>
-         <td><%= link_to "View or Download", resume.attachment_url %></td>
+         <td class="res-row"><%= resume.name %></td>
+         <td class="res-row"><%= link_to "View or Download", resume.attachment_url %></td>
          <% if @current_user.access != "teacher"%>
          <% elsif resume.active == true %>
-            <td> Yes </td>
+            <td class="res-row"> Yes </td>
          <% else %>
-            <td> No </td>
+            <td class="res-row"> No </td>
          <% end %>
          <% if @current_user.access == "teacher" %>
-          <td>
+          <td class="res-cell">
           <% if resume.active == false %>
            <%= button_to "Activate", resume, method: :put, class: "btn btn-info btn-activate" %>
           <% else %>
             <%= button_to "Deactivate", resume, method: :put, class: "btn btn-info btn-deactivate"%>
           <% end %>
            </td>
-           <td><%= button_to "Delete", resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you want to delete #{resume.name}?" %>
+           <td class="res-cell"><%= button_to "Delete", resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you want to delete #{resume.name}?" %>
           </td>
          <% end %>
       </tr>
