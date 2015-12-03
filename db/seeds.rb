@@ -46,7 +46,6 @@ subs = [
         "Science",
         "Natural history",
         "Dance",
-        "Design & technology",
         "Drama",
         "English",
         "Geography",
