@@ -7,6 +7,10 @@ class ResumesController < ApplicationController
     @resume = Resume.new
   end
 
+  def additional
+    @resume = Resume.new
+  end
+
   def create
     @resume = Resume.new(resume_params)
     if session[:user_id]
