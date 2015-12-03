@@ -55,6 +55,7 @@
   <h3>Job Seeker Details</h3>
 <label>Name:</label> <%= @user.prefix%>. <%= @user.first_name%> <%=@user.last_name%><br>
 <label>Email:</label> <%= @user.email%><br>
+<label>Registered for Job Fair:</label> <% if @user.register != "bank" %>Yes<% else %>No<%end%><br>
 <label>Phone:</label> <%= @user.phone_number %><br>
 <label>City of Residence:</label> <%= @user.city %><br>
 <label>Licensed in Illinois:</label> <%= @user.il_licensed %><br>
@@ -66,6 +67,8 @@
 <label>College Major:</label> <%= @user.major %><br>
 <label>Years of Experience:</label> <%= @user.years %><br>
 <label>Willing to Relocate:</label> <% if @user.relocation %>Yes<%else%>No<%end%><br>
-<label>Registered for Job Fair:</label> <% if @user.relocation != "bank" %>Yes<% else %>No<%end%><br>
+<label>Previous Organizations:</label> <%= @user.organizations.map{|org| org.name }.join(", ") %><br>
 <label>Additional Information:</label> <div class="additional-info"><p><%= @user.additional %></p></div><br>
+
+<%= button_to "Edit Information", edit_user_path, :class => "btn", :method => :get %><br>
 
