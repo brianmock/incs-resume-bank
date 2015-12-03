@@ -4,14 +4,33 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to the INCS Resume Bank, <%= @user.first_name %></h1>
+    <p>Dear <%= @user.first_name %>,</p>
     <p>
-      You have successfully signed up,
-      your username is your email address: <%= @user.email %>.<br>
+      Thank you for using INCS’s Online Resume Collection Box. Your information has been received.<br>
     </p>
     <p>
-      To login to the site, just follow this link: <%= @url %>.
+      If you selected to add your resume to the online collection box, registered school leaders approved by INCS will now be able to access your information. If you selected to register for the 2016 Teacher Job Fair and not be added to the toolbox, rest assured that your resume remains private.
     </p>
-    <p>Thanks for joining and have a great day!</p>
+    <p>
+      To learn more about the 2016 Teacher Job Fair on Saturday, March 5th, please visit our site (include link). If you did not register but would like to, you can login to your account and change your registration at any time. Similarly, if you have any updates to your resume or to your job search, you can make changes to any part of your account at any time.</p>
+    <p>
+      In an effort to keep the most current database possible, please note that all resumes will be de-activated after 30 days of submission. To re-activate, simply log back in <a href="https://incsresumebank.herokuapp.com/sessions/new">here</a> and select the Activate button next to your resume.
+    </p>
+    <p>
+      If you need any assistance using our database, please do not hesitate to contact me at the information below.  
+    </p>
+
+    <p>Best,<br><br>
+
+      Stephanie Arias<br>
+      Charter Support Manager<br>
+      Illinois Network of Charter Schools<br>
+      150 N. Michigan Ave<br>
+      Suite 430<br>
+      Chicago, IL 60601<br>
+      P 312.690.2715<br>
+      F 312.629.2064<br>
+      sarias@incschools.org<br>
+    </p>
   </body>
 </html>
