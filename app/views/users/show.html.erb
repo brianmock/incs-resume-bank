@@ -52,10 +52,10 @@
 <label>Name:</label> <%= @user.prefix%>. <%= @user.first_name%> <%=@user.last_name%><br>
 <label>Email:</label> <%= @user.email%><br>
 <label>Phone:</label> <%= @user.phone_number %><br>
-<label>City of Residence</label> <%= @user.city %><br>
+<label>City of Residence:</label> <%= @user.city %><br>
 <label>Licensed in Illinois:</label> <%= @user.il_licensed %><br>
-<label>Licenses</label> <%= @user.licenses.map{|lic| lic.name }.join(", ") %><br>
-<label>Positions Desired</label> <%= @user.positions.map{|pos| pos.title }.join(", ") %><br>
+<label>Licenses:</label> <%= @user.licenses.map{|lic| lic.name }.join(", ") %><br>
+<label>Positions Desired:</label> <%= @user.positions.map{|pos| pos.title }.join(", ") %><br>
 <label>Grade Preference:</label> <%= @user.grade_pref %><br>
 <label>Preferred Subjects:</label> <%= @user.subjects.map{|subj| subj.subject}.join(", ")%><br>
 <label>Highest Degree:</label> <%= @user.degree %><br>
