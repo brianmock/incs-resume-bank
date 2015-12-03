@@ -14,7 +14,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{model.id}"
+    "uploads/#{model.class.to_s.underscore}"
   end
 
   def cache_dir
@@ -42,13 +42,14 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # end
 
   def extension_white_list
-    %w(pdf doc html html docx)
+    %w(pdf doc html docx)
   end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    date = Time.now
+    "#{date.strftime('%d-%m-%Y_%H-%M-%S')}_#{original_filename}" if original_filename
+  end
 
 end
