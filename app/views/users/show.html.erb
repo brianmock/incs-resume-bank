@@ -6,7 +6,7 @@
 
 <% if @current_user.access == "teacher" %>
 <br />
-<%= link_to "Upload additional documents", new_resume_path, class: "btn btn-primary" %><br><br>
+<%= link_to "Upload additional documents", resumes_additional_path, class: "btn btn-primary" %><br><br>
 <label>Note: Your resume will be available only to charter school leaders who express a recruitment need and will not be available to the general public. Your resume will be deactivated after 30 days. To re-activate, simply log in and select the activate button below</label>
 <br />
 <br />
@@ -53,7 +53,7 @@
   </tbody>
 </table>
   <h3>Job Seeker Details</h3>
-<label>Name:</label> <%= @user.prefix%>. <%= @user.first_name%> <%=@user.last_name%><br>
+<label>Name:</label> <%= @user.prefix%> <%= @user.first_name%> <%=@user.last_name%><br>
 <label>Email:</label> <%= @user.email%><br>
 <label>Registered for Job Fair:</label> <% if @user.register != "bank" %>Yes<% else %>No<%end%><br>
 <label>Phone:</label> <%= @user.phone_number %><br>

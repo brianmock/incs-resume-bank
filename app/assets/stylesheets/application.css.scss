@@ -199,6 +199,13 @@ body > div > table > thead > tr > th{
 
 .btn-submit {
   width: 100px;
+/*  position: relative;
+  left: 33%;*/
+  border-color: transparent;
+}
+
+.btn-submit2 {
+  width: 100px;
   position: relative;
   left: 33%;
   border-color: transparent;

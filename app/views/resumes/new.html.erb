@@ -12,11 +12,10 @@
 
 <div class="well">
   <%= form_for @resume, html: { multipart: true} do |f| %>
-    <%= f.label :name %>:
-    <%= f.text_field :name %>
+    <%= f.hidden_field :name, value: "Resume" %>
     <%= f.label :attachment %>:
-    <%= f.file_field :attachment %><br><br>
-    <%= f.hidden_field :active, value: false %>
+    <%= f.file_field :attachment %>
     <%= f.submit "Upload", class: "btn btn-primary btn-submit" %>
+    <%= f.hidden_field :active, value: false %>
   <% end %>
 </div>
