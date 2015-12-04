@@ -2,18 +2,16 @@
 <html>
 <head>
   <title>Resume Bank | INCS</title>
-  <link rel="icon" type="image/x-icon" href="https://www.incschools.org/wp-content/themes/incs/assets/img/favicon_16x16.png" />
-  <link rel="apple-touch-icon-precomposed" href="https://www.incschools.org/wp-content/themes/incs/assets/img/favicon_32x32.png">
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="apple-touch-icon-precomposed" href="favicon_32x32.ico"/>
+  <%= stylesheet_link_tag    'application', media: 'all'%>
+  <%= javascript_include_tag 'application'%>
   <%= csrf_meta_tags %>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 </head>
 <body>
   <nav class="navbar navbar-default">
         <a class="navbar-brand" href="/">
-          <img src="https://www.incschools.org/wp-content/themes/incs/assets/img/logo.png" alt="INCS">
+          <%=image_tag("logo.png")%>
         </a>
     <ul class="nav nav-pills navbar-right">
       <li role="presentation"><a href="/">Home</a></li>

@@ -19,7 +19,7 @@ class ResumesController < ApplicationController
     end
     if @resume.save
       if @resume.teacher_id == nil
-        redirect_to users_new_teacher_path(@user), notice: "The resume #{@resume.name} has been uploaded."
+        redirect_to users_new_teacher_path(@user), notice: "Your #{@resume.name.downcase} has been uploaded."
       else
         redirect_to user_path(@user)
       end
@@ -35,7 +35,7 @@ class ResumesController < ApplicationController
     if @resume.save
       redirect_to user_path(@user)
     else
-      redirect_to user_path(@user), notice: "The resume #{@resume.name} could not be updated"
+      redirect_to user_path(@user), notice: "Your #{@resume.name.downcase} could not be updated"
     end
   end
 
@@ -43,7 +43,7 @@ class ResumesController < ApplicationController
     @resume = Resume.find(params[:id])
     @resume.destroy
     @user = User.find(session[:user_id])
-    redirect_to user_path(@user), notice: "The resume #{@resume.name} has been deleted."
+    redirect_to user_path(@user), notice: "Your #{@resume.name.downcase} has been deleted."
   end
 
   private
