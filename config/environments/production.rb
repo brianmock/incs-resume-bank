@@ -64,16 +64,25 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
   ## WORKS BELOW
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.smtp_settings = {
+  # address:              'smtp.gmail.com',
+  # port:                 587,
+  # domain:               'gmail.com',
+  # user_name:            ENV["GMAIL_USER"],
+  # password:             ENV["GMAIL_PASSWORD"],
+  # authentication:       'plain',
+  # enable_starttls_auto: true  }
+  ## SEND GRID
+  ## SendGrid test
   config.action_mailer.smtp_settings = {
-  address:              'smtp.gmail.com',
+  address:              'smtp.sendgrid.net',
   port:                 587,
-  domain:               'gmail.com',
-  user_name:            ENV["GMAIL_USER"],
-  password:             ENV["GMAIL_PASSWORD"],
-  authentication:       'plain',
-  enable_starttls_auto: true  }
+  domain:               'incschools.org',
+  user_name:            ENV["SG_USER"],
+  password:             ENV["SG_PASSWORD"],
+  authentication:       'plain'}
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
