@@ -1,6 +1,10 @@
 <div class="centered">
 <h1 class="main-header">Welcome to the INCS Online Resume Collection Box</h1>
 
+  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'pending' %>
+    <p>Thank you for your registration. Please allow up to 2 business days for INCS staff to process approval of your account. You have received an email with further information.</p>
+  <% end %>
+
   <% if session[:user_id] == nil %>
     <div class="main-container">
       <%= button_to "Teacher Registration", users_new_teacher_path, method: :get, class: "btn btn-info main-btn"%>
@@ -10,7 +14,4 @@
     </div>
   <% end %>
 
-  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'pending' %>
-    <p>Thank you for your registration. Please allow up to 2 business days for INCS staff to process approval of your account. You have received an email with further information.</p>
-  <% end %>
 </div>
