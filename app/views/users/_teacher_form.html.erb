@@ -1,5 +1,3 @@
-<% if @resume != nil %><td><%= link_to "View uploaded resume", @resume.attachment_url %></td><% end %><br><br><br>
-
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -12,6 +10,8 @@
       </ul>
     </div>
   <% end %>
+
+  <h2>Please fill out the form below to register</h2><br><br>
 
   <%= f.hidden_field :access, value: "teacher" %>
   <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
@@ -187,9 +187,15 @@
     <%= f.text_area :additional, cols: "100", rows: "10" %>
   </div><br>
 
-  <div class="actions">
-    <%= f.submit 'Register', :name => 'register', :class => "btn btn-info" %>
-  </div>
+  <% if @user.id == nil %>
+    <div class="actions">
+      <%= f.submit 'Register', :name => 'register', :class => "btn btn-info" %>
+    </div>
+  <% else %>
+    <div class="actions">
+      <%= f.submit 'Update Information', :name => 'register', :class => "btn btn-info" %>
+    </div>
+  <% end %>
    <br>
     <br>
 <% end %>

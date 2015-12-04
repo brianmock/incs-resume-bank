@@ -49,7 +49,11 @@ body > div > table > thead > tr > th{
 }
 
 .new_resume > label {
-  margin-left:8%;
+
+}
+
+.new_resume {
+  text-align:center;
 }
 
 .nav-pills > li > a:hover{
@@ -58,13 +62,13 @@ body > div > table > thead > tr > th{
 }
 
 .btn {
-  background-color:#07adba;
+  background-color:#005088;
   color:#f2f2f2;
   border-color: transparent;
 }
 
 .btn:hover {
-  background-color:#15BDCA;
+  background-color:#015896;
   color:#fff;
   border-color: transparent;
 }
@@ -168,7 +172,7 @@ body > div > table > thead > tr > th{
 }
 
 
- .navbar-default {
+.navbar-default {
   height:110px;
   background-color: white;
 }
@@ -211,7 +215,7 @@ body > div > table > thead > tr > th{
 .btn-submit2 {
   width: 100px;
   position: relative;
-  left: 33%;
+  left: 0px;
   border-color: transparent;
 }
 

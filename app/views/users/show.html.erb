@@ -4,13 +4,6 @@
   </div>
 <% end %>
 
-<% if @current_user.access == "teacher" %>
-<br />
-<%= link_to "Upload additional documents", resumes_additional_path, class: "btn btn-primary" %><br><br>
-<label>Note: Your resume will be available only to charter school leaders who express a recruitment need and will not be available to the general public. Your resume will be deactivated after 30 days. To re-activate, simply log in and select the activate button below</label>
-<br />
-<br />
-<% end %>
 
 <table class="table table-bordered table-condensed table-hover table-responsive">
   <thead>
@@ -52,6 +45,12 @@
     <% end %>
   </tbody>
 </table>
+<% if @current_user.access == "teacher" %>
+<%= link_to "Upload additional documents", resumes_additional_path, class: "btn btn-primary" %><br><br>
+<label>Note:</label><span> Your active documents will only be available to charter school leaders who express a recruitment need and will not be available to the general public. Your resume will be deactivated after 30 days. To re-activate, simply log in and select the activate button above.</span>
+<br />
+<br />
+<% end %>
   <h3>Job Seeker Details</h3>
 <label>Name:</label> <%= @user.prefix%> <%= @user.first_name%> <%=@user.last_name%><br>
 <label>Email:</label> <%= @user.email%><br>
@@ -61,6 +60,7 @@
 <label>Licensed in Illinois:</label> <%= @user.il_licensed %><br>
 <label>Licenses:</label> <%= @user.licenses.map{|lic| lic.name }.join(", ") %><br>
 <label>Positions Desired:</label> <%= @user.positions.map{|pos| pos.title }.join(", ") %><br>
+<label>Endorsements:</label> <%= @user.endorsements.map{|endo| endo.name }.join(", ") %><br>
 <label>Grade Preference:</label> <%= @user.grade_pref %><br>
 <label>Preferred Subjects:</label> <%= @user.subjects.map{|subj| subj.subject}.join(", ")%><br>
 <label>Highest Degree:</label> <%= @user.degree %><br>
@@ -70,5 +70,6 @@
 <label>Previous Organizations:</label> <%= @user.organizations.map{|org| org.name }.join(", ") %><br>
 <label>Additional Information:</label> <div class="additional-info"><p><%= @user.additional %></p></div><br>
 
+<% if @current_user.access == "teacher" && @current_user.id == @user.id %>
 <%= button_to "Edit Information", edit_user_path, :class => "btn", :method => :get %><br>
-
+<% end %>
