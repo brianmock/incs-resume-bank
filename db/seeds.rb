@@ -28,7 +28,7 @@ orgs = [
         "Peace Corps",
         "Broad Residency in Urban Education",
         "Golden Apple",
-        "Grow Your Own"
+        "Grow Your Own",
        ]
 
 orgs.each do |org|
