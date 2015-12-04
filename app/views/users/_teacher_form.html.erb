@@ -30,10 +30,10 @@
     <%= f.radio_button(:register, "bank") %>
     <%= f.label(:name, "I would like to add my resume to the INCS Online Resume Collection Box only.") %><br>
     <%= f.radio_button(:register, "both") %>
-    <%= f.label :name do "I would like to add my resume to the INCS Online Resume Collection Box AND would like this to serve as my registration for the #{link_to('2016 Teacher Job Fair', 'https://www.incschools.org/events/teacher-job-fair/')} on March 5th, 2016".html_safe  end%><br>
+    <%= f.label :name, class: 'label-align' do "I would like to add my resume to the INCS Online Resume Collection Box AND would like this to serve as my registration for the #{link_to('2016 Teacher Job Fair', 'https://www.incschools.org/events/teacher-job-fair/')} on March 5th, 2016".html_safe  end%>
 
     <%= f.radio_button(:register, "jobfaironly") %>
-    <%= f.label(:name, "I would only like to register for the 2016 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Collection Box for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.") %>
+    <%= f.label(:name, "I would only like to register for the 2016 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Collection Box for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.", class: 'label-align') %>
   </div>
   <br>
 
@@ -88,6 +88,9 @@
     <input type="checkbox" name="positions[]" value="<%= pos.title %>" />
     <label><%= pos.title %></label><br>
     <% end %>
+    <input type="checkbox" name="positions[]" value=""/>
+    <label>Other (if multiple, separate with a comma)
+    <input type="text" name="add-positions" value="" />
   </div><br>
 
   <div class="field">
@@ -109,6 +112,9 @@
     <input type="checkbox" name="licenses[]" value="<%= lic.name %>" />
     <label><%= lic.name %></label><br>
     <% end %>
+    <input type="checkbox" name="licenses[]" value=""/>
+    <label>Other (if multiple, separate with a comma)
+    <input type="text" name="add-licenses" value="" />
   </div><br>
 
   <div class="field">
@@ -131,6 +137,9 @@
     <input type="checkbox" name="endorses[]" value="<%= endo.name %>" />
     <label><%= endo.name %></label><br>
     <% end %>
+    <input type="checkbox" name="endorses[]" value=""/>
+    <label>Other (if multiple, separate with a comma)
+    <input type="text" name="add-endorses" value="" />
   </div><br>
 
   <div class="field">
@@ -180,6 +189,9 @@
     <input type="checkbox" name="orgs[]" value="<%= org.name %>" />
     <label><%= org.name %></label><br>
     <% end %>
+    <input type="checkbox" name="orgs[]" value=""/>
+    <label>Other (if multiple, separate with a comma)
+    <input type="text" name="add-orgs" value="" />
   </div><br>
 
   <div class="field">

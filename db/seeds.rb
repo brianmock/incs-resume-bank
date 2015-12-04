@@ -44,19 +44,19 @@ subs = [
         "Spanish",
         "Literacy",
         "Science",
-        "Natural history",
+        "Natural History",
         "Dance",
         "Drama",
         "English",
         "Geography",
         "Mathematics",
-        "Modern studies",
-        "Physical education",
+        "Modern Studies",
+        "Physical Education",
         "Biology",
         "Chemistry",
-        "Ethic(s)",
-        "Foreign languages",
-        "Health and hygiene",
+        "Ethics",
+        "Foreign Languages",
+        "Health and Hygiene",
         "Latin",
         "Literature",
         "Music",
@@ -64,7 +64,7 @@ subs = [
         "Religion",
         "Sociology",
         "Psychology",
-        "Home economics",
+        "Home Economics",
         ]
 
 subs.each do |sub|
@@ -76,7 +76,6 @@ licenses = [
             "Professional Educator License (PEL)",
             "Educator License with Stipulations",
             "Substitute Teaching License",
-            "Other"
            ]
 
 licenses.each do |lic|
@@ -95,9 +94,11 @@ endorse = [
             "Special Education (Pk - Age 21)",
             "School Social Worker (Pk - Age 21)",
             "School Counselor (Pk - Age 21)",
-            "Other"
           ]
 
 endorse.each do |endo|
   Endorsement.create(name: endo)
 end
+
+User.create(email: 'mock@nopical.com', password: 'Chicago32', access: 'admin')
+User.create(email: 'sarias@incschools.org', password: 'Chicago32', access: 'admin')
