@@ -10,7 +10,7 @@
 </head>
 <body>
   <nav class="navbar navbar-default">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="https://www.incschools.org/">
           <%=image_tag("logo.png")%>
         </a>
     <ul class="nav nav-pills navbar-right">
@@ -19,7 +19,7 @@
         <% if User.find(session[:user_id]).access == "teacher" %>
           <li role="presentation"><a href="/users/<%=session[:user_id]%>">Profile</a></li>
         <% elsif User.find(session[:user_id]).access == "pending" %>
-          <li role="presentation"><a href="/">Registration pending</a></li>
+
         <% elsif User.find(session[:user_id]).access == "admin" %>
           <li role="presentation"><a href="/users/pending">Pending Registrations</a></li>
         <% elsif User.find(session[:user_id]).access == "school" %>
