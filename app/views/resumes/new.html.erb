@@ -1,3 +1,9 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
 <% if !@resume.errors.empty? %>
   <div class="alert alert-error">
     <ul>
@@ -13,7 +19,7 @@
 <div class="well">
   <%= form_for @resume, html: { multipart: true} do |f| %>
     <%= f.hidden_field :name, value: "Resume" %>
-    <%= f.label :attachment %>:
+    <%= f.label(:name, "Resume:") %>
     <%= f.file_field :attachment %>
     <%= f.submit "Upload", class: "btn btn-primary btn-submit" %>
     <%= f.hidden_field :active, value: false %>

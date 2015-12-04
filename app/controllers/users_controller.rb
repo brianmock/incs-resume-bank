@@ -34,7 +34,12 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.where(years: params["years"]).select {|user| ((user.positions.pluck(:title) & params["positions"]).empty? == false) && ((user.subjects.pluck(:subject) & params["subjects"]).empty? == false)}
+    p params
+    if params["years"]
+      @users = User.where(years: params["years"]).select {|user| ((user.positions.pluck(:title) & params["positions"]).empty? == false) && ((user.subjects.pluck(:subject) & params["subjects"]).empty? == false)}
+    else
+      @users = User.all.select {|user| ((user.positions.pluck(:title) & params["positions"]).empty? == false) && ((user.subjects.pluck(:subject) & params["subjects"]).empty? == false)}
+    end
     @users = @users.select {|user| user.is_active?}
     render :index
   end

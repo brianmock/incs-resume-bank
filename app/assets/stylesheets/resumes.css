@@ -1,19 +1,6 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require_tree .
- *= require_self
- */
- @import "bootstrap";
+// Place all the styles related to the Resumes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
 
 body {
   font-family:"Open Sans", "Avenir Next", "Calibri", "Arial";
@@ -125,10 +112,6 @@ body > div > table > thead > tr > th{
 
 .result {
   border-bottom:1px solid grey;
-  border-left:1px solid grey;
-  padding-top:10px;
-  padding-left:10px;
-  margin-bottom:10px;
 }
 
 .main-header {
