@@ -16,11 +16,11 @@
   <%= f.hidden_field :access, value: "teacher" %>
   <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
   <div class="field">
-    <em><%= f.label :prefix %></em>
-    <%= f.text_field :prefix %>
-    <em><%= f.label :first_name %></em>
-    <%= f.text_field :first_name %>
-    <em><%= f.label :last_name %></em>
+    <em><%= f.label :prefix, :class => "teacher-label" %></em>
+    <%= f.text_field :prefix, class: 'tiny-field' %><br>
+    <em><%= f.label :first_name, :class => "teacher-label" %></em>
+    <%= f.text_field :first_name %><br>
+    <em><%= f.label :last_name, :class => "teacher-label" %></em>
     <%= f.text_field :last_name %>
   </div><br>
 
@@ -28,22 +28,22 @@
     <em>
     <%= f.label(:name, "Please select the option that best fits you *") %></em><br>
     <%= f.radio_button(:register, "bank") %>
-    <%= f.label(:name, "I would like to add my resume to the online resume bank only.") %><br>
+    <%= f.label(:name, "I would like to add my resume to the INCS Online Resume Collection Box only.") %><br>
     <%= f.radio_button(:register, "both") %>
-    <%= f.label :name do "I would like to add my resume to the online resume bank AND would like for this to serve as my registration for the #{link_to('2016 Teacher Job Fair', 'https://www.incschools.org/events/teacher-job-fair/')} on March 5th, 2016".html_safe  end%><br>
+    <%= f.label :name do "I would like to add my resume to the INCS Online Resume Collection Box AND would like this to serve as my registration for the #{link_to('2016 Teacher Job Fair', 'https://www.incschools.org/events/teacher-job-fair/')} on March 5th, 2016".html_safe  end%><br>
 
     <%= f.radio_button(:register, "jobfaironly") %>
-    <%= f.label(:name, "I would only like to register for the 2016 Teacher Job Fair and would NOT like my resume to be added to the online resume bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.") %>
+    <%= f.label(:name, "I would only like to register for the 2016 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Collection Box for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.") %>
   </div>
   <br>
 
   <div class="field">
-    <em><%= f.label :email, :class => "teacher-label" %></em>
-    <%= f.text_field :email %>
+    <em><%= f.label(:name, "Email *", :class => "teacher-label") %></em>
+    <%= f.text_field :email, class: 'med-field' %>
   </div>
 
   <div class="field">
-    <em><%= f.label :password, :class => "teacher-label" %></em>
+    <em><%= f.label(:name, "Password *", :class => "teacher-label") %></em>
     <%= f.password_field :password %>
   </div>
 
@@ -54,12 +54,12 @@
 
   <div class="field">
     <em><%= f.label(:name, "Address Line 1", :class => "teacher-label") %></em>
-    <%= f.text_field :street %>
+    <%= f.text_field :street, class: 'long-field' %>
   </div>
 
   <div class="field">
     <em><%= f.label(:name, "Address Line 2", :class => "teacher-label") %></em>
-    <%= f.text_field :street_second %>
+    <%= f.text_field :street_second, class: 'long-field' %>
   </div>
 
   <div class="field">
@@ -69,7 +69,7 @@
 
   <div class="field">
     <em><%= f.label :zip, :class => "teacher-label" %></em>
-    <%= f.text_field :zip %>
+    <%= f.text_field :zip, class: 'tiny-field' %>
   </div>
 
   <div class="field">

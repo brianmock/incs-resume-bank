@@ -93,7 +93,22 @@ body > div > table > thead > tr > th{
 .form-control {
   max-width: 350px;
 }
+/*labels*/
+.long-field {
+  width: 400px;
+}
 
+.med-field {
+  width: 250px;
+}
+
+.small-field {
+  width: 100px;
+}
+
+.tiny-field {
+  width: 60px;
+}
 .teacher-label {
   width: 15%;
 }
