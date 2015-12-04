@@ -3,7 +3,7 @@
 
   <% if session[:user_id] == nil %>
     <div class="main-container">
-      <%= button_to "Teacher Registration", new_resume_path, method: :get, class: "btn btn-info main-btn"%>
+      <%= button_to "Teacher Registration", users_new_teacher_path, method: :get, class: "btn btn-info main-btn"%>
     </div>
     <div class="main-container">
       <%= button_to "School Registration", users_new_school_path, method: :get, class: "btn btn-info main-btn"%>

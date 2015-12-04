@@ -25,7 +25,6 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new_teacher
-    @resume = Resume.last
     @user = User.new
   end
 
@@ -74,16 +73,7 @@ class UsersController < ApplicationController
       if @user.save
         #save uploaded resume
         if @user.access == "teacher"
-          @resume = Resume.find_by(id: params["resume_id"].to_i)
-          if @resume != nil
-            @resume.teacher_id = @user.id
-            if @user.register == "jobfaironly"
-              @resume.active = false
-            else
-              @resume.active = true
-            end
-            @resume.save
-          end
+          @resume = Resume.new
           #save licenses
           if params["licenses"]
             params["licenses"].each do |lic|
@@ -118,7 +108,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         if @user.access == "teacher"
           UserMailer.teacher_email(@user).deliver_now
-          format.html { redirect_to user_path(@user) }
+          format.html { redirect_to new_resume_path(@resume) }
         elsif @user.access == "pending"
           UserMailer.school_email(@user).deliver_now
           format.html { redirect_to root_path }
@@ -141,7 +131,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
