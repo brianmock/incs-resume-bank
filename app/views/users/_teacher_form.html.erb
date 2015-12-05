@@ -89,7 +89,7 @@
     <label><%= pos.title %></label><br>
     <% end %>
     <input type="checkbox" name="positions[]" value=""/>
-    <label>Other (if multiple, separate with a comma)
+    <label>Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-positions" value="" />
   </div><br>
 
@@ -113,7 +113,7 @@
     <label><%= lic.name %></label><br>
     <% end %>
     <input type="checkbox" name="licenses[]" value=""/>
-    <label>Other (if multiple, separate with a comma)
+    <label>Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-licenses" value="" />
   </div><br>
 
@@ -138,7 +138,7 @@
     <label><%= endo.name %></label><br>
     <% end %>
     <input type="checkbox" name="endorses[]" value=""/>
-    <label>Other (if multiple, separate with a comma)
+    <label>Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-endorses" value="" />
   </div><br>
 
@@ -173,8 +173,13 @@
     </ul>
   </div>
   <label></label>
-
-  <div class="field">
+  <div class="field2">
+  <input type="checkbox" name="subs[]" value=""/>
+  <label>Other (if multiple, separate with a comma)</label>
+  <input type="text" name="add-subs" value="" /><br>
+  </div>
+    <label></label><br>
+  <div class="field field3">
     <br>
     <em><%= f.label(:relocation, "Are you open to relocation?") %></em><br>
     <%= f.radio_button(:previous, true) %>
@@ -190,7 +195,7 @@
     <label><%= org.name %></label><br>
     <% end %>
     <input type="checkbox" name="orgs[]" value=""/>
-    <label>Other (if multiple, separate with a comma)
+    <label>Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-orgs" value="" />
   </div><br>
 

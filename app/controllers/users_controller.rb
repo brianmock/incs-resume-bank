@@ -122,7 +122,16 @@ class UsersController < ApplicationController
           #save subjects
           if params["subs"]
             params["subs"].each do |sub|
+              next if sub == ""
               @user.subjects << Subject.find_by(subject: sub)
+            end
+          end
+          if params["add-subs"]
+            more_subs = params["add-subs"].split(",").map(&:strip)
+            more_subs.each do |sub|
+              subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+              @user.subjects << Subject.find_or_create_by(subject: subject)
             end
           end
           #save organizations
