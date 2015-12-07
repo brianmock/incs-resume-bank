@@ -85,7 +85,11 @@
   <div class="field">
     <label><em>What type of position are you looking for? (Check all that apply) *</em></label><br>
     <% Position.all.each do |pos| %>
-    <input type="checkbox" name="positions[]" value="<%= pos.title %>" />
+      <% if @user.positions.pluck(:title).include?(pos.title) %>
+        <input type="checkbox" name="positions[]" value="<%= pos.title %>" checked/>
+      <% else %>
+        <input type="checkbox" name="positions[]" value="<%= pos.title %>" />
+      <% end %>
     <label><%= pos.title %></label><br>
     <% end %>
     <input type="checkbox" name="positions[]" value=""/>
@@ -109,7 +113,11 @@
   <div class="field">
     <label><em>Type of License Held *</em></label><br>
     <% License.all.each do |lic| %>
-    <input type="checkbox" name="licenses[]" value="<%= lic.name %>" />
+      <% if @user.licenses.pluck(:name).include?(lic.name) %>
+        <input type="checkbox" name="licenses[]" value="<%= lic.name %>" checked/>
+      <% else %>
+        <input type="checkbox" name="licenses[]" value="<%= lic.name %>" />
+      <% end %>
     <label><%= lic.name %></label><br>
     <% end %>
     <input type="checkbox" name="licenses[]" value=""/>
@@ -134,7 +142,11 @@
   <div class="field">
     <label><em>Endorsements Completed (Check all that apply) *</em></label><br>
     <% Endorsement.all.each do |endo| %>
-    <input type="checkbox" name="endorses[]" value="<%= endo.name %>" />
+      <% if @user.endorsements.pluck(:name).include?(endo.name) %>
+        <input type="checkbox" name="endorses[]" value="<%= endo.name %>" checked/>
+      <% else %>
+        <input type="checkbox" name="endorses[]" value="<%= endo.name %>" />
+      <% end %>
     <label><%= endo.name %></label><br>
     <% end %>
     <input type="checkbox" name="endorses[]" value=""/>
@@ -167,7 +179,11 @@
       <li><input type="checkbox" name="subs[]" value="None" />
       <label>None</label></li>
       <% Subject.all.order(:subject).each do |sub| %>
-        <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" />
+        <% if @user.subjects.pluck(:subject).include?(sub.subject) %>
+          <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" checked/>
+        <% else %>
+          <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" />
+        <% end %>
         <label><%= sub.subject %></label></li>
       <% end %>
     </ul>
@@ -191,7 +207,11 @@
   <div class="field">
     <label><em>Membership or Alumni Organization (Check all that apply)</em></label><br>
     <% Organization.all.each do |org| %>
-    <input type="checkbox" name="orgs[]" value="<%= org.name %>" />
+      <% if @user.organizations.pluck(:name).include?(org.name) %>
+        <input type="checkbox" name="orgs[]" value="<%= org.name %>" checked/>
+      <% else %>
+        <input type="checkbox" name="orgs[]" value="<%= org.name %>" />
+      <% end %>
     <label><%= org.name %></label><br>
     <% end %>
     <input type="checkbox" name="orgs[]" value=""/>

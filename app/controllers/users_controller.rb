@@ -175,7 +175,87 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
+      p params
       if @user.update(user_params)
+        if params["licenses"]
+          @user.licenses.destroy_all
+          params["licenses"].each do |lic|
+            next if lic == ""
+            @user.licenses << License.find_by(name: lic)
+          end
+        end
+        if params["add-licenses"]
+          more_licenses = params["add-licenses"].split(",").map(&:strip)
+          more_licenses.each do |lic|
+            name = lic.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.licenses << License.find_or_create_by(name: name)
+          end
+        end
+        #save positions
+        if params["positions"]
+          @user.positions.destroy_all
+          params["positions"].each do |pos|
+            next if pos == ""
+            @user.positions << Position.find_by(title: pos)
+          end
+        end
+        if params["add-positions"]
+          more_positions = params["add-positions"].split(",").map(&:strip)
+          more_positions.each do |pos|
+            title = pos.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.positions << Position.find_or_create_by(title: title)
+          end
+        end
+        #save endorsements
+        if params["endorses"]
+          @user.endorsements.destroy_all
+          params["endorses"].each do |endo|
+            next if endo == ""
+            @user.endorsements << Endorsement.find_by(name: endo)
+          end
+        end
+        if params["add-endorses"]
+          more_endorses = params["add-endorses"].split(",").map(&:strip)
+          more_endorses.each do |endo|
+            name = endo.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.endorsements << Endorsement.find_or_create_by(name: name)
+          end
+        end
+        #save subjects
+        if params["subs"]
+          @user.subjects.destroy_all
+          params["subs"].each do |sub|
+            next if sub == ""
+            @user.subjects << Subject.find_by(subject: sub)
+          end
+        end
+        if params["add-subs"]
+          more_subs = params["add-subs"].split(",").map(&:strip)
+          more_subs.each do |sub|
+            subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.subjects << Subject.find_or_create_by(subject: subject)
+          end
+        end
+        #save organizations
+        if params["orgs"]
+          @user.organizations.destroy_all
+          params["orgs"].each do |org|
+            next if org == ""
+            @user.organizations << Organization.find_by(name: org)
+          end
+        end
+        if params["add-orgs"]
+          more_orgs = params["add-orgs"].split(",").map(&:strip)
+          more_orgs.each do |org|
+            name = org.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.organizations << Organization.find_or_create_by(name: name)
+          end
+        end
         format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
