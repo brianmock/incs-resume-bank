@@ -344,41 +344,45 @@ module UsersHelper
 
   def exp_years
     [
-      "0",
-      "1-3",
-      "4-6",
-      "6-10",
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
       "10+",
       "N/A or not a teacher"
     ]
   end
 
   def exp_years_search
-    [
-      "0",
-      "1-3",
-      "4-6",
-      "6-10",
-      "10+",
-    ]
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        "10+",
+      ]
   end
 
   def grades
     [
       "Pre-k",
       "Kindergarten",
-      "First",
-      "Second",
-      "Third",
-      "Fourth",
-      "Fifth",
-      "Sixth",
-      "Seventh",
-      "Eighth",
-      "Ninth",
-      "Tenth",
-      "Eleventh",
-      "Twelfth",
+      "Primary (1st-2nd)",
+      "Elementary (3rd-5th)",
+      "Middle School (6th-8th)",
+      "High School (9th-12th)"
     ]
   end
 end
