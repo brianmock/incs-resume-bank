@@ -57,7 +57,7 @@
 <label>Registered for Job Fair:</label> <% if @user.register != "bank" %>Yes<% else %>No<%end%><br>
 <label>Phone:</label> <%= @user.phone_number %><br>
 <label>City of Residence:</label> <%= @user.city %><br>
-<label>Licensed in Illinois:</label> <%= @user.il_licensed %><br>
+<label>Licensed in Illinois:</label> <% if @user.il_licensed != "Other" %><%= @user.il_licensed %><% else %>Licensed in different state<% end %><br>
 <label>Licenses:</label> <%= @user.licenses.map{|lic| lic.name }.join(", ") %><br>
 <label>Positions Desired:</label> <%= @user.positions.map{|pos| pos.title }.join(", ") %><br>
 <label>Endorsements:</label> <%= @user.endorsements.map{|endo| endo.name }.join(", ") %><br>

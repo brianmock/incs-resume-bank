@@ -2,7 +2,7 @@
 
 <%= form_tag('/users/search') do %>
   <div class="field">
-    <label><em>What type of position are you looking for? (Check all that apply)</em></label><br>
+    <label><em>What type of position are you looking to hire for? (Check all that apply)</em></label><br>
     <% Position.all.each do |pos| %>
       <input type="checkbox" name="positions[]" value="<%= pos.title %>" />
       <label><%= pos.title %></label><br>
@@ -10,15 +10,17 @@
   </div><br>
 
   <div class="field">
-    <em><%= label_tag(:name, "Years of Teaching/School Administration Experience") %></em><br>
-    <% exp_years_search.each do |exp| %>
-    <%= radio_button_tag(:years, exp) %>
-    <label><%= exp %></label><br>
-    <% end %>
+    <em><%= label_tag(:name, "Minimum years of teaching or school administration experience") %></em>
+    <%= select_tag :years, options_for_select(exp_years_search), class: 'form-control' %>
   </div><br>
 
   <div class="field">
-    <em><%= label_tag(:name, "What subjects are you interested in hiring for?") %></em><br>
+    <em><%= label_tag(:name, "What grade level are you hiring for?") %></em>
+    <%= select_tag :grade_pref, options_for_select(grades), class: 'form-control' %>
+  </div><br>
+
+  <div class="field">
+    <em><%= label_tag(:name, "What subjects are you interested in hiring for? (Check all that apply)") %></em><br>
     <ul class="checkbox-grid">
       <% Subject.all.order(:subject).each do |subj| %>
         <li><input type="checkbox" name="subjects[]" value="<%= subj.subject %>" />

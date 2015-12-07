@@ -244,8 +244,13 @@ body > div > table > thead > tr > th{
 
 .btn-search {
   width: 200px;
+  display: block;
+  float: left;
+  clear: both;
   position: relative;
-  left: 33%;
+  left: 220px;
+  margin-bottom:40px;
+  top:20px;
 }
 
 .btn-submit {

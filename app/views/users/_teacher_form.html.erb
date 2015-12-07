@@ -74,12 +74,12 @@
 
   <div class="field">
     <em><%= f.label :state, :class => "teacher-label" %></em>
-    <%= f.select :state, options_for_select(us_states),{}, class: 'form-control' %>
+    <%= f.select :state, options_for_select(us_states,@user.state),{}, class: 'form-control' %>
   </div>
 
   <div class="field">
     <em><%= f.label :country, :class => "teacher-label" %></em>
-    <%= f.select :country, options_for_select(countries),{}, class: 'form-control' %>
+    <%= f.select :country, options_for_select(countries,@user.country),{}, class: 'form-control' %>
   </div><br><br>
 
   <div class="field">
@@ -156,12 +156,12 @@
 
   <div class="field">
     <em><%= f.label(:name, "Years of Teaching/School Administration Experience *") %></em>
-    <%= f.select :years, options_for_select(exp_years),{}, class: 'form-control' %>
+    <%= f.select :years, options_for_select(exp_years, @user.years),{}, class: 'form-control' %>
   </div><br>
 
   <div class="field">
     <em><%= f.label(:name, "Preferred Grade Level") %></em>
-    <%= f.select :grade_pref, options_for_select(grades),{}, class: 'form-control' %>
+    <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control' %>
   </div><br>
 
   <div class="field">
