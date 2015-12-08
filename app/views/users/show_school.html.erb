@@ -20,6 +20,14 @@
   </div><br>
 
   <div class="field">
+    <em><%= label_tag(:name, "Only show candidates registered for the 2016 INCS Job Fair?")%></em><br>
+    <%= radio_button_tag(:registered, "Yes") %>
+    <%= label_tag(:name, "Yes") %><br>
+    <%= radio_button_tag(:registered, "No") %>
+    <%= label_tag(:name, "No") %>
+  </div><br>
+
+  <div class="field">
     <em><%= label_tag(:name, "What subjects are you interested in hiring for? (Check all that apply)") %></em><br>
     <ul class="checkbox-grid">
       <% Subject.all.order(:subject).each do |subj| %>
@@ -28,6 +36,7 @@
       <% end %>
     </ul><br>
   </div>
+
   <label></label>
 <br><%= submit_tag 'Search', class: "btn btn-info btn-search" %><br><br>
 <% end %>
