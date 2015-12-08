@@ -28,14 +28,14 @@
   </div><br>
 
   <div class="field">
-    <em><%= f.label(:location_pref, "Filter candidates by their location preference by choosing an option below") %></em><br>
-    <%= f.radio_button(:location_pref, "Chicago") %>
-    <%= f.label(:name, "Only Chicago") %><br>
-    <%= f.radio_button(:location_pref, "Non-Chicago, Greater Illinois") %>
-    <%= f.label(:name, "Open to Non-Chicago, Greater Illinois Positions") %><br>
-    <%= f.radio_button(:location_pref, "Chicago or Greater Illinois") %>
-    <%= f.label(:name, "Open to both options") %><br>
-  </div>
+    <em><%= label_tag(:location_pref, "Filter candidates by their location preference by choosing an option below") %></em><br>
+    <%= radio_button_tag(:location_pref, "Chicago") %>
+    <%= label_tag(:name, "Only Chicago") %><br>
+    <%= radio_button_tag(:location_pref, "Non-Chicago, Greater Illinois") %>
+    <%= label_tag(:name, "Open to Non-Chicago, Greater Illinois Positions") %><br>
+    <%= radio_button_tag(:location_pref, "Chicago or Greater Illinois") %>
+    <%= label_tag(:name, "Open to both options") %><br>
+  </div><br>
 
   <div class="field">
     <em><%= label_tag(:name, "What subjects are you interested in hiring for? (Check all that apply)") %></em><br>
