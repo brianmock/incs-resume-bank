@@ -47,6 +47,9 @@ class UsersController < ApplicationController
     if params["grade_pref"]
       @users = @users.select {|user| user.grade_pref == params["grade_pref"]}
     end
+    if params["registered"] == "Yes"
+      @users = @users.select {|user| user.register != "bank"}
+    end
     @users = @users.select {|user| user.is_active?}
     render :index
   end
