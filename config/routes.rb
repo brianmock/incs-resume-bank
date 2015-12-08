@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :users
 
   post 'users/search' => 'users#search'
-
+  post 'users/export' => 'users#export'
 
   resources :resumes, only: [:index, :new, :create, :destroy, :update]
   root "welcome#index"

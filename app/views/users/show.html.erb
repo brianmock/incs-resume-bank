@@ -22,7 +22,7 @@
       <% else %>
       <tr>
          <td class="res-row"><%= resume.name %></td>
-         <td class="res-row"><%= link_to "View or Download", resume.attachment_url %></td>
+         <td class="res-row"><%= link_to "Download", resume.attachment_url %></td>
          <% if @current_user.access != "teacher"%>
          <% elsif resume.active == true %>
             <td class="res-row"> Yes </td>
