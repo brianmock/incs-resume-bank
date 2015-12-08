@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
   def search
     @users = User.all
-    if params["years"]
+    if params["years"] != "Any"
       @users = @users.select {|user| user.years.to_i >= params["years"].to_i}
     end
     if params["positions"]
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     if params["subjects"]
       @users = @users.select {|user| ((user.subjects.pluck(:subject) & params["subjects"]).empty? == false)}
     end
-    if params["grade_pref"]
+    if params["grade_pref"] != "Any"
       @users = @users.select {|user| user.grade_pref == params["grade_pref"]}
     end
     if params["registered"] == "Yes"

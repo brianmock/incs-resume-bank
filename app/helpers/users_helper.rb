@@ -361,6 +361,7 @@ module UsersHelper
 
   def exp_years_search
       [
+        "Any",
         0,
         1,
         2,
@@ -384,5 +385,17 @@ module UsersHelper
       "Middle School (6th-8th)",
       "High School (9th-12th)"
     ]
+  end
+
+  def grades_search
+        [
+          "Any",
+          "Pre-k",
+          "Kindergarten",
+          "Primary (1st-2nd)",
+          "Elementary (3rd-5th)",
+          "Middle School (6th-8th)",
+          "High School (9th-12th)"
+        ]
   end
 end
