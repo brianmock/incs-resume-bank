@@ -195,12 +195,24 @@
     <input type="text" name="add-subs" value="" /><br>
   </div>
     <label></label><br>
+
   <div class="field field3">
     <br>
+    <em><%= f.label(:location_pref, "Where would you be willing to teach?") %></em><br>
+    <%= f.radio_button(:location_pref, "Chicago") %>
+    <%= f.label(:name, "Chicago") %><br>
+    <%= f.radio_button(:location_pref, "Non-Chicago, Greater Illinois") %>
+    <%= f.label(:name, "Non-Chicago, Greater Illinois") %><br>
+    <%= f.radio_button(:location_pref, "Chicago or Greater Illinois") %>
+    <%= f.label(:name, "Both") %><br>
+  </div>
+
+  <div class="field">
+    <br>
     <em><%= f.label(:relocation, "Are you open to relocation?") %></em><br>
-    <%= f.radio_button(:previous, true) %>
+    <%= f.radio_button(:relocation, true) %>
     <%= f.label(:relocation, "Yes") %><br>
-    <%= f.radio_button(:previous, false) %>
+    <%= f.radio_button(:relocation, false) %>
     <%= f.label(:relocation, "No") %><br>
   </div><br>
 

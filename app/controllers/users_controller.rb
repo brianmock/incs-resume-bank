@@ -33,13 +33,11 @@ class UsersController < ApplicationController
   end
 
   def export
-    p params["users"]
     @users = params["users"]
     send_data @users.as_csv
   end
 
   def search
-    p params
     @users = User.all
     if params["years"]
       @users = @users.select {|user| user.years.to_i >= params["years"].to_i}
@@ -56,10 +54,18 @@ class UsersController < ApplicationController
     if params["registered"] == "Yes"
       @users = @users.select {|user| user.register != "bank"}
     end
+    if params["location_pref"] == "Chicago"
+      @users = @users.select {|user| user.location_pref == "Chicago"}
+    elsif params["location_pref"] == "Non-Chicago, Greater Illinois"
+      @users = @users.select {|user| user.location_pref == "Non-Chicago, Greater Illinois"}
+    elsif params["location_pref"] == "Chicago or Greater Illinois"
+      @users = @users.select {|user| user.location_pref == "Chicago or Greater Illinois"}
+    end
+
     @users = @users.select {|user| user.is_active?}
     respond_to do |format|
       format.html { render :index }
-      format.csv { send_data User.to_csv(@users), filename: "results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
+      format.csv { send_data User.to_csv(@users), filename: "INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
     end
   end
 
@@ -195,7 +201,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      p params
       if @user.update(user_params)
         if params["licenses"]
           @user.licenses.destroy_all
@@ -309,7 +314,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :access, :prefix, :first_name, :last_name, :phone_number, :street, :street_second, :city, :state, :zip, :country, :register, :il_licensed, :licenses, :degree, :major, :masters_concentration, :endorses, :previous, :subs, :relocation, :orgs, :additional, :years, :grade_pref, :positions, :school, :resume_id)
+      params.require(:user).permit(:username, :email, :password, :access, :prefix, :first_name, :last_name, :phone_number, :street, :street_second, :city, :state, :zip, :country, :register, :il_licensed, :licenses, :degree, :major, :masters_concentration, :endorses, :previous, :subs, :relocation, :orgs, :additional, :years, :grade_pref, :positions, :school, :resume_id, :location_pref)
     end
 
     def authorize

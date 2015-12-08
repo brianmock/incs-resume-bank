@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20151124210518) do
     t.string   "grade_pref"
     t.boolean  "previous"
     t.boolean  "relocation"
+    t.string   "location_pref"
     t.string   "password_digest"
     t.string   "access"
     t.string   "additional"
