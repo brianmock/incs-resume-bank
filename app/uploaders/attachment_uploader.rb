@@ -15,7 +15,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     @user = User.find(model.teacher_id)
-    "#{model.class.to_s.underscore}/#{@user.last_name}_#{@user.first_name[0]}_#{model.teacher_id}"
+    "#{model.class.to_s.underscore.pluralize}/#{@user.last_name}_#{@user.first_name[0]}_#{model.teacher_id}"
   end
 
   def cache_dir
@@ -50,7 +50,8 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
     date = Time.now
-    "#{date.strftime('%d-%m-%Y_%H-%M-%S')}_#{original_filename}" if original_filename
+    @user = User.find(model.teacher_id)
+    "#{model.name.to_s.underscore}_#{date.strftime('%d-%m-%Y_%H-%M-%S')}.#{file.extension}" if original_filename
   end
 
 end
