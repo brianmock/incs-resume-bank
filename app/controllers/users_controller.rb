@@ -32,6 +32,12 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def export
+    p params["users"]
+    @users = params["users"]
+    send_data @users.as_csv
+  end
+
   def search
     p params
     @users = User.all
@@ -51,7 +57,10 @@ class UsersController < ApplicationController
       @users = @users.select {|user| user.register != "bank"}
     end
     @users = @users.select {|user| user.is_active?}
-    render :index
+    respond_to do |format|
+      format.html { render :index }
+      format.csv { send_data User.to_csv(@users), filename: "results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
+    end
   end
 
   def pending

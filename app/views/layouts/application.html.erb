@@ -22,6 +22,7 @@
 
         <% elsif User.find(session[:user_id]).access == "admin" %>
           <li role="presentation"><a href="/users/pending">Pending Registrations</a></li>
+          <li role="presentation"><a href="/users/school/<%=session[:user_id]%>">Search</a></li>
         <% elsif User.find(session[:user_id]).access == "school" %>
           <li role="presentation"><a href="/users/school/<%=session[:user_id]%>">Search</a></li>
         <% end %>
