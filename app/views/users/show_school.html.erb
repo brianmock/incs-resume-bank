@@ -28,6 +28,16 @@
   </div><br>
 
   <div class="field">
+    <em><%= f.label(:location_pref, "Filter candidates by their location preference by choosing an option below") %></em><br>
+    <%= f.radio_button(:location_pref, "Chicago") %>
+    <%= f.label(:name, "Only Chicago") %><br>
+    <%= f.radio_button(:location_pref, "Non-Chicago, Greater Illinois") %>
+    <%= f.label(:name, "Open to Non-Chicago, Greater Illinois Positions") %><br>
+    <%= f.radio_button(:location_pref, "Chicago or Greater Illinois") %>
+    <%= f.label(:name, "Open to both options") %><br>
+  </div>
+
+  <div class="field">
     <em><%= label_tag(:name, "What subjects are you interested in hiring for? (Check all that apply)") %></em><br>
     <ul class="checkbox-grid">
       <% Subject.all.order(:subject).each do |subj| %>
