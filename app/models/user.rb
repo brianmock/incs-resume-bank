@@ -3,6 +3,7 @@ require 'csv'
 class User < ActiveRecord::Base
   has_secure_password
   validates_uniqueness_of :email
+  validates_presence_of :first_name, :last_name, :email, :location_pref, :register, :years
   has_many :resumes, foreign_key: "teacher_id"
   has_many :licenses_helds, foreign_key: "teacher_id"
   has_many :licenses, through: :licenses_helds
@@ -25,8 +26,8 @@ class User < ActiveRecord::Base
   end
 
   def self.to_csv(results)
-    attributes = ['id', 'prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous','location_pref', 'relocation', 'additional']
-    headers = ['Database ID', 'Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered?', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Relocation?', 'Additional Info', 'Positions Desired', 'Licenses Held', 'Endorsements Completed', 'Organizations', 'Subjects Desired', 'Resume Link']
+    attributes = ['id', 'prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous','location_pref', 'additional']
+    headers = ['Database ID', 'Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered?', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Positions Desired', 'Licenses Held', 'Endorsements Completed', 'Organizations', 'Subjects Desired', 'Resume Link']
 
     CSV.generate(headers: true) do |csv|
       csv << headers
