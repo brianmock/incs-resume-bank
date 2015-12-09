@@ -20,6 +20,20 @@ body {
   margin-bottom:-25px;
 }
 
+.topic {
+  color:#005088;
+  font-weight: bold;
+}
+
+.main-content {
+  font-size:1.2em;
+  color:#717171;
+}
+
+.main-content-list {
+  font-size:1em;
+  color:#717171;
+}
 .label-align {
   position: relative;
   left:16px;
@@ -80,6 +94,7 @@ body > div > table > thead > tr > th{
 }
 
 .container {
+  padding-top: 80px;
   margin-bottom: 25px;
   max-width:750px;
   min-width:750px;
@@ -142,7 +157,8 @@ body > div > table > thead > tr > th{
   display: inline-block;
   margin-left: 12%;
   font-size:45px;
-  background-color: #fff
+  background-color: #fff;
+  margin-top: -20px;
 }
 
 .main-btn {
@@ -158,7 +174,10 @@ body > div > table > thead > tr > th{
   text-align:center;
   position:relative;
   bottom:45px;
+  font-weight: bold;
+  font-size:34px;
 }
+
 
 .result {
   border-bottom:1px solid grey;
@@ -181,11 +200,6 @@ body > div > table > thead > tr > th{
 }
 
 .disclaimer {
-  background-color: lightgrey;
-  position:fixed;
-  bottom:15px;
-  text-align: center;
-  width:100%;
   font-size:.85em;
 }
 
@@ -214,9 +228,15 @@ body > div > table > thead > tr > th{
   background-color:#B41782;
 }
 
+.banner {
+  display:inline-block;
+  width:100%;
+  position:relative;
+  top:60px;
+}
 
 .navbar-default {
-  height:110px;
+  height:100%;
   background-color: white;
 }
 
@@ -280,6 +300,12 @@ body > div > table > thead > tr > th{
 .btn-danger {
   background-color: #652D88;
   border-color: transparent;
+}
+
+.btn-centered {
+  display:block;
+  width:200px;
+  margin:0 auto;
 }
 
 .list-head {
