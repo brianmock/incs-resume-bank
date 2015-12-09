@@ -8,6 +8,43 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def getreset
+
+  end
+
+  def reset
+
+  end
+
+  def sendpass
+    if User.find_by(email: params['email'])
+      @user = User.find_by(email: params['email'])
+      @pass = (0...8).map { (65 + rand(26)).chr }.join
+      @user.update_attribute(:password, @pass)
+      @url = "www.teacherjobfair.org/users/reset"
+      UserMailer.forgot_password(@user, @pass, @url).deliver_now
+      redirect_to root_path, notice: 'You have been sent an email with instructions for resetting your password'
+    else
+      redirect_to users_getreset_path, notice: 'Email address has not been registered'
+    end
+  end
+
+  def password_reset
+    if User.find_by(email: params['email'])
+      @user = User.find_by(email: params['email'])
+      p params
+      if @user.authenticate(params['temp_pass'])
+        @user.update_attribute(:password, params['password'])
+        session[:user_id] = @user.id
+        redirect_to user_path(@user)
+      else
+        redirect_to users_reset_path, notice: 'Temp password does not match for email address entered'
+      end
+    else
+      redirect_to users_reset_path, notice: 'Email address was not found'
+    end
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show

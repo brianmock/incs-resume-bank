@@ -1,0 +1,22 @@
+<%= form_tag('/users/password_reset') do |f| %>
+
+  <div class="field">
+    <label><em>Email Address</em></label><br>
+    <input type="text" name="email" /><br>
+  </div>
+
+  <div class="field">
+    <label><em>Temporary Password</em></label><br>
+    <input type="password" name="temp_pass" /><br>
+  </div>
+  <div class="field">
+    <label><em>New Password</em></label><br>
+    <input type="password" name="password" /><br>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag 'Update Password', :name => 'update-password', :class => "btn btn-info" %>
+  </div>
+   <br>
+
+<% end %>
