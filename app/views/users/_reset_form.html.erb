@@ -1,3 +1,9 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
 <%= form_tag('/users/password_reset') do |f| %>
 
   <div class="field">

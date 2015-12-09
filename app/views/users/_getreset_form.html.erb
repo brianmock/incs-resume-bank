@@ -1,3 +1,9 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
 <%= form_tag('/users/sendpass') do |f| %>
   <p>
     <label><em>Enter email address below to receive a temporary password and instructions on resetting.</em></label><br>
