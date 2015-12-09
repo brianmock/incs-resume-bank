@@ -100,5 +100,5 @@ endorse.each do |endo|
   Endorsement.create(name: endo)
 end
 
-User.create(email: 'mock@nopical.com', password: 'Chicago32', access: 'admin')
-User.create(email: 'sarias@incschools.org', password: 'Chicago32', access: 'admin')
+User.create(first_name: 'Brian', last_name: 'Mock', location_pref: 'none', register: 'none', years: 0, email: 'mock@nopical.com', password: 'Chicago32', access: 'admin')
+User.create(first_name: 'Stephanie', last_name: 'Arias', location_pref: 'none', register: 'none', years: 0, email: 'sarias@incschools.org', password: 'Chicago32', access: 'admin')
