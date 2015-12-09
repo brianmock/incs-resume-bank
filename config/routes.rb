@@ -9,11 +9,14 @@ Rails.application.routes.draw do
 
   get 'users/school/:id' => 'users#show_school', as: :school
   get 'users/pending' => 'users#pending'
-
+  get 'users/reset' => 'users#reset'
+  get 'users/getreset' => 'users#getreset'
   put 'users/:id/activate' => 'users#activate'
 
   resources :users
 
+  post 'users/password_reset' => 'users#password_reset'
+  post 'users/sendpass' => 'users#sendpass'
   post 'users/search' => 'users#search'
   post 'users/export' => 'users#export'
 

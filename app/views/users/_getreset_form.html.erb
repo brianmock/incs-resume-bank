@@ -1,0 +1,10 @@
+<%= form_tag('/users/sendpass') do |f| %>
+  <p>
+    <label><em>Enter email address below to receive a temporary password and instructions on resetting.</em></label><br>
+    <%= email_field_tag :email %>
+  </p>
+
+  <p>
+    <%= submit_tag 'Get new password', :name => 'sendpass', :class => "btn btn-info" %>
+  </p>
+<% end %>
