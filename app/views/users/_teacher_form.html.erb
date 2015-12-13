@@ -11,29 +11,28 @@
     </div>
   <% end %>
 
-  <h2>Please fill out the form below to register</h2><br><br>
+  <h2>Please fill out the form below to register.</h2><br>
 
   <%= f.hidden_field :access, value: "teacher" %>
   <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
   <div class="field">
     <em><%= f.label :prefix, :class => "teacher-label" %></em>
     <%= f.text_field :prefix, class: 'tiny-field' %><br>
-    <em><%= f.label :first_name, :class => "teacher-label" %></em>
+    <em><%= f.label(:name, "First name*", :class => "teacher-label") %></em>
     <%= f.text_field :first_name %><br>
-    <em><%= f.label :last_name, :class => "teacher-label" %></em>
+    <em><%= f.label(:name, "Last name*", :class => "teacher-label") %></em>
     <%= f.text_field :last_name %>
   </div><br>
 
   <div class="field">
     <em>
     <%= f.label(:name, "Please select the option that best fits you *") %></em><br>
-    <%= f.radio_button(:register, "bank") %>
-    <%= f.label(:name, "I would like to add my resume to the INCS Online Resume Bank only.") %><br>
     <%= f.radio_button(:register, "both") %>
     <%= f.label :name, class: 'label-align' do "I would like to add my resume to the INCS Online Resume Bank AND would like this to serve as my registration for the #{link_to('2016 Teacher Job Fair', 'https://www.incschools.org/events/teacher-job-fair/')} on March 5th, 2016".html_safe  end%>
-
-    <%= f.radio_button(:register, "jobfaironly") %>
-    <%= f.label(:name, "I would only like to register for the 2016 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.", class: 'label-align') %>
+    <%= f.radio_button(:register, "bank", class: 'label-up') %>
+    <%= f.label(:name, "I would like to add my resume to the INCS Online Resume Bank only.", class: 'label-up') %><br>
+    <%= f.radio_button(:register, "jobfaironly", class: 'label-up') %>
+    <%= f.label(:name, "I would only like to register for the 2016 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.", class: 'label-align label-up2') %>
   </div>
   <br>
 
@@ -99,7 +98,7 @@
 
   <div class="field">
     <em>
-    <%= f.label(:name, "Are you Licensed to Teach in Illinois? *") %></em><br>
+    <%= f.label(:name, "Are you licensed to teach in Illinois? *") %></em><br>
     <%= f.radio_button(:il_licensed, "Yes") %>
     <%= f.label(:name, "Yes") %><br>
     <%= f.radio_button(:il_licensed, "No") %>

@@ -85,7 +85,7 @@ end
 endorse = [
             "None",
             "Bilingual Education",
-            "Early Childhood (birth-grade 3",
+            "Early Childhood (birth-grade 3)",
             "Elementary Education (K-9)",
             "Paraprofessional",
             "ESL Special Education",
