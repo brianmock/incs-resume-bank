@@ -155,19 +155,21 @@ body > div > table > thead > tr > th{
 }
 .main-container {
   display: inline-block;
-  margin-left: 12%;
+  margin-left: 10%;
   font-size:45px;
   background-color: #fff;
   margin-top: -20px;
 }
 
 .main-btn {
-  width:230px;
+  width:260px;
   height:100px;
   margin:auto 0;
   padding:0 15px;
   font-size:20px;
-  background-color: #005088
+  background-color: #005088;
+  word-wrap:break-word;
+  white-space:normal;
 }
 
 .main-header {
@@ -304,7 +306,7 @@ body > div > table > thead > tr > th{
 
 .btn-centered {
   display:block;
-  width:200px;
+  width:215px;
   margin:0 auto;
 }
 
