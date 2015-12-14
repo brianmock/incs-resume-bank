@@ -28,13 +28,12 @@
     <em>
     <%= f.label(:name, "Please select the option that best fits you *") %></em><br>
     <%= f.radio_button(:register, "both") %>
-    <%= f.label :name, class: 'label-align' do "I would like to add my resume to the INCS Online Resume Bank AND would like this to serve as my registration for the #{link_to('2016 Teacher Job Fair', 'https://www.incschools.org/events/teacher-job-fair/')} on March 5th, 2016".html_safe  end%>
+    <%= f.label :name, class: 'label-align' do "I would like to add my resume to the INCS Online Resume Bank AND would like this to serve as my registration for the #{link_to('2016 Teacher Job Fair', 'https://www.incschools.org/events/teacher-job-fair/')} on March 5th, 2016.".html_safe  end%>
     <%= f.radio_button(:register, "bank", class: 'label-up') %>
     <%= f.label(:name, "I would like to add my resume to the INCS Online Resume Bank only.", class: 'label-up') %><br>
     <%= f.radio_button(:register, "jobfaironly", class: 'label-up') %>
     <%= f.label(:name, "I would only like to register for the 2016 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.", class: 'label-align label-up2') %>
   </div>
-  <br>
 
   <div class="field">
     <em><%= f.label(:name, "Email *", :class => "teacher-label") %></em>
@@ -83,20 +82,26 @@
 
   <div class="field">
     <label><em>What type of position are you looking for? (Check all that apply) *</em></label><br>
+    <ul class="checkbox-grid2">
     <% Position.all.each do |pos| %>
       <% if @user.positions.pluck(:title).include?(pos.title) %>
-        <input type="checkbox" name="positions[]" value="<%= pos.title %>" checked/>
+        <li><input type="checkbox" name="positions[]" value="<%= pos.title %>" checked/>
       <% else %>
-        <input type="checkbox" name="positions[]" value="<%= pos.title %>" />
+        <li><input type="checkbox" name="positions[]" value="<%= pos.title %>" />
       <% end %>
-    <label><%= pos.title %></label><br>
+    <label><%= pos.title %></label></li>
     <% end %>
+    </ul>
+  </div>
+  <label></label>
+  <div class="field2">
     <input type="checkbox" name="positions[]" value=""/>
     <label>Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-positions" value="" />
-  </div><br>
+  </div>
+  <label></label><br>
 
-  <div class="field">
+  <div class="field field3">
     <em>
     <%= f.label(:name, "Are you licensed to teach in Illinois? *") %></em><br>
     <%= f.radio_button(:il_licensed, "Yes") %>
@@ -110,7 +115,7 @@
   <br>
 
   <div class="field">
-    <label><em>Type of License Held *</em></label><br>
+    <label><em>What type of license do you hold? (Check all that apply) *</em></label><br>
     <% License.all.each do |lic| %>
       <% if @user.licenses.pluck(:name).include?(lic.name) %>
         <input type="checkbox" name="licenses[]" value="<%= lic.name %>" checked/>
@@ -132,14 +137,14 @@
   <div class="field">
     <em><%= f.label :major, :class => "teacher-label2" %></em>
     <%= f.text_field :major %>
-  </div>
+  </div><br>
   <div class="field">
     <em><%= f.label :masters_concentration, :class => "teacher-label2" %></em>
     <%= f.text_field :masters_concentration %>
   </div><br>
 
   <div class="field">
-    <label><em>Endorsements Completed (Check all that apply) *</em></label><br>
+    <label><em>Endorsements completed (Check all that apply) *</em></label><br>
     <% Endorsement.all.each do |endo| %>
       <% if @user.endorsements.pluck(:name).include?(endo.name) %>
         <input type="checkbox" name="endorses[]" value="<%= endo.name %>" checked/>
@@ -196,7 +201,7 @@
     <label></label><br>
 
   <div class="field field3">
-    <br>
+    <br><br>
     <em><%= f.label(:location_pref, "Where are you willing to teach?") %></em><br>
     <%= f.radio_button(:location_pref, "Chicago") %>
     <%= f.label(:name, "Chicago") %><br>
@@ -204,7 +209,7 @@
     <%= f.label(:name, "Non-Chicago, Greater Illinois") %><br>
     <%= f.radio_button(:location_pref, "Chicago or Greater Illinois") %>
     <%= f.label(:name, "Both") %><br>
-  </div>
+  </div><br>
 
   <div class="field">
     <label><em>Membership or Alumni Organization (Check all that apply)</em></label><br>
