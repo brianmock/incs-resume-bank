@@ -75,7 +75,7 @@ class UsersController < ApplicationController
   end
 
   def show_all_schools
-    @users = User.where('access' == 'school')
+    @users = User.where('access' => 'school')
     render :schools_index
   end
 
