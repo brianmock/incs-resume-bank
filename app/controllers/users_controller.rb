@@ -74,6 +74,11 @@ class UsersController < ApplicationController
     send_data @users.as_csv
   end
 
+  def show_all_schools
+    @users = User.where('access' == 'school')
+    render :schools_index
+  end
+
   def search
     @users = User.all
     if params["years"] != "Any"
