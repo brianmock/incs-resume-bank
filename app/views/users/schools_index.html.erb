@@ -1,0 +1,9 @@
+<h2>Registered schools:</h2>
+
+<% @users.each do |user| %>
+<div class="result">
+  <label>Name:</label> <%= user.first_name %> <%= user.last_name %><br>
+  <label>School: </label> <%= user.school %><br>
+  <label>Email:</label> <%= user.email %><br>
+</div>
+<% end %>
