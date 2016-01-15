@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :endorsements, through: :endorsements_completed
   has_many :preferences, foreign_key: "teacher_id"
   has_many :subjects, through: :preferences
+  has_many :references, foreign_key: "teacher_id"
+  has_many :sources, through: :references
 
 
   def is_active?

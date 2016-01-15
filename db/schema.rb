@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124210518) do
+ActiveRecord::Schema.define(version: 20160115230218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,16 @@ ActiveRecord::Schema.define(version: 20151124210518) do
   add_index "preferences", ["subject_id"], name: "index_preferences_on_subject_id", using: :btree
   add_index "preferences", ["teacher_id"], name: "index_preferences_on_teacher_id", using: :btree
 
+  create_table "references", force: :cascade do |t|
+    t.integer  "teacher_id"
+    t.integer  "source_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "references", ["source_id"], name: "index_references_on_source_id", using: :btree
+  add_index "references", ["teacher_id"], name: "index_references_on_teacher_id", using: :btree
+
   create_table "resumes", force: :cascade do |t|
     t.integer  "teacher_id"
     t.string   "name"
@@ -100,6 +110,12 @@ ActiveRecord::Schema.define(version: 20151124210518) do
   end
 
   add_index "resumes", ["teacher_id"], name: "index_resumes_on_teacher_id", using: :btree
+
+  create_table "sources", force: :cascade do |t|
+    t.string   "source_name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "subjects", force: :cascade do |t|
     t.string   "subject"

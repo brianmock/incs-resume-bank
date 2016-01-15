@@ -36,6 +36,27 @@
   </div>
 
   <div class="field">
+    <label><em>How did you hear about the 2016 INCS Teacher Job Fair? (Check all that apply.)</em></label><br>
+    <ul class="checkbox-grid2">
+      <% Source.all.each do |source| %>
+        <% if @user.sources.pluck(:source_name).include?(source.source_name) %>
+          <li><input type="checkbox" name="sources[]" value="<%= source.source_name %>" checked/>
+        <% else %>
+          <li><input type="checkbox" name="sources[]" value="<%= source.source_name %>" />
+        <% end %>
+        <label><%= source.source_name %></label></li>
+      <% end %>
+    </ul>
+  </div>
+  <label></label>
+  <div class="field2">
+    <input type="checkbox" name="sources[]" value=""/>
+    <label>Other (please specify so that we may thank our partners)</label>
+    <input type="text" name="add-sources" value="" /><br>
+  </div>
+    <label></label><br><br>
+
+  <div class="field field3">
     <em><%= f.label(:name, "Email *", :class => "teacher-label") %></em>
     <%= f.text_field :email, class: 'med-field' %>
   </div>

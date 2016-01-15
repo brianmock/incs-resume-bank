@@ -218,6 +218,21 @@ class UsersController < ApplicationController
               @user.organizations << Organization.find_or_create_by(name: name)
             end
           end
+          #save references
+          if params["sources"]
+            params["sources"].each do |source|
+              next if source == ""
+              @user.sources << Source.find_by(source_name: source)
+            end
+          end
+          if params["add-sources"]
+            more_sources = params["add-sources"].split(",").map(&:strip)
+            more_sources.each do |source|
+              source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+              @user.sources << Source.find_or_create_by(source_name: source_name)
+            end
+          end
         end
         session[:user_id] = @user.id
         if @user.access == "teacher"
@@ -324,6 +339,21 @@ class UsersController < ApplicationController
             @user.organizations << Organization.find_or_create_by(name: name)
           end
         end
+        #save references
+        if params["sources"]
+          @user.sources.destroy_all
+          params["sources"].each do |source|
+            next if source == ""
+            @user.sources << Source.find_by(source_name: source)
+          end
+        end
+        if params["more-sources"]
+          more_sources = params["more_sources"].split(",").map(&:strip)
+          more_sources.each do |source|
+            source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+            @user.sources << Sources.find_or_create_by(source_name: source_name)
+          end
+        end
         format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -357,7 +387,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :access, :prefix, :first_name, :last_name, :phone_number, :street, :street_second, :city, :state, :zip, :country, :register, :il_licensed, :licenses, :degree, :major, :masters_concentration, :endorses, :previous, :subs, :relocation, :orgs, :additional, :years, :grade_pref, :positions, :school, :resume_id, :location_pref)
+      params.require(:user).permit(:username, :email, :password, :access, :prefix, :first_name, :last_name, :phone_number, :street, :street_second, :city, :state, :zip, :country, :register, :il_licensed, :licenses, :degree, :major, :masters_concentration, :endorses, :previous, :subs, :relocation, :orgs, :additional, :years, :grade_pref, :positions, :school, :resume_id, :location_pref, :sources)
     end
 
     def authorize
