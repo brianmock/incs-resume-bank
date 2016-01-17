@@ -2,24 +2,26 @@
 
 <%= form_tag('/users/search') do %>
   <div class="field">
-    <label><em>What type of position are you looking to hire for? (Check all that apply)</em></label><br>
+    <label><em>What type of position are you looking for? (Check all that apply) *</em></label><br>
+    <ul class="checkbox-grid2">
     <% Position.all.each do |pos| %>
-      <input type="checkbox" name="positions[]" value="<%= pos.title %>" />
-      <label><%= pos.title %></label><br>
+        <li><input type="checkbox" name="positions[]" value="<%= pos.title %>" />
+    <label><%= pos.title %></label></li>
     <% end %>
-  </div><br>
+    </ul>
+  </div>
 
-  <div class="field">
+  <div class="field7">
     <em><%= label_tag(:name, "Minimum years of teaching or school administration experience") %></em>
     <%= select_tag :years, options_for_select(exp_years_search), class: 'form-control' %>
   </div><br>
 
-  <div class="field">
+  <div class="field7">
     <em><%= label_tag(:name, "What grade level are you hiring for?") %></em>
     <%= select_tag :grade_pref, options_for_select(grades_search), class: 'form-control' %>
   </div><br>
 
-  <div class="field">
+  <div class="field7">
     <em><%= label_tag(:name, "Only show candidates registered for the 2016 INCS Job Fair?")%></em><br>
     <%= radio_button_tag(:registered, "Yes") %>
     <%= label_tag(:name, "Yes") %><br>
@@ -27,7 +29,7 @@
     <%= label_tag(:name, "No") %>
   </div><br>
 
-  <div class="field">
+  <div class="field7">
     <em><%= label_tag(:location_pref, "Filter candidates by their location preference by choosing an option below") %></em><br>
     <%= radio_button_tag(:location_pref, "Chicago") %>
     <%= label_tag(:name, "Open to positions in Chicago only") %><br>
@@ -37,7 +39,7 @@
     <%= label_tag(:name, "Open to both options") %><br>
   </div><br>
 
-  <div class="field">
+  <div class="field7">
     <em><%= label_tag(:name, "What subjects are you interested in hiring for? (Check all that apply)") %></em><br>
     <ul class="checkbox-grid">
       <% Subject.all.order(:subject).each do |subj| %>
