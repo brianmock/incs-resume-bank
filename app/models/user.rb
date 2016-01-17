@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
   end
 
   def self.to_csv(results)
-    attributes = ['id', 'prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous','location_pref', 'additional']
-    headers = ['Database ID', 'Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered?', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Positions Desired', 'Licenses Held', 'Endorsements Completed', 'Organizations', 'Subjects Desired', 'Resume Link']
+    attributes = ['prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous','location_pref', 'additional']
+    headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered?', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Positions Desired', 'Licenses Held', 'Endorsements Completed', 'Organizations', 'Subjects Desired','Referred From', 'Resume Link']
 
     CSV.generate(headers: true) do |csv|
       csv << headers
@@ -40,6 +40,8 @@ class User < ActiveRecord::Base
         array << teacher.endorsements.pluck(:name).join(',')
         array << teacher.organizations.pluck(:name).join(',')
         array << teacher.subjects.pluck(:subject).join(',')
+        array << teacher.sources.pluck(:source_name).join(',')
+        array << teacher.resumes.first.attachment.url
         csv << array
       end
     end
