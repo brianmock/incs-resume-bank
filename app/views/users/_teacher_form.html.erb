@@ -166,20 +166,25 @@
 
   <div class="field">
     <label><em>Endorsements completed (Check all that apply) *</em></label><br>
+    <ul class="checkbox-grid2">
     <% Endorsement.all.each do |endo| %>
       <% if @user.endorsements.pluck(:name).include?(endo.name) %>
-        <input type="checkbox" name="endorses[]" value="<%= endo.name %>" checked/>
+        <li><input type="checkbox" name="endorses[]" value="<%= endo.name %>" checked/>
       <% else %>
-        <input type="checkbox" name="endorses[]" value="<%= endo.name %>" />
+        <li><input type="checkbox" name="endorses[]" value="<%= endo.name %>" />
       <% end %>
-    <label><%= endo.name %></label><br>
+    <label><%= endo.name %></label><br></li>
     <% end %>
+    </ul>
+  </div>
+  <div class="field2">
     <input type="checkbox" name="endorses[]" value=""/>
     <label>Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-endorses" value="" />
   </div><br>
+      <label></label><br>
 
-  <div class="field">
+  <div class="field field6">
     <em><%= f.label(:name, "Years of Teaching/School Administration Experience *") %></em>
     <%= f.select :years, options_for_select(exp_years, @user.years),{}, class: 'form-control' %>
   </div><br>
@@ -221,7 +226,7 @@
   </div>
     <label></label><br>
 
-  <div class="field field3">
+  <div class="field field5">
     <br><br>
     <em><%= f.label(:location_pref, "Where are you willing to teach?") %></em><br>
     <%= f.radio_button(:location_pref, "Chicago") %>
