@@ -155,6 +155,9 @@ body > div > table > thead > tr > th {
 .field7 {
   position: relative;
   top: 20px;
+  float: left;
+  clear: both;
+  margin: 10px;
 }
 
 .form-control {
