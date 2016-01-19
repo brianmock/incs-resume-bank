@@ -15,6 +15,16 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
-$(document).ready(function(){
-  $('.dropdown-toggle').dropdown();
-});
+// $(document).ready(function () {
+      //   $('body > div > form').on('submit', function (evt) {
+      //     evt.preventDefault();
+      //     $.ajax({
+      //       url: evt.target.action,
+      //       method: 'post',
+      //       success: function (result) {
+      //         console.log(result);
+      //       }
+      //     });
+      //   });
+      // });
+
