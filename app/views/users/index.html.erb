@@ -11,8 +11,6 @@
 </div>
 <% end %>
 
-<p>To download as a CSV document (openable in Excel or other spreadsheet programs), click the generate button and wait for the download button to appear.</p>
-
 <% if User.find(session[:user_id]).access == "admin" || User.find(session[:user_id]).access == "school"%>
   <%= form_tag(users_search_path(params.merge(format: 'csv'))) do %>
   <%= submit_tag 'Generate CSV', class: "btn btn-info export"%>
