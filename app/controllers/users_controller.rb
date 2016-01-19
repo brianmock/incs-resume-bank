@@ -105,9 +105,10 @@ class UsersController < ApplicationController
     end
 
     @users = @users.select {|user| user.is_active?}
+
     respond_to do |format|
       format.html { render :index }
-      format.csv { send_data User.to_csv(@users), filename: "INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
+      format.csv {send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
     end
   end
 
@@ -377,11 +378,11 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find_by(id: params[:id])
+      p params
       if @user
         @user
       else
-        status '404'
-        redirect '/'
+        redirect_to root_path
       end
     end
 
