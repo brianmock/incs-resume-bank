@@ -15,16 +15,21 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
-// $(document).ready(function () {
-      //   $('body > div > form').on('submit', function (evt) {
-      //     evt.preventDefault();
-      //     $.ajax({
-      //       url: evt.target.action,
-      //       method: 'post',
-      //       success: function (result) {
-      //         console.log(result);
-      //       }
-      //     });
-      //   });
-      // });
-
+$(document).ready(function () {
+  $('body > div > form').on('submit', function (evt) {
+    evt.preventDefault();
+    $.ajax({
+      url: evt.target.action,
+      method: 'post',
+      success: function (result) {
+        console.log(result);
+        csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(result);
+        $('div.container').append('<br><a class="btn btn-info inline" id="exports" href="">Download CSV</a>');
+        $('#exports').attr({
+          'href': csvData,
+          'download': 'INCS_results.csv'
+        });
+      }
+    });
+  });
+});
