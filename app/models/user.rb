@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
         array << teacher.positions.pluck(:title).join(',')
         array << teacher.licenses.pluck(:name).join(',')
         array << teacher.subjects.pluck(:subject).join(',')
-        array << teacher.sources.pluck(:souce_name).join(',')
+        array << teacher.sources.pluck(:source_name).join(',')
         # array << teacher.resumes.first.attachment.url
         csv << array
       end
