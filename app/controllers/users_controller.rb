@@ -140,6 +140,23 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.email = @user.email.downcase
     respond_to do |format|
+      if @user.access == "teacher"
+        #save references
+        if params["sources"]
+          params["sources"].each do |source|
+            next if source == ""
+            @user.sources << Source.find_by(source_name: source)
+          end
+        end
+        if params["add-sources"]
+          more_sources = params["add-sources"].split(",").map(&:strip)
+          more_sources.each do |source|
+            source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.sources << Source.find_or_create_by(source_name: source_name)
+          end
+        end
+      end
       if @user.save
         #save uploaded resume
         if @user.access == "teacher"
@@ -217,21 +234,6 @@ class UsersController < ApplicationController
               name = org.split(" ").map do |word| word.downcase.capitalize end.join(" ")
 
               @user.organizations << Organization.find_or_create_by(name: name)
-            end
-          end
-          #save references
-          if params["sources"]
-            params["sources"].each do |source|
-              next if source == ""
-              @user.sources << Source.find_by(source_name: source)
-            end
-          end
-          if params["add-sources"]
-            more_sources = params["add-sources"].split(",").map(&:strip)
-            more_sources.each do |source|
-              source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
-
-              @user.sources << Source.find_or_create_by(source_name: source_name)
             end
           end
         end

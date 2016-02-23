@@ -17,7 +17,11 @@ class User < ActiveRecord::Base
   has_many :subjects, through: :preferences
   has_many :references, foreign_key: "teacher_id"
   has_many :sources, through: :references
+  validates :references, :presence => true, :if => :condition_testing?
 
+  def condition_testing?
+    self.access == 'teacher'
+  end
 
   def is_active?
     if self.resumes.select {|res| res.active == true}.empty?
