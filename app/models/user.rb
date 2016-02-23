@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
   end
 
   def self.to_csv(results)
-    attributes = ['prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous','location_pref', 'additional']
-    headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered?', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Positions Desired', 'Licenses Held', 'Subjects Desired', 'Reference Sources']
+    attributes = ['prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous','location_pref', 'additional','created_at']
+    headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered?', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Registered On', 'Positions Desired', 'Licenses Held', 'Subjects Desired', 'Reference Sources']
 
     CSV.generate(headers: true) do |csv|
       csv << headers
