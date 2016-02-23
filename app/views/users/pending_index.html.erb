@@ -1,3 +1,8 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
 <% @users.each do |user| %>
 <div class="result">
   <br>
@@ -6,5 +11,6 @@
   <label>Email: </label> <%= user.email %><br>
   <label>Status:</label> <%= user.access %><br>
   <%= button_to "Activate", "/users/#{user.id}/activate", method: :put, class: "btn btn-info" %><br>
+  <%= button_to "Delete", user, method: :delete, class: "btn btn-danger" %>
 </div>
 <% end %>
