@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   get 'users/getreset' => 'users#getreset'
   put 'users/:id/activate' => 'users#activate'
 
+  get 'users/teachers' => 'users#show_all_teachers'
   resources :users
+
 
   post 'users/password_reset' => 'users#password_reset'
   post 'users/sendpass' => 'users#sendpass'

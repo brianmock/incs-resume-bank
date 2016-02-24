@@ -79,6 +79,11 @@ class UsersController < ApplicationController
     render :schools_index
   end
 
+  def show_all_teachers
+    @users = User.where('access' => 'teacher')
+    render :teachers_index
+  end
+
   def search
     @users = User.all
     if params["years"] != "Any"

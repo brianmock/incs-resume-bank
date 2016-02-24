@@ -1,0 +1,10 @@
+<h2>All Teachers in Resume Bank:</h2>
+
+<% @users.each do |user| %>
+<div class="result">
+  <label>Name:</label> <%= user.first_name %> <%= user.last_name %><br>
+  <label>Email:</label> <%= user.email %><br>
+  <label>Registered:</label> <% if user.register == 'bank' %> No <% else %> Yes <% end %><br>
+  <label>Active:</label> <% if user.is_active? %> Yes <% else %> No <% end %>
+</div>
+<% end %>
