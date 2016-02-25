@@ -1,36 +1,134 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <p>Dear <%= @user.first_name %>,</p>
-    <p>
-      Thank you for using INCS’s Online Resume Bank. Your information has been received.<br>
-    </p>
-    <p>
-      Please keep your username and password for your records. You can log into your account at any time to:
-      <ul>
-        <li>Register for Teacher Job Fair on Saturday, March 5th (more info <a href="https://www.incschools.org/events/teacher-job-fair/">here</a>)</li>
-        <li>Update or delete your resume</li>
-        <li>Change your profile</li>
-      </ul>
-    </p>
-    <p>
-      If you need any assistance using our database, please do not hesitate to contact me at the information below.  
-    </p>
 
-    <p>Best,<br><br>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
 
-      Stephanie Arias<br>
-      Charter Support Manager<br>
-      Illinois Network of Charter Schools<br>
-      150 N. Michigan Ave<br>
-      Suite 430<br>
-      Chicago, IL 60601<br>
-      P 312.690.2715<br>
-      F 312.629.2064<br>
-      sarias@incschools.org<br>
-    </p>
-  </body>
+<body>
+  <p>Dear
+    <%= @user.first_name %>,</p>
+  <p>
+    Thank you for using INCS’s Online Resume Bank. Your information has been received.
+    <br>
+  </p>
+  <p>
+    Please keep your username and password for your records. You can log into your account at any time to:
+    <ul>
+      <li>Register for Teacher Job Fair on Saturday, March 5th (more info <a href="https://www.incschools.org/events/teacher-job-fair/">here</a>)</li>
+      <li>Update or delete your resume</li>
+      <li>Change your profile</li>
+    </ul>
+  </p>
+  <p>For those who registered for the job fair, a logistics email will be sent in a few days. In the meantime, here's a preview of a few job openings charter school leaders at the 2016 INCS Teacher Job Fair are hiring for:</p>
+  <ul style="columns: 2;-webkit-columns: 2;-moz-columns: 2;list-style: none;">
+    <li>Elementary School - across all content areas</li>
+    <li>Middle School - across all content areas </li>
+    <li>High School - across all content areas</li>
+    <li>Academic Interventionist</li>
+    <li>Art Teacher</li>
+    <li>Assistant Dean of Students</li>
+    <li>Assistant Principal</li>
+    <li>Associate Director of Talent</li>
+    <li>Bilingual Special Education Teacher (Self-Contained)</li>
+    <li>Bilingual-endorsed Teachers</li>
+    <li>Computer Teacher</li>
+    <li>Data Analyst </li>
+    <li>Dean of Culture</li>
+    <li>Director of Finance </li>
+    <li>Director of Special Projects</li>
+    <li>Foreign Language - Spanish, French & Mandarin Teachers</li>
+    <li>Instructional Assistant</li>
+    <li>IT Manager</li>
+    <li>Nurse</li>
+    <li>Principal</li>
+    <li>Reading Interventionist</li>
+    <li>Social Worker</li>
+    <li>Special Education Teacher</li>
+    <li>Student Teacher</li>
+    <li>Teacher Assistant</li>
+    <li>Wellness Instructor</li>
+  </ul>
+
+  <p>Multiple openings are available for candidates in the above categories!</p>
+
+  <p>Further, check out a few of the schools who will be at the fair looking for candidates like YOU! More schools are being added every day. </p>
+  <ul style="columns: 2;-webkit-columns: 2;-moz-columns: 2;list-style: none;">
+    <li><a href="http://agcchicago.org/">Academy for Global Citizenship</a></li>
+    <li><a href="http://www.alainlocke.org/">Alain Locke Charter School </a></li>
+    <li><a href="http://www.aspirail.org/site/default.aspx?PageID=1">ASPIRA Inc. of Illinois  </a></li>
+    <li><a href="http://www.catalystschools.org/">Catalyst Schools </a></li>
+    <li><a href="http://www.charterschoolsusa.com/">Charter Schools USA </a></li>
+    <li><a href="http://www.cmsaonline.net/">Chicago Math and Science Academy </a></li>
+    <li><a href="http://christopherhouseelementary.org/?doing_wp_cron=1456434227.4588820934295654296875">Christopher House Elementary School </a></li>
+    <li><a href="http://regenerationschools.org/">CICS Avalon, CICS Basil and CICS Washinton Park </a></li>
+    <li><a href="http://www.civitasschools.org/">Civitas Education Partners: CICS Wrightwood, CICS Ralph Ellison, CICS ChicagoQuest, CICS Northtown Academy </a></li>
+    <li><a href="http://distinctiveschools.org/">Disctinctive Schools </a></li>
+    <li><a href="http://www.epicacademy.org/">EPIC Academy College Prep High School  </a></li>
+    <li><a href="http://www.eriecharterschool.org/">Erie Elementary Charter School </a></li>
+    <li><a href="http://foundationscollegeprep.org/">Foundations College Prep </a></li>
+    <li><a href="http://frazierprepacademy.publishpath.com/">Frazier Prepartory Academy </a></li>
+    <li><a href="http://www.galapagoscharter.org/">Galapagos Charter School </a></li>
+    <li><a href="http://www.glachicago.org/">Great Lakes Charter Accademy School </a></li>
+    <li><a href="http://www.hsabelmont.org/">Horizon Science Academy Belmont </a></li>
+    <li><a href="http://www.hsamckinley.org/">Horizon Science Academy McKinley Park</a></li>
+    <li><a href="http://www.hsaswchicago.org/">Horizon Science Academy Southwest </a></li>
+    <li><a href="http://intrinsicschools.org/">Intrinsic Schools </a></li>
+    <li><a href="http://www.kippchicago.org/">KIPP Chicago Schools </a></li>
+    <li><a href="http://www.learncharter.org/">LEARN Charter School Network </a></li>
+    <li><a href="http://www.movingeverest.org/more_info?splash=1">Moving Everest Charter School </a></li>
+    <li><a href="http://namastecharterschool.org/">Namaste </a></li>
+    <li><a href="http://www.noblenetwork.org/">Noble Network of Charter Schools </a></li>
+    <li><a href="http://www.pcsedu.org/">Perspectives Charter Schools </a></li>
+    <li><a href="http://www.prologueschools.org/">Prologue Inc </a></li>
+    <li><a href="http://www.providenceenglewood.org/">Providence Englewood Charter School </a></li>
+    <li><a href="https://www.roweelementaryschool.org/">Rowe Elementary School </a></li>
+    <li><a href="http://www.tmsoe.org/">The Montessori School of Englewood </a></li>
+    <li><a href="http://www.uchicagocharter.org/index.cfm">University of Chicago Charter School </a></li>
+    <li><a href="http://www.ucsnschools.org/">UNO Charter School Network (UCSN) </a></li>
+    <li><a href="http://www.urbanprep.org/">Urban Prep Academies </a></li>
+    <li><a href="http://www.ywlcs.org/">Young Women's Leadership Charter School of Chicago </a></li>
+  </ul>
+  <p><strong>Don’t forget <em>CPDUs will be offered</em> to all who attend one of the following 1 hour educational workshops: </strong></p>
+  <p>
+    <h4><strong>Which Runway Do We Use?</strong></h4>
+    <p><em>Presented by Heather Calomese</em></p>
+    <p>Director of Specialized Instruction, UNO Charter School Network</p>
+    <p>Managing your special education classroom is like performing the job of an air traffic controller.  Special Education settings can be busy and distracting, which is not the environment that we want with our population of students. How can teachers effectively manage the traffic of their classroom while protecting the learning environment? How do teachers effectively plan and execute transitions?  How do we effectively communicate with the adults and students to ensure learning occurs?  This mini workshop will help participants understand the importance of communication, routines, and planning that will ensure classroom time is maximized and students are engaged.</p>
+  </p>
+  <p>
+    <h4><strong>First Comes Oracy, then Comes Literacy</strong></h4>
+    <p><em>Presented by Susan Pryor</em></p>
+    <p>Primary Instructional Coordinator, Erie Elementary School </p>
+    <p>In this session, we will define and describe what oracy means and explore how oral language drives both language and literacy development. Participants will learn specific strategies that help students gain access to material presented in a second language and promote active engagement with both content and language.</p>
+  </p>
+  <p><strong>Know someone interested in career opportunities as a teacher, clinician, or administrator? Please consider forwarding the blurb below.</strong></p>
+  <p><strong>Best of luck with your job search, and do not hesitate to contact me should you have any questions. </strong></p>
+    <br>
+    <br> Stephanie Arias
+    <br> Charter Support Manager
+    <br> Illinois Network of Charter Schools
+    <br> 150 N. Michigan Ave
+    <br> Suite 430
+    <br> Chicago, IL 60601
+    <br> P 312.690.2715
+    <br> F 312.629.2064
+    <br> sarias@incschools.org
+    <br>
+  </p>
+  <p><strong>Thank you for sharing the blurb below.</strong></p>
+  <p>The Illinois Network of Charter Schools (INCS) will host its <a href="https://www.incschools.org/events/tjf/">11th annual Teacher Job Fair</a> on Saturday, March 5, 2016 at UNO Charter School Network (UCSN) Veterans Memorial Campus. Representatives from the state’s charter schools will be on hand to recruit hundreds of teachers, social workers, counselors, nurses, and other administrators - such as marketing managers, college coaches, and finance operators.  You can learn more about the FREE fair and upload your resume to the year-round resume bank <a href="www.teacherjobfair.org">here.</a> </p>
+  <p>Some of the great features of the job fair include:</p>
+  <ul>
+    <li>Free networking opportunity + access to over 100 school leaders looking to hire talented candidates</li>
+    <li>Opportunity to interview on-site following the meet-and-greet portion of the fair, by invite only</li>
+    <li><span style="color: red;">New this year:</span>  A year-round <a href="www.teacherjobfair.org">online resume bank</a> where candidates can submit their info to the 145+ campuses and set up interviews remotely</li>
+    <li><span style="color: red;">New this year:</span> <a href="https://www.incschools.org/events/tjf/">SPED and Bilingual Education workshops</a> immediately following the fair for CPDU Credit </li>
+
+    <li>Per charter law, students and alumni of all academic backgrounds are welcome to apply  </li>
+  </ul>
+  <p>Check out their flyer <a href="https://www.dropbox.com/s/jm986ops80fr6jc/Job%20Fair%20Flyer.pdf?dl=0">here</a>. For more information, contact Charter Support Manager, Stephanie Arias, at sarias@incschools.org
+    <p>
+</body>
+
 </html>
