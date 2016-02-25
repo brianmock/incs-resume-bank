@@ -34,3 +34,22 @@
       //   });
       // });
 
+// $(document).ready(function() {
+      //         $('#gen-csv').on('click', function (evt) {
+      //           evt.preventDefault();
+      //           $.ajax({
+      //             url: evt.target.action,
+      //             method: 'get',
+      //             success: function (result) {
+      //               console.log(result);
+      //               csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(result);
+      //               $('div.container').append('<br><a class="btn btn-info inline" id="exports" href="">Download CSV</a>');
+      //               $('#exports').attr({
+      //                 'href': csvData,
+      //                 'download': 'INCS_results.csv'
+      //               });
+      //             }
+      //           });
+      //         });
+      //       });
+

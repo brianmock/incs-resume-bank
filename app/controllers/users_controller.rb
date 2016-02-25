@@ -84,6 +84,14 @@ class UsersController < ApplicationController
     render :teachers_index
   end
 
+  def download_teachers
+    @users = User.where('access' => 'teacher')
+    respond_to do |format|
+      format.html { send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
+      format.csv {send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
+    end
+  end
+
   def search
     @users = User.all
     if params["years"] != "Any"

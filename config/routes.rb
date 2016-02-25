@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   put 'users/:id/activate' => 'users#activate'
 
   get 'users/teachers' => 'users#show_all_teachers'
+  get 'users/teachers-csv' => 'users#download_teachers'
   resources :users
 
 
