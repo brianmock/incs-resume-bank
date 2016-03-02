@@ -240,16 +240,18 @@
   <div class="field">
     <label><em>Membership or Alumni Organization (Check all that apply)</em></label><br>
     <% Organization.all.each do |org| %>
+      <ul class="checkbox-grid2">
       <% if @user.organizations.pluck(:name).include?(org.name) %>
-        <input type="checkbox" name="orgs[]" value="<%= org.name %>" checked/>
+        <li><input type="checkbox" name="orgs[]" value="<%= org.name %>" checked/>
       <% else %>
-        <input type="checkbox" name="orgs[]" value="<%= org.name %>" />
+        <li><input type="checkbox" name="orgs[]" value="<%= org.name %>" />
       <% end %>
-    <label><%= org.name %></label><br>
+    <label><%= org.name %></label><br></li>
     <% end %>
-    <input type="checkbox" name="orgs[]" value=""/>
+    <li><input type="checkbox" name="orgs[]" value=""/>
     <label>Other (if multiple, separate with a comma)</label>
-    <input type="text" name="add-orgs" value="" />
+    <input type="text" name="add-orgs" value="" /></li>
+    </ul>
   </div><br>
 
   <div class="field">
