@@ -253,7 +253,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         if @user.access == "teacher"
           UserMailer.teacher_email(@user).deliver_now
-          format.html { redirect_to user_path(@user) }
+          format.html { redirect_to new_resume_path(@resume) }
         elsif @user.access == "pending"
           UserMailer.school_email(@user).deliver_now
           format.html { redirect_to root_path }
