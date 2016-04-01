@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :subjects, through: :preferences
   has_many :references, foreign_key: "teacher_id"
   has_many :sources, through: :references
-  validates :references, :presence => {:message => ": please tell us how you heard about us" }, :if => :condition_testing?
+  # validates :references, :presence => {:message => ": please tell us how you heard about us" }, :if => :condition_testing?
 
   def condition_testing?
     self.access == 'teacher'

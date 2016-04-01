@@ -16,11 +16,11 @@ class ResumesController < ApplicationController
     if session[:user_id]
       @resume.teacher_id = session[:user_id]
       @user = User.find(session[:user_id])
-      if @user.register == "jobfaironly"
-        @resume.active = false
-      else
-        @resume.active = true
-      end
+      # if @user.register == "jobfaironly"
+      #   @resume.active = false
+      # else
+      @resume.active = true
+      # end
     end
     if @resume.save
       redirect_to user_path(@user), notice: "Your #{@resume.name.downcase} has been uploaded."

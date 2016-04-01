@@ -24,7 +24,7 @@
     <%= f.text_field :last_name %>
   </div><br>
 
-  <div class="field">
+<!--   <div class="field">
     <em>
     <%= f.label(:name, "Please select the option that best fits you*") %></em><br>
     <%= f.radio_button(:register, "both") %>
@@ -33,10 +33,10 @@
     <%= f.label(:name, "I would like to add my resume to the INCS Online Resume Bank only.", class: 'label-up') %><br>
     <%= f.radio_button(:register, "jobfaironly", class: 'label-up') %>
     <%= f.label(:name, "I would only like to register for the 2016 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.", class: 'label-align label-up2') %>
-  </div>
+  </div> -->
 
   <div class="field">
-    <label><em>How did you hear about the 2016 INCS Teacher Job Fair? (Check all that apply.)*</em></label><br>
+    <label><em>How did you hear about the 2016 INCS Resume Bank? (Check all that apply.)*</em></label><br>
     <ul class="checkbox-grid2">
       <% Source.all.each do |source| %>
         <% if @user.sources.pluck(:source_name).include?(source.source_name) %>
