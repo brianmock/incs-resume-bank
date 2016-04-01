@@ -12,7 +12,7 @@
 
   <% if session[:user_id] == nil %>
     <div class="main-container">
-      <%= button_to "Candidate Resume Bank & Fair Registration", users_new_teacher_path, method: :get, class: "btn btn-info main-btn"%>
+      <%= button_to "Candidate Resume Bank Registration", users_new_teacher_path, method: :get, class: "btn btn-info main-btn"%>
     </div>
     <div class="main-container">
       <%= button_to "School Leader Resume Bank Registration", users_new_school_path, method: :get, class: "btn btn-info main-btn"%>
@@ -21,12 +21,20 @@
 
   <h2 class="topic">
   <br>
-  2016 INCS Teacher Job Fair
+  2016 INCS Teacher Job Fair and Resume Bank
   </h2>
 
-  <p class="main-content">The Illinois Network of Charter Schools (INCS) will host our 11th annual Teacher Job Fair on Saturday, March 5, 2016 at UNO Charter School Network (UCSN) Veterans Memorial Campus. Representatives from the state’s charter schools will be on hand to recruit hundreds of teachers, social workers, counselors, nurses, and other administrators. INCS seeks highly qualified candidates who are excited to work in a mission-drive environment and to TEACH, LEAD, and SUCCEED.</p>
+  <p class="main-content">
+    The Illinois Network of Charter Schools (INCS) hosted our 11th annual Teacher Job Fair on Saturday, March 5, 2016 at UNO Charter School Network (UCSN) Veterans Memorial Campus. Representatives from the state’s charter schools were on hand to recruit hundreds of teachers, social workers, counselors, nurses, and other administrators. INCS continues to seek highly qualified candidates who are excited to work in a mission-drive environment and to TEACH, LEAD, and SUCCEED. To upload your resume into our <span style="text-decoration: underline">year-round database</span>, please select “Candidate Resume Bank Registration” above.
+  </p>
 
   <p class="main-content">
+    If you have any questions, please contact Stephanie Arias, INCS Charter Support Manager, at <%=mail_to("SArias@incschools.org")%>
+  </p>
+
+<!--   <p class="main-content">The Illinois Network of Charter Schools (INCS) will host our 11th annual Teacher Job Fair on Saturday, March 5, 2016 at UNO Charter School Network (UCSN) Veterans Memorial Campus. Representatives from the state’s charter schools will be on hand to recruit hundreds of teachers, social workers, counselors, nurses, and other administrators. INCS seeks highly qualified candidates who are excited to work in a mission-drive environment and to TEACH, LEAD, and SUCCEED.</p> -->
+
+ <!--  <p class="main-content">
     <strong>Teachers have the opportunity to:</strong>
     <ul class="main-content-list">
       <li>Meet recruiters from over 50 public charter schools representing over 120 campuses</li>
@@ -109,13 +117,10 @@
   <p class="main-content">
     ATTENTION teacher preparation programs and schools of education: We are always looking for more recruitment partners that can support our outreach to teachers. Please consider sharing our site with highly qualified candidates.
   </p>
+ -->
 
-  <p class="main-content">
-    If you have any questions or would like to receive a 2016 Teacher Job Fair flyer, please contact Stephanie Arias, INCS Charter Support Manager, at <%=mail_to("SArias@incschools.org")%>
-  </p>
-
-  <p class="disclaimer">
+<!--   <p class="disclaimer">
     *This activity or event is not sponsored by, associated with, or endorsed by the UNO Charter School Network Inc., or its affiliates.
-  </p>
+  </p> -->
 
 </div>

@@ -5,5 +5,6 @@
   <label>Name:</label> <%= user.first_name %> <%= user.last_name %><br>
   <label>School: </label> <%= user.school %><br>
   <label>Email:</label> <%= user.email %><br>
+  <%= button_to "Delete", user, method: :delete, class: "btn btn-danger" %>
 </div>
 <% end %>
