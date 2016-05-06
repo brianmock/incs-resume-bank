@@ -6,8 +6,8 @@
   <label>Email:</label> <%= user.email %><br>
   <label>Registered:</label> <% if user.register == 'bank' %> No <% else %> Yes <% end %><br>
   <label>Active:</label> <% if user.is_active? %> Yes <% else %> No
-  <%= button_to "Delete", user, method: :delete, class: "btn btn-danger" %>
   <% end %>
+  <%= button_to "Delete", user, method: :delete, class: "btn btn-danger" %>
 </div>
 <% end %>
 
