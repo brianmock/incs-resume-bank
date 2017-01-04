@@ -88,12 +88,6 @@ body > div > table > thead > tr > th{
 .centered {
   width:100%;
 }
-.main-container {
-  display: inline-block;
-  margin-left: 12%;
-  font-size:45px;
-  background-color: #fff
-}
 
 .main-btn {
   width:230px;

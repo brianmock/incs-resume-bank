@@ -15,12 +15,13 @@ Rails.application.routes.draw do
 
   get 'users/teachers' => 'users#show_all_teachers'
   get 'users/teachers-csv' => 'users#download_teachers'
+  get 'users/search' => 'users#search'
   resources :users
 
 
+  post 'users/search' => 'users#search'
   post 'users/password_reset' => 'users#password_reset'
   post 'users/sendpass' => 'users#sendpass'
-  post 'users/search' => 'users#search'
   post 'users/export' => 'users#export'
 
   resources :resumes, only: [:index, :new, :create, :destroy, :update]
