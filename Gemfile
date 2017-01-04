@@ -23,6 +23,10 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# pagination gem
+gem 'will_paginate', '~> 3.1.0'
+
+# emailing gem
 gem 'carrierwave', '~> 0.9'
 
 gem 'bootstrap-sass', '~> 3.2.0'
@@ -48,6 +52,8 @@ gem 'rails_12factor', group: :production
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  # Add readline gem to fix console error
+  gem 'rb-readline'
 end
 
 group :development do

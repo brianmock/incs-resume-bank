@@ -3,6 +3,7 @@
     <%= flash[:notice] %>
   </div>
 <% end %>
+<h3><%= @users.count %> Results:</h3>
 <% @users.each do |user| %>
 <div class="result">
   <br>
