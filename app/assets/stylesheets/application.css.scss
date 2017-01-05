@@ -21,6 +21,7 @@ body {
 }
 
 .topic {
+  text-align: center;
   color: #005088;
   font-weight: bold;
 }
@@ -28,6 +29,7 @@ body {
 .main-content {
   font-size: 1.2em;
   color: #717171;
+  text-align: justify;
 }
 
 .main-content-list {
@@ -196,15 +198,16 @@ body > div > table > thead > tr > th {
 }
 
 .centered {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
 .main-container {
-  display: inline-block;
-  margin-left: 10%;
+  display: flex;
+  justify-content: space-around;
   font-size: 45px;
   background-color: #fff;
-  margin-top: -20px;
 }
 
 .main-btn {
@@ -219,6 +222,7 @@ body > div > table > thead > tr > th {
 }
 
 .main-header {
+  color: #005088;
   text-align: center;
   position: relative;
   bottom: 35px;
@@ -233,8 +237,6 @@ body > div > table > thead > tr > th {
   padding-left: 10px;
   margin-bottom: 10px;
 }
-
-.main-header {}
 
 .footer {
   position: fixed;
@@ -384,4 +386,16 @@ body > div > table > tbody > tr > td {
 
 .highlights {
   text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 10px;
+}
+
+.alert {
+  flex: 1;
+  text-align: center;
+  display: inline-block;
 }

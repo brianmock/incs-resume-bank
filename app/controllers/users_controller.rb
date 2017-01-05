@@ -117,11 +117,15 @@ class UsersController < ApplicationController
       @users = @users.select {|user| user.location_pref == "Chicago or Greater Illinois"}
     end
 
-    @users = @users.select {|user| user.is_active?}
-
     respond_to do |format|
-      format.html { render :index }
-      format.csv {send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
+      format.html { 
+        @users = @users.select {|user| user.is_active?}.paginate(page: params[:page], per_page: 25)
+        render :index
+      }
+      format.csv {
+        @users = @users.select {|user| user.is_active?}
+        send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"
+      }
     end
   end
 
@@ -382,10 +386,19 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_pending_url, notice: 'User was successfully deleted.' }
-      format.json { head :no_content }
+    if (@user.id == session[:user_id])
+      session[:user_id] = nil
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to '/', notice: 'User was successfully deleted.' }
+        format.json { head :no_content }
+      end
+    else
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to users_pending_url, notice: 'User was successfully deleted.' }
+        format.json { head :no_content }
+      end
     end
   end
 
