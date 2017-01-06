@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <h2>Please fill out the form below to register.</h2><br>
+  <h3>Please fill out the form below to register as a Candidate.</h3><br>
 
   <%= f.hidden_field :access, value: "teacher" %>
   <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
