@@ -100,7 +100,7 @@ body > div > table > thead > tr > th {
   border-color: transparent;
 }
 
-.btn:hover {
+.btn-primary:hover {
   background-color: #015896;
   color: #fff;
   border-color: transparent;
@@ -111,6 +111,16 @@ body > div > table > thead > tr > th {
   margin-bottom: 25px;
   max-width: 750px;
   min-width: 750px;
+}
+
+.new_user {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit_user {
+  display: flex;
+  flex-direction: column;
 }
 
 .additional-info {
@@ -139,19 +149,15 @@ body > div > table > thead > tr > th {
 }
 
 .field3 {
-  margin-top: 20px;
 }
 
 .field4 {
-  margin-top: 50px;
 }
 
 .field5 {
-  margin-top: 560px;
 }
 
 .field6 {
-  margin-top: 650px;
 }
 
 .field7 {
@@ -163,13 +169,21 @@ body > div > table > thead > tr > th {
 }
 
 .field8 {
-  margin-top: 1510px;
 }
 
 .form-control {
-  max-width: 350px;
+  max-width: 250px;
 }
 
+.form-control-tiny {
+  max-width: 50px;
+  margin-left: 5px;
+}
+
+.form-control-small {
+  max-width: 150px;
+  margin-left: 5px;
+}
 
 /*labels*/
 
@@ -195,6 +209,11 @@ body > div > table > thead > tr > th {
 
 .teacher-label2 {
   width: 22%;
+}
+
+.teacher-label3 {
+  margin-top: 5px;
+  width: 52%;
 }
 
 .centered {
@@ -302,7 +321,44 @@ body > div > table > thead > tr > th {
 }
 
 .field {
+  flex: 1;
   padding-bottom: 4px;
+}
+
+.field_with_errors {
+  flex: 1;
+  padding-bottom: 4px;
+}
+
+.field_with_errors input {
+  border: 1px solid red;
+}
+
+.field-flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.field-radio {
+  display: flex;
+  position: relative;
+  left: 40px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.field-radio input[type="radio"], input[type="checkbox"], input[type="text"] {
+  margin: 0px 4px 0px 0px;
+}
+
+.field-radio label {
+  margin: 0;
+  margin-right: 4px;
+}
+.select-label {
+  margin-top: 5px;
+  width: 15%;
 }
 
 .resume {
@@ -349,6 +405,18 @@ body > div > table > thead > tr > th {
 
 .btn-danger {
   background-color: #652D88;
+  border-color: transparent;
+}
+
+.btn-danger:hover {
+  background-color: #9a45cc;
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn-info:hover {
+  background-color: #e01a9e;
+  color: #fff;
   border-color: transparent;
 }
 

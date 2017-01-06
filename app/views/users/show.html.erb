@@ -72,7 +72,7 @@
 
 <% if @current_user.access == "teacher" && @current_user.id == @user.id %>
   <div class="actions">
-    <%= button_to "Edit Information", edit_user_path, :class => "btn", :method => :get %>
+    <%= button_to "Edit Information", edit_user_path, :class => "btn btn-primary", :method => :get %>
     <%= button_to "Delete Profile", @current_user, :class => "btn btn-danger", :method => :delete, :confirm => 'Are you sure you want to remove yourself from the INCS Resume Bank?' %>
   </div>
 <% end %>
