@@ -259,6 +259,7 @@ class UsersController < ApplicationController
           UserMailer.teacher_email(@user).deliver_now
           format.html { redirect_to new_resume_path(@resume) }
         elsif @user.access == "pending"
+          UserMailer.steph_email(@user).deliver_now
           UserMailer.school_email(@user).deliver_now
           format.html { redirect_to root_path }
         end

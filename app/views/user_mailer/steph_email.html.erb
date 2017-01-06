@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>HEY STEPH!</h1>
+    <p>This school leader just signed up:</p>
+    <ul>
+      <li>Name: <%= @user.first_name %> <%= @user.last_name %></li>
+      <li>School: <%= @user.school %></li>
+      <li>Email: <%= @user.email %></li>
+    </ul>
+    <p>Sincerely,<br><br>
+      Automated email
+    </p>
+  </body>
+</html>
