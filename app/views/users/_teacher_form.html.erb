@@ -15,28 +15,77 @@
 
   <%= f.hidden_field :access, value: "teacher" %>
   <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
-  <div class="field">
-    <em><%= f.label :prefix, :class => "teacher-label" %></em>
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label :prefix %></em>
     <%= f.text_field :prefix, class: 'tiny-field' %><br>
-    <em><%= f.label(:name, "First name*", :class => "teacher-label") %></em>
+  </div>
+  <div class="field-flex">
+    <em class="teacher-label"><%= f.label(:name, "First name*") %></em>
     <%= f.text_field :first_name %><br>
-    <em><%= f.label(:name, "Last name*", :class => "teacher-label") %></em>
+  </div>
+  <div class="field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Last name*") %></em>
     <%= f.text_field :last_name %>
-  </div><br>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Email *") %></em>
+    <%= f.text_field :email, class: 'med-field' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Password *") %></em>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label :phone_number %></em>
+    <%= f.phone_field :phone_number %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Address Line 1") %></em>
+    <%= f.text_field :street, class: 'long-field' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Address Line 2") %></em>
+    <%= f.text_field :street_second, class: 'long-field' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label :city %></em>
+    <%= f.text_field :city %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label :zip %></em>
+    <%= f.text_field :zip, class: 'tiny-field' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="select-label"><%= f.label :state %></em>
+    <%= f.select :state, options_for_select(us_states,@user.state),{}, class: 'form-control' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="select-label"><%= f.label :country %></em>
+    <%= f.select :country, options_for_select(countries,@user.country),{}, class: 'form-control' %>
+  </div><br><br>
 
 <!--   <div class="field">
     <em>
     <%= f.label(:name, "Please select the option that best fits you*") %></em><br>
     <%= f.radio_button(:register, "both") %>
-    <%= f.label :name, class: 'label-align' do "I would like to add my resume to the INCS Online Resume Bank AND would like this to serve as my registration for the #{link_to('2016 Teacher Job Fair', 'https://www.incschools.org/events/tjf/')} on March 5th, 2016.".html_safe  end%>
+    <%= f.label :name, class: 'label-align' do "I would like to add my resume to the INCS Online Resume Bank AND would like this to serve as my registration for the #{link_to('2017 Teacher Job Fair', 'https://www.incschools.org/events/tjf/')} on March 5th, 2017.".html_safe  end%>
     <%= f.radio_button(:register, "bank", class: 'label-up') %>
     <%= f.label(:name, "I would like to add my resume to the INCS Online Resume Bank only.", class: 'label-up') %><br>
     <%= f.radio_button(:register, "jobfaironly", class: 'label-up') %>
-    <%= f.label(:name, "I would only like to register for the 2016 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.", class: 'label-align label-up2') %>
+    <%= f.label(:name, "I would only like to register for the 2017 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.", class: 'label-align label-up2') %>
   </div> -->
 
   <div class="field">
-    <label><em>How did you hear about the 2016 INCS Resume Bank? (Check all that apply.)*</em></label><br>
+    <label><em>How did you hear about the 2017 INCS Job Fair? (Check all that apply.)*</em></label><br>
     <ul class="checkbox-grid2">
       <% Source.all.each do |source| %>
         <% if @user.sources.pluck(:source_name).include?(source.source_name) %>
@@ -48,58 +97,12 @@
       <% end %>
     </ul>
   </div>
-  <label></label>
   <div class="field2">
     <input type="checkbox" name="sources[]" value=""/>
     <label>Other (please specify so that we may thank our partners)</label>
     <input type="text" name="add-sources" value="" /><br>
   </div>
-    <label></label><br><br>
-
-  <div class="field field3">
-    <em><%= f.label(:name, "Email *", :class => "teacher-label") %></em>
-    <%= f.text_field :email, class: 'med-field' %>
-  </div>
-
-  <div class="field">
-    <em><%= f.label(:name, "Password *", :class => "teacher-label") %></em>
-    <%= f.password_field :password %>
-  </div>
-
-  <div class="field">
-    <em><%= f.label :phone_number, :class => "teacher-label" %></em>
-    <%= f.phone_field :phone_number %>
-  </div>
-
-  <div class="field">
-    <em><%= f.label(:name, "Address Line 1", :class => "teacher-label") %></em>
-    <%= f.text_field :street, class: 'long-field' %>
-  </div>
-
-  <div class="field">
-    <em><%= f.label(:name, "Address Line 2", :class => "teacher-label") %></em>
-    <%= f.text_field :street_second, class: 'long-field' %>
-  </div>
-
-  <div class="field">
-    <em><%= f.label :city, :class => "teacher-label" %></em>
-    <%= f.text_field :city %>
-  </div>
-
-  <div class="field">
-    <em><%= f.label :zip, :class => "teacher-label" %></em>
-    <%= f.text_field :zip, class: 'tiny-field' %>
-  </div>
-
-  <div class="field">
-    <em><%= f.label :state, :class => "teacher-label" %></em>
-    <%= f.select :state, options_for_select(us_states,@user.state),{}, class: 'form-control' %>
-  </div>
-
-  <div class="field">
-    <em><%= f.label :country, :class => "teacher-label" %></em>
-    <%= f.select :country, options_for_select(countries,@user.country),{}, class: 'form-control' %>
-  </div><br><br>
+  <br>
 
   <div class="field">
     <label><em>What type of position are you looking for? (Check all that apply) *</em></label><br>
@@ -114,44 +117,52 @@
     <% end %>
     </ul>
   </div>
-  <label></label>
   <div class="field2">
     <input type="checkbox" name="positions[]" value=""/>
     <label>Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-positions" value="" />
   </div>
-  <label></label><br>
-
-  <div class="field field4">
+  <br>
+  <div class="field">
     <em>
     <%= f.label(:name, "Are you licensed to teach in Illinois? *") %></em><br>
-    <%= f.radio_button(:il_licensed, "Yes") %>
-    <%= f.label(:name, "Yes") %><br>
-    <%= f.radio_button(:il_licensed, "No") %>
-    <%= f.label(:name, "No") %><br>
-    <%= f.radio_button(:il_licensed, "Other") %>
-    <%= f.label(:name, "I am licensed in another state.")%>
-    <%= link_to "Click here for Illinois license information", "/uploads/licCheatSheet.pdf" %>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "Yes") %>
+      <%= f.label(:name, "Yes") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "No") %>
+      <%= f.label(:name, "No") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "Other") %>
+      <%= f.label(:name, "I am licensed in another state.")%>
+      <%= link_to "Click here for Illinois license information", "/uploads/licCheatSheet.pdf" %>
+    </div>
   </div>
   <br>
 
   <div class="field">
     <label><em>What type of license do you hold? (Check all that apply) *</em></label><br>
     <% License.all.each do |lic| %>
-      <% if @user.licenses.pluck(:name).include?(lic.name) %>
-        <input type="checkbox" name="licenses[]" value="<%= lic.name %>" checked/>
-      <% else %>
-        <input type="checkbox" name="licenses[]" value="<%= lic.name %>" />
-      <% end %>
-    <label><%= lic.name %></label><br>
+      <div class="field-radio">
+        <% if @user.licenses.pluck(:name).include?(lic.name) %>
+          <input type="checkbox" name="licenses[]" value="<%= lic.name %>" checked/>
+        <% else %>
+          <input type="checkbox" name="licenses[]" value="<%= lic.name %>" />
+        <% end %>
+        <label><%= lic.name %></label><br>
+      </div>
     <% end %>
-    <input type="checkbox" name="licenses[]" value=""/>
-    <label>Other (if multiple, separate with a comma)</label>
-    <input type="text" name="add-licenses" value="" />
+    <div class="field-radio">
+      <input type="checkbox" name="licenses[]" value=""/>
+      <label>Other (if multiple, separate with a comma)</label>
+      <input type="text" name="add-licenses" value="" />
+    </div>
   </div><br>
 
-  <div class="field">
-    <em><%= f.label :degree %></em>
+  <div class="field field-flex">
+    <em class="teacher-label2"><%= f.label :degree %></em>
     <%= f.select :degree, options_for_select(degrees),{}, class: 'form-control' %>
   </div><br>
 
@@ -182,25 +193,28 @@
     <label>Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-endorses" value="" />
   </div><br>
-      <label></label><br>
 
-  <div class="field field6">
-    <em><%= f.label(:name, "Years of Teaching/School Administration Experience *") %></em>
-    <%= f.select :years, options_for_select(exp_years, @user.years),{}, class: 'form-control' %>
+  <div class="field field-flex">
+    <em class="teacher-label3"><%= f.label(:name, "Years of Teaching/School Administration Experience *") %></em>
+    <%= f.select :years, options_for_select(exp_years, @user.years),{}, class: 'form-control form-control-tiny' %>
   </div><br>
 
-  <div class="field">
-    <em><%= f.label(:name, "Preferred Grade Level") %></em>
-    <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control' %>
+  <div class="field field-flex">
+    <em class="teacher-label3"><%= f.label(:name, "Preferred Grade Level") %></em>
+    <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control form-control-small' %>
   </div><br>
 
   <div class="field">
     <em>
     <%= f.label(:name, "Do you have previous experience in a charter?") %></em><br>
-    <%= f.radio_button(:previous, true) %>
-    <%= f.label(:name, "Yes") %><br>
-    <%= f.radio_button(:previous, false) %>
-    <%= f.label(:name, "No") %><br>
+    <div class="field-radio">
+      <%= f.radio_button(:previous, true) %>
+      <%= f.label(:name, "Yes") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:previous, false) %>
+      <%= f.label(:name, "No") %><br>
+    </div>
   </div><br>
 
   <div class="field">
@@ -218,23 +232,27 @@
       <% end %>
     </ul>
   </div>
-  <label></label>
   <div class="field2">
     <input type="checkbox" name="subs[]" value=""/>
     <label>Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-subs" value="" /><br>
   </div>
-    <label></label><br>
+  <br>
 
   <div class="field field5">
-    <br><br>
     <em><%= f.label(:location_pref, "Where are you willing to teach?") %></em><br>
-    <%= f.radio_button(:location_pref, "Chicago") %>
-    <%= f.label(:name, "Chicago") %><br>
-    <%= f.radio_button(:location_pref, "Non-Chicago, Greater Illinois") %>
-    <%= f.label(:name, "Non-Chicago, Greater Illinois") %><br>
-    <%= f.radio_button(:location_pref, "Chicago or Greater Illinois") %>
-    <%= f.label(:name, "Both") %><br>
+    <div class="field-radio">
+      <%= f.radio_button(:location_pref, "Chicago") %>
+      <%= f.label(:name, "Chicago") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:location_pref, "Non-Chicago, Greater Illinois") %>
+      <%= f.label(:name, "Non-Chicago, Greater Illinois") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:location_pref, "Chicago or Greater Illinois") %>
+      <%= f.label(:name, "Both") %><br>
+    </div>
   </div><br>
 
   <div class="field">

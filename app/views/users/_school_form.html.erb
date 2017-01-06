@@ -12,16 +12,24 @@
   <% end %>
 
   <%= f.hidden_field :access, value: "pending" %>
-  <div class="field">
-    <%= f.label :first_name %><br>
+  <div class="field field-flex">
+    <%= f.label :first_name, :class => 'teacher-label' %><br>
     <%= f.text_field :first_name, size: 45 %><br>
-    <%= f.label :last_name %><br>
+  </div>
+  <div class="field field-flex">
+    <%= f.label :last_name, :class => 'teacher-label' %><br>
     <%= f.text_field :last_name, size: 45 %><br>
-    <%= f.label :school %><br>
+  </div>
+  <div class="field field-flex">
+    <%= f.label :school, :class => 'teacher-label' %><br>
     <%= f.text_field :school, size: 60 %><br>
-    <%= f.label :email %><br>
+  </div>
+  <div class="field field-flex">
+    <%= f.label :email, :class => 'teacher-label' %><br>
     <%= f.text_field :email, size: 45 %><br>
-    <%= f.label :password %><br>
+  </div>
+  <div class="field field-flex">
+    <%= f.label :password, :class => 'teacher-label' %><br>
     <%= f.password_field :password %><br>
   </div>
 
