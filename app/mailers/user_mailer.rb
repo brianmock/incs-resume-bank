@@ -13,6 +13,11 @@ class UserMailer < ApplicationMailer
     mail(to:@user.email, subject: 'Thank you for registering + 2016 Teacher Job Fair!')
   end
 
+  def steph_email(user)
+    @user = user
+    mail(to:'sarias@incschools.org', subject: 'New school leader signed up for resume bank')
+  end
+
   def school_activated_email(user)
     @user = user
     @url = "http://www.teacherjobfair.org"
