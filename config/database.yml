@@ -23,6 +23,7 @@ default: &default
 
 development:
   <<: *default
+  username: brianmock
   database: incs-resume-bank_development
 
   # The specified database role being used to connect to postgres.
