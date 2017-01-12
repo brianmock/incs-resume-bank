@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
   def register
     @current_user = User.find(session[:user_id])
-    if @current_user.register2017 == 'bank'
+    if @current_user.register2017 == 'bank' || @current_user.register2017 == nil
       @current_user.register2017 = 'both'
       @current_user.save
       redirect_to root_path, notice: 'You have been registered for the 2017 INCS Teacher Job Fair'
@@ -174,7 +174,7 @@ class UsersController < ApplicationController
         if params["sources"]
           params["sources"].each do |source|
             next if source == ""
-            @user.sources << Source.find_by(source_name: source)
+            @user.sources << Source.find_or_create_by(source_name: source)
           end
         end
         if params["add-sources"]

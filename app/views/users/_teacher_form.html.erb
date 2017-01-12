@@ -93,13 +93,13 @@
   <div class="field">
     <label><em class="label-bold">How did you hear about the 2017 INCS Job Fair? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
-      <% Source.all.order(:source_name).each do |source| %>
-        <% if @user.sources.pluck(:source_name).include?(source.source_name) %>
-          <li><input type="checkbox" name="sources[]" value="<%= source.source_name %>" checked/>
+      <% resume_bank_references.each do |source| %>
+        <% if @user.sources.pluck(:source_name).include?(source) %>
+          <li><input type="checkbox" name="sources[]" value="<%= source %>" checked/>
         <% else %>
-          <li><input type="checkbox" name="sources[]" value="<%= source.source_name %>" />
+          <li><input type="checkbox" name="sources[]" value="<%= source %>" />
         <% end %>
-        <label><%= source.source_name %></label></li>
+        <label><%= source %></label></li>
       <% end %>
     </ul>
   </div>

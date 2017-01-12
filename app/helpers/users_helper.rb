@@ -1,4 +1,24 @@
 module UsersHelper
+
+  def resume_bank_references
+    [
+      'Flyer',
+      'INCS website',
+      'INCS email',
+      'INCS twitter',
+      'INCS facebook',
+      'Linkedin',
+      'Friend or colleague',
+      'Idealist',
+      'Indeed',
+      'Austin Weekly',
+      'Wednesday Journal',
+      'NPO',
+      'DNA Info',
+      'Eventbrite',
+      'Surge Institute'
+    ]
+  end
   def us_states
     [
       ['Alabama', 'AL'],
