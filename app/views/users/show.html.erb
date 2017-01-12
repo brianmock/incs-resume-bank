@@ -54,7 +54,7 @@
 <h3>Job Seeker Details</h3>
 <label>Name:</label> <%= @user.prefix == 'N/A' ? '' : @user.prefix%> <%= @user.first_name%> <%=@user.last_name%><br>
 <label>Email:</label> <%= @user.email%><br>
-<label>Registered for Job Fair:</label> <% if @user.register2017 != "bank" %>Yes<% else %>No<%end%><br>
+<label>Registered for Job Fair:</label> <% if @user.register2017 == "jobfaironly" || @user.register2017 == "both" %>Yes<% else %>No<%end%><br>
 <label>Phone:</label> <%= @user.phone_number %><br>
 <label>City of Residence:</label> <%= @user.city %><br>
 <label>Licensed in Illinois:</label> <% if @user.il_licensed != "Other" %><%= @user.il_licensed %><% else %>Licensed in different state<% end %><br>
