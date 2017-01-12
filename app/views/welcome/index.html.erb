@@ -17,6 +17,12 @@
     </div>
   <% end %>
 
+  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'teacher' && User.find(session[:user_id]).register2017 == 'bank' %>
+    <div class="main-container">
+    <%= button_to "Register for Job Fair", users_register_path, method: :post, class: "btn btn-info main-btn" %>
+    </div>
+  <% end %>
+
   <h2 class="topic">
     <br>
     2017 INCS Teacher Job Fair
@@ -69,13 +75,15 @@
     <li>The school is also accessible by public transportation. It is approximately .5 mile southwest of the Belmont Blue Line stop and is easily accessible via CTA Bus #56 Milwaukee.</li>
   </ul>
 
-  <div class="main-container">
-    <%= button_to "School Leader Registration", "https://docs.google.com/forms/d/e/1FAIpQLSd2POlBM9yr-WfNbRYFOhnTAZCNg8mfF8gFhfSNKCEm2RACsw/viewform?c=0&w=1", method: :get, class: "btn btn-info main-btn" %>
-    <%= button_to "Candidate Registration", users_new_teacher_path, method: :get, class: "btn btn-info main-btn" %>
-  </div>
+  <% if session[:user_id] == nil %>
+    <div class="main-container">
+      <%= button_to "Candidate Registration", users_new_teacher_path, method: :get, class: "btn btn-info main-btn" %>
+      <%= button_to "School Leader Registration", "https://docs.google.com/forms/d/e/1FAIpQLSd2POlBM9yr-WfNbRYFOhnTAZCNg8mfF8gFhfSNKCEm2RACsw/viewform?c=0&w=1", method: :get, class: "btn btn-info main-btn" %>
+    </div><br>
+  <% end %>
 
-  <p class="main-content"><br>Click <a href="https://www.facebook.com/media/set/?set=a.10152791985156379.1073741839.91629716378&type=1">here</a> to view photos of our 2015 INCS Teacher Job Fair, where recruiters from <em>over 120 Illinois charter public school campuses met with</em> highly-qualified applicants for more than <em>500</em> teaching, school leadership, social work, school nurse and administrative positions.
-  </p>
+  <%# <p class="main-content"><br>Click <a href="https://www.facebook.com/media/set/?set=a.10152791985156379.1073741839.91629716378&type=1">here</a> to view photos of our 2015 INCS Teacher Job Fair, where recruiters from <em>over 120 Illinois charter public school campuses met with</em> highly-qualified applicants for more than <em>500</em> teaching, school leadership, social work, school nurse and administrative positions. %>
+  <%# </p> %>
 
   <p class="main-content">
   ATTENTION teacher preparation programs and schools of education: INCS is seeking recruitment partners to support our outreach efforts. Please consider sharing our site with highly qualified candidates.

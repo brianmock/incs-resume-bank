@@ -398,4 +398,13 @@ module UsersHelper
           "High School (9th-12th)"
         ]
   end
+
+  def prefixes
+    [
+      "N/A",
+      "Mr.",
+      "Ms.",
+      "Mrs."
+    ]
+  end
 end

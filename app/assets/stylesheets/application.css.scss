@@ -20,6 +20,10 @@ body {
   margin-bottom: -25px;
 }
 
+label {
+  font-weight: normal;
+}
+
 .topic {
   text-align: center;
   color: #005088;
@@ -41,6 +45,10 @@ body {
   position: relative;
   left: 16px;
   bottom: 20px;
+}
+
+.flex-one {
+  flex: 1;
 }
 
 .label-up {
@@ -205,15 +213,25 @@ body > div > table > thead > tr > th {
 
 .teacher-label {
   width: 15%;
+  font-weight: bold;
 }
 
 .teacher-label2 {
   width: 22%;
+  font-weight: bold;
 }
 
 .teacher-label3 {
   margin-top: 5px;
   width: 52%;
+  font-weight: bold;
+}
+
+em label {
+  font-weight: bold !important;
+}
+.label-bold {
+  font-weight: bold !important;
 }
 
 .centered {

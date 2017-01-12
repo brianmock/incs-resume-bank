@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post 'users/password_reset' => 'users#password_reset'
   post 'users/sendpass' => 'users#sendpass'
   post 'users/export' => 'users#export'
+  post 'users/register' => 'users#register'
 
   resources :resumes, only: [:index, :new, :create, :destroy, :update]
   root "welcome#index"
