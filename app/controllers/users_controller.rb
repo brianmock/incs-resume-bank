@@ -16,6 +16,18 @@ class UsersController < ApplicationController
 
   end
 
+  def register
+    @current_user = User.find(session[:user_id])
+    if @current_user.register2017 == 'bank'
+      @current_user.register2017 = 'both'
+      @current_user.save
+      redirect_to root_path, notice: 'You have been registered for the 2017 INCS Teacher Job Fair'
+    else
+      redirect_to root_path, notice: 'You have already registered for the 2017 INCS Teacher Job Fair'
+    end
+
+  end
+
   def sendpass
     if User.find_by(email: params['email'])
       @user = User.find_by(email: params['email'])
@@ -107,7 +119,7 @@ class UsersController < ApplicationController
       @users = @users.select {|user| user.grade_pref == params["grade_pref"]}
     end
     if params["registered"] == "Yes"
-      @users = @users.select {|user| user.register != "bank"}
+      @users = @users.select {|user| user.register2017 == "both"}
     end
     if params["location_pref"] == "Chicago"
       @users = @users.select {|user| user.location_pref == "Chicago"}

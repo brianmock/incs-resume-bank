@@ -5,7 +5,7 @@
 <div class="result">
   <label>Name:</label> <%= user.first_name %> <%= user.last_name %><br>
   <label>Email:</label> <%= user.email %><br>
-  <label>Registered:</label> <% if user.register == 'bank' %> No <% else %> Yes <% end %><br>
+  <label>Registered for 2017 Job Fair:</label> <% if user.register2017 == 'bank' %> No <% else %> Yes <% end %><br>
   <label>Active:</label> <% if user.is_active? %> Yes <% else %> No
   <% end %>
   <%= button_to "Delete", user, method: :delete, class: "btn btn-danger" %>
