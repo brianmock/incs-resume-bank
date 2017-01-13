@@ -6,8 +6,8 @@
     <label><em>What type of position are you looking for? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
     <% Position.all.each do |pos| %>
-        <li><input type="checkbox" name="positions[]" value="<%= pos.title %>" />
-    <label><%= pos.title %></label></li>
+        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos.title %>" />
+    <label class="flex-one"><%= pos.title %></label></li>
     <% end %>
     </ul>
   </div>
@@ -44,8 +44,8 @@
     <em><%= label_tag(:name, "What subjects are you interested in hiring for? (Check all that apply)") %></em><br>
     <ul class="checkbox-grid">
       <% Subject.all.order(:subject).each do |subj| %>
-        <li><input type="checkbox" name="subjects[]" value="<%= subj.subject %>" />
-        <label><%= subj.subject %></label></li>
+        <li class="field-flex"><input type="checkbox" name="subjects[]" value="<%= subj.subject %>" />
+        <label class="flex-one"><%= subj.subject %></label></li>
       <% end %>
     </ul><br>
   </div>

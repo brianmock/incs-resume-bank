@@ -433,7 +433,6 @@ module UsersHelper
       "N/A",
       "Mr.",
       "Ms.",
-      "Mrs."
     ]
   end
 end

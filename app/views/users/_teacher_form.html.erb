@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <h3>Please fill out the form below to register as a Candidate.</h3><br>
+  <h3>Please fill out the form below and select Next at the bottom to upload your resume and complete your registration as a Candidate.</h3><br>
 
   <%= f.hidden_field :access, value: "teacher" %>
   <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
@@ -29,12 +29,12 @@
   </div>
 
   <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "Email *") %></em>
+    <em class="teacher-label"><%= f.label(:name, "Resume Bank Login Email *") %></em>
     <%= f.text_field :email, class: 'med-field' %>
   </div>
 
   <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "Password *") %></em>
+    <em class="teacher-label"><%= f.label(:name, "Resume Bank Login Password *") %></em>
     <%= f.password_field :password %>
   </div>
 
@@ -91,7 +91,7 @@
   </div> 
 
   <div class="field">
-    <label><em class="label-bold">How did you hear about the 2017 INCS Job Fair? (Check all that apply) *</em></label><br>
+    <label><em class="label-bold">How did you hear about the 2017 INCS Teacher Job Fair or Resume Bank? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
       <% resume_bank_references.each do |source| %>
         <% if @user.sources.pluck(:source_name).include?(source) %>
@@ -114,6 +114,29 @@
     <input type="text" name="add-sources" value="" /><br>
   </div>
   <br>
+
+  <div class="field field-flex">
+    <em class="teacher-label3"><%= f.label(:name, "Years of Teaching/School Administration Experience *") %></em>
+    <%= f.select :years, options_for_select(exp_years, @user.years),{}, class: 'form-control form-control-tiny' %>
+  </div><br>
+
+  <div class="field field-flex">
+    <em class="teacher-label3"><%= f.label(:name, "Preferred Grade Level") %></em>
+    <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control form-control-small' %>
+  </div><br>
+
+  <div class="field">
+    <em class="label-bold">
+    <%= f.label(:name, "Do you have previous experience in a charter?") %></em><br>
+    <div class="field-radio">
+      <%= f.radio_button(:previous, true) %>
+      <%= f.label(:name, "Yes") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:previous, false) %>
+      <%= f.label(:name, "No") %><br>
+    </div>
+  </div><br>
 
   <div class="field">
     <label><em class="label-bold">Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
@@ -228,28 +251,6 @@
     <input type="text" name="add-endorses" value="" />
   </div><br>
 
-  <div class="field field-flex">
-    <em class="teacher-label3"><%= f.label(:name, "Years of Teaching/School Administration Experience *") %></em>
-    <%= f.select :years, options_for_select(exp_years, @user.years),{}, class: 'form-control form-control-tiny' %>
-  </div><br>
-
-  <div class="field field-flex">
-    <em class="teacher-label3"><%= f.label(:name, "Preferred Grade Level") %></em>
-    <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control form-control-small' %>
-  </div><br>
-
-  <div class="field">
-    <em class="label-bold">
-    <%= f.label(:name, "Do you have previous experience in a charter?") %></em><br>
-    <div class="field-radio">
-      <%= f.radio_button(:previous, true) %>
-      <%= f.label(:name, "Yes") %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:previous, false) %>
-      <%= f.label(:name, "No") %><br>
-    </div>
-  </div><br>
 
 
   <div class="field field5">
@@ -294,7 +295,7 @@
 
   <% if @user.id == nil %>
     <div class="actions">
-      <%= f.submit 'Register', :name => 'submit', :class => "btn btn-info" %>
+      <%= f.submit 'Next', :name => 'submit', :class => "btn btn-info" %>
     </div>
   <% else %>
     <div class="actions">
