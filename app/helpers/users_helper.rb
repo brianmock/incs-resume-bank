@@ -19,6 +19,15 @@ module UsersHelper
       'Surge Institute'
     ]
   end
+
+  def license_choices
+    [
+      'None',
+      'Professional Educator License (PEL)',
+      'Educator License with Stipulations',
+      'Substitute Teaching License'
+    ]
+  end
   def us_states
     [
       ['Alabama', 'AL'],
