@@ -16,9 +16,12 @@ module UsersHelper
       'Front Office',
       'Substitute',
       'Personal Counseling',
-      'Academic Advising',
+      'Culture and Climate (including deans, special projects, etc)',
+      'Academic and Student Advising',
       'Human Resources',
       'Community/Parent Partnerships',
+      'Facilities Maintenance',
+      'Custodian'
     ]
   end
   def resume_bank_references
