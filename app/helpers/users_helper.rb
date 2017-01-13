@@ -21,7 +21,6 @@ module UsersHelper
       'Human Resources',
       'Community/Parent Partnerships',
       'Facilities Maintenance',
-      'Custodian'
     ]
   end
   def resume_bank_references
