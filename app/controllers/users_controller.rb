@@ -377,7 +377,7 @@ class UsersController < ApplicationController
           @user.sources.destroy_all
           params["sources"].each do |source|
             next if source == ""
-            @user.sources << Source.find_by(source_name: source)
+            @user.sources << Source.find_or_create_by(source_name: source)
           end
         end
         if params["more-sources"]
