@@ -3,7 +3,7 @@
 
 <%= form_tag('/users/search', :method => 'get') do %>
   <div class="field">
-    <label><em>Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
+    <label class="label-bold"><em>Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
     <% position_options.sort.each do |pos| %>
         <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
