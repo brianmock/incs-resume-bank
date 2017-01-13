@@ -178,14 +178,14 @@
 
   <div class="field">
     <label><em class="label-bold">What type of license do you hold? (Check all that apply) *</em></label><br>
-    <% License.all.each do |lic| %>
+    <% license_choices.each do |lic| %>
       <div class="field-radio">
-        <% if @user.licenses.pluck(:name).include?(lic.name) %>
-          <input type="checkbox" name="licenses[]" value="<%= lic.name %>" checked/>
+        <% if @user.licenses.pluck(:name).include?(lic) %>
+          <input type="checkbox" name="licenses[]" value="<%= lic %>" checked/>
         <% else %>
-          <input type="checkbox" name="licenses[]" value="<%= lic.name %>" />
+          <input type="checkbox" name="licenses[]" value="<%= lic %>" />
         <% end %>
-        <label><%= lic.name %></label><br>
+        <label><%= lic %></label><br>
       </div>
     <% end %>
     <div class="field-radio">
