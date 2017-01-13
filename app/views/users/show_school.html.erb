@@ -5,9 +5,9 @@
   <div class="field">
     <label><em>What type of position are you looking for? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
-    <% Position.all.each do |pos| %>
-        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos.title %>" />
-    <label class="flex-one"><%= pos.title %></label></li>
+    <% position_options.sort.each do |pos| %>
+        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
+    <label class="flex-one"><%= pos %></label></li>
     <% end %>
     </ul>
   </div>
@@ -45,7 +45,7 @@
     <ul class="checkbox-grid">
       <% Subject.all.order(:subject).each do |subj| %>
         <li class="field-flex"><input type="checkbox" name="subjects[]" value="<%= subj.subject %>" />
-        <label class="flex-one"><%= subj.subject %></label></li>
+        <label style="margin: 0" class="flex-one"><%= subj.subject %></label></li>
       <% end %>
     </ul><br>
   </div>
