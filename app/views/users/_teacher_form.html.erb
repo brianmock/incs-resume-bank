@@ -141,13 +141,13 @@
   <div class="field">
     <label><em class="label-bold">Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
-    <% Position.all.order(:title).each do |pos| %>
-      <% if @user.positions.pluck(:title).include?(pos.title) %>
-        <li><input type="checkbox" name="positions[]" value="<%= pos.title %>" checked/>
+    <% position_options.sort.each do |pos| %>
+      <% if @user.positions.pluck(:title).include?(pos) %>
+        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" checked/>
       <% else %>
-        <li><input type="checkbox" name="positions[]" value="<%= pos.title %>" />
+        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
       <% end %>
-    <label><%= pos.title %></label></li>
+    <label class="flex-one"><%= pos %></label></li>
     <% end %>
     </ul>
   </div>
