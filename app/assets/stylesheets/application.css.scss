@@ -485,3 +485,9 @@ body > div > table > tbody > tr > td {
   text-align: center;
   display: inline-block;
 }
+
+li.field-flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

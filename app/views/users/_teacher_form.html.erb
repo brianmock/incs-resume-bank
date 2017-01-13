@@ -273,11 +273,11 @@
     <ul class="checkbox-grid2">
     <% Organization.all.order(:name).each do |org| %>
       <% if @user.organizations.pluck(:name).include?(org.name) %>
-        <li><input type="checkbox" name="orgs[]" value="<%= org.name %>" checked/>
+        <li class="field-flex"><input type="checkbox" name="orgs[]" value="<%= org.name %>" checked/>
       <% else %>
-        <li><input type="checkbox" name="orgs[]" value="<%= org.name %>" />
+        <li class="field-flex"><input type="checkbox" name="orgs[]" value="<%= org.name %>" />
       <% end %>
-    <label><%= org.name %></label><br></li>
+    <label class="flex-one"><%= org.name %></label><br></li>
     <% end %>
     </ul>
     </div>
