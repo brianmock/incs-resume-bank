@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <h3>Please fill out the form below and select Next at the bottom to upload your resume and complete your registration as a Candidate.</h3><br>
+  <h3>Please fill out the form below and select "Next" at the bottom to upload your resume and complete your registration as a Candidate.</h3><br>
 
   <%= f.hidden_field :access, value: "teacher" %>
   <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
