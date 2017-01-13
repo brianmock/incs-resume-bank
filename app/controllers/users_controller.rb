@@ -209,7 +209,7 @@ class UsersController < ApplicationController
           if params["positions"]
             params["positions"].each do |pos|
               next if pos == ""
-              @user.positions << Position.find_by(title: pos)
+              @user.positions << Position.find_or_create_by(title: pos)
             end
           end
           if params["add-positions"]
@@ -313,7 +313,7 @@ class UsersController < ApplicationController
           @user.positions.destroy_all
           params["positions"].each do |pos|
             next if pos == ""
-            @user.positions << Position.find_by(title: pos)
+            @user.positions << Position.find_or_create_by(title: pos)
           end
         end
         if params["add-positions"]

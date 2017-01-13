@@ -1,5 +1,26 @@
 module UsersHelper
 
+  def position_options
+    [
+      'College Counseling (including career services and alumni support)',
+      'School Leadership (principal, assistant principal, director, network director, etc)',
+      'Operations ',
+      'Finance',
+      'Social Work',
+      'Special Education (including clinicians, case manager, paraprofessionals, etc) ',
+      'Teaching',
+      'Technology',
+      'Athletic Programs',
+      'Recruitment',
+      'Data',
+      'Front Office',
+      'Substitute',
+      'Personal Counseling',
+      'Academic Advising',
+      'Human Resources',
+      'Community/Parent Partnerships',
+    ]
+  end
   def resume_bank_references
     [
       'Flyer',
