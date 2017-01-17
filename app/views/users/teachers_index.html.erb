@@ -1,4 +1,46 @@
-<h2>All Teachers in Resume Bank:</h2>
+<h2 class="admin-header"><%= @header %>:</h2>
+<ul class="admin-buttons-list">
+  <li class="admin-button">
+    <% if @filter == 'bank-only' %>
+      <a href="/users/teachers/?filter=bank-only"><button class="btn btn-info btn-active">Resume Bank Only</button></a>
+    <% else %>
+      <a href="/users/teachers/?filter=bank-only"><button class="btn btn-info">Resume Bank Only</button></a>
+    <% end %>
+  </li>
+  <li class="admin-button">
+    <% if @filter == '2017-job-fair' %>
+      <a href="/users/teachers/?filter=2017-job-fair"><button class="btn btn-info btn-active">2017 Teacher Job Fair Registrants</button></a>
+    <% else %>
+      <a href="/users/teachers/?filter=2017-job-fair"><button class="btn btn-info">2017 Teacher Job Fair Registrants</button></a>
+    <% end %>
+  </li>
+  <li class="admin-button">
+    <% if @filter == '2016-job-fair' %>
+      <a href="/users/teachers/?filter=2016-job-fair"><button class="btn btn-info btn-active">2016 Teacher Job Fair Registrants</button></a>
+    <% else %>
+      <a href="/users/teachers/?filter=2016-job-fair"><button class="btn btn-info">2016 Teacher Job Fair Registrants</button></a>
+    <% end %>
+  </li>
+  <li class="admin-button">
+    <% if @filter == '2017-job-fair-only' %>
+      <a href="/users/teachers/?filter=2017-job-fair-only"><button class="btn btn-info btn-active">2017 Job Fair Only Registrants</button></a>
+    <% else %>
+      <a href="/users/teachers/?filter=2017-job-fair-only"><button class="btn btn-info">2017 Job Fair Only Registrants</button></a>
+    <% end %>
+  </li>
+  <li class="admin-button">
+    <% if @filter == '2016-job-fair-only' %>
+      <a href="/users/teachers/?filter=2016-job-fair-only"><button class="btn btn-info btn-active">2016 Job Fair Only Registrants</button></a>
+    <% else %>
+      <a href="/users/teachers/?filter=2016-job-fair-only"><button class="btn btn-info">2016 Job Fair Only Registrants</button></a>
+    <% end %>
+  </li>
+</ul>
+<ul class="admin-buttons-list">
+  <li class="admin-clear-button">
+      <a href="/users/teachers/"><button class="btn btn-info">Clear Filters</button></a>
+  </li>
+</ul>
 <h3><%= @users.count %> Results</h3>
 
 <% @users.each do |user| %>
