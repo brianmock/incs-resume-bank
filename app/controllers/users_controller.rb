@@ -87,8 +87,11 @@ class UsersController < ApplicationController
   end
 
   def show_all_schools
-    @users = User.where('access' => 'school')
-    render :schools_index
+    @users = User.where('access' => 'school').order(:school)
+    respond_to do |format|
+      format.html { render :schools_index }
+      format.csv {send_data User.school_to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
+    end
   end
 
   def show_all_teachers

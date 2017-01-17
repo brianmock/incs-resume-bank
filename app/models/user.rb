@@ -31,6 +31,19 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.school_to_csv(results)
+    attributes = ['first_name', 'last_name', 'email','school','created_at']
+    headers = ['First Name', 'Last Name', 'Email', 'School','Created At']
+
+    CSV.generate(headers: true) do |csv|
+      csv << headers
+      results.each do |teacher|
+        array = attributes.map{|attr| teacher.send(attr) }
+        csv << array
+      end
+    end
+  end
+
   def self.to_csv(results)
     attributes = ['prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'register2017', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous','location_pref', 'additional','created_at']
     headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered 2016?', 'Registered 2017?', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Registered On', 'Positions Desired', 'Licenses Held', 'Subjects Desired', 'Reference Sources']

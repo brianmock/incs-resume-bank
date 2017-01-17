@@ -9,3 +9,7 @@
   <%= button_to "Delete", user, method: :delete, class: "btn btn-danger" %>
 </div>
 <% end %>
+
+<% if User.find(session[:user_id]).access == "admin" || User.find(session[:user_id]).access == "school"%>
+  <a href=<%="/users/schools.csv"%>><button class="btn btn-info" id="gen-csv">Generate CSV</button></a>
+<% end %>
