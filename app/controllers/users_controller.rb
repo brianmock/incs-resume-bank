@@ -97,7 +97,7 @@ class UsersController < ApplicationController
   def show_all_teachers
     case params["filter"]
     when 'bank-only'
-      @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'bank'}
+      @users = User.where('access' => 'teacher').select {|user| (user.register2017 == 'bank') || (user.register2017 == nil && user.register == 'bank')}
       @header = 'Candidates only registered with Resume Bank'
       @filter = 'bank-only'
     when '2017-job-fair'
