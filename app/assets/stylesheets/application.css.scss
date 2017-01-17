@@ -495,3 +495,32 @@ li.field-flex {
 .no-margin {
   margin: 0 !important;
 }
+
+.admin-buttons-list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: center;
+}
+
+.admin-button {
+  margin: 0 2px;
+  flex: 1
+}
+
+.admin-clear-button {
+  display: flex;
+  justify-content: center;
+  margin: 0 2px;
+  flex: 1
+}
+
+.admin-header {
+  text-align: center;
+}
+
+.btn-active {
+  background-color: #e01a9e;
+  color: #fff;
+  border-color: transparent;
+}

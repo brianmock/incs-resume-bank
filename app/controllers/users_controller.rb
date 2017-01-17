@@ -92,7 +92,33 @@ class UsersController < ApplicationController
   end
 
   def show_all_teachers
-    @users = User.where('access' => 'teacher')
+    puts params["filter"]
+    case params["filter"]
+    when 'bank-only'
+      @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'bank'}
+      @header = 'Candidates only registered with Resume Bank'
+      @filter = 'bank-only'
+    when '2017-job-fair'
+      @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'both' || user.register2017 == 'jobfaironly'}
+      @header = 'All Candidates registered for 2017 Teacher Job Fair'
+      @filter = '2017-job-fair'
+    when '2016-job-fair'
+      @users = User.where('access' => 'teacher').select {|user| user.register == 'both' || user.register == 'jobfaironly'}
+      @header = 'All Candidates registered for 2016 Teacher Job Fair'
+      @filter = '2016-job-fair'
+    when '2017-job-fair-only'
+      @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'jobfaironly'}
+      @header = 'All Candidates only registered for 2017 Teacher Job Fair (no resume bank)'
+      @filter = '2017-job-fair-only'
+    when '2016-job-fair-only'
+      @users = User.where('access' => 'teacher').select {|user| user.register == 'jobfaironly'}
+      @header = 'All Candidates only registered for 2016 Teacher Job Fair (no resume bank)'
+      @filter = '2016-job-fair-only'
+    else
+      @users = User.where('access' => 'teacher')
+      @header = 'All Candidates'
+      @filter = 'none'
+    end
     render :teachers_index
   end
 
@@ -105,7 +131,7 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.all
+    @users = User.all.select {|user| user.is_active?}
     if params["years"] != "Any"
       @users = @users.select {|user| user.years.to_i >= params["years"].to_i}
     end
@@ -131,11 +157,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { 
-        @users = @users.select {|user| user.is_active?}.paginate(page: params[:page], per_page: 25)
+        @users = @users.paginate(page: params[:page], per_page: 25)
         render :index
       }
       format.csv {
-        @users = @users.select {|user| user.is_active?}
         send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"
       }
     end
