@@ -21,9 +21,9 @@ class UsersController < ApplicationController
     if @current_user.register2017 == 'bank' || @current_user.register2017 == nil
       @current_user.register2017 = 'both'
       @current_user.save
-      redirect_to root_path, notice: 'You have been registered for the 2017 INCS Teacher Job Fair'
+      redirect_to user_path(@current_user), notice: 'You have been registered for the 2017 INCS Teacher Job Fair'
     else
-      redirect_to root_path, notice: 'You have already registered for the 2017 INCS Teacher Job Fair'
+      redirect_to user_path(@current_user), notice: 'You have already registered for the 2017 INCS Teacher Job Fair'
     end
 
   end
