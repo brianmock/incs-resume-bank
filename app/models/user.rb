@@ -3,7 +3,7 @@ require 'csv'
 class User < ActiveRecord::Base
   has_secure_password
   validates_uniqueness_of :email
-  validates_presence_of :first_name, :last_name, :email, :register2017
+  validates_presence_of :first_name, :last_name, :email
   has_many :resumes, foreign_key: "teacher_id"
   has_many :licenses_helds, foreign_key: "teacher_id"
   has_many :licenses, through: :licenses_helds
