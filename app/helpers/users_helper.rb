@@ -39,7 +39,10 @@ module UsersHelper
       'NPO',
       'DNA Info',
       'Eventbrite',
-      'Surge Institute'
+      'Surge Institute',
+      'HACE - Hispanic Alliance for Career Enhancement',
+      'Chicago Latino Network',
+      'Craigslist'
     ]
   end
 
