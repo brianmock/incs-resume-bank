@@ -40,6 +40,7 @@
     <li>Meet recruiters from over 50 public charter schools representing over 120 campuses</li>
     <li>Post your resume in the INCS Online Resume Bank, where charter schools look for candidates for various positions year-round</li>
     <li>Interview on-site with schools looking to hire great teachers and administrators like you</li>
+    <li><span class="red">NEW THIS YEAR! </span>We will be raffling off one iPad and five $100 gift cards! Instructions for the raffle will be given at the registration desk.</li>
   </ul>
   </p>
 
@@ -70,10 +71,6 @@
   <p class="main-content">
   ASPIRA Business & Finance Campus, 2989 N. Milwaukee Ave, Chicago, IL 60618
   </p>
-  <ul class="main-content-list">
-    <li>There will be street parking available. Registered candidates will received updated parking information as it becomes available.</li>
-    <li>The school is also accessible by public transportation. It is approximately .5 mile southwest of the Belmont Blue Line stop and is easily accessible via CTA Bus #56 Milwaukee.</li>
-  </ul>
 
   <% if session[:user_id] == nil %>
     <div class="main-container">
@@ -81,6 +78,34 @@
       <%= button_to "School Leader Job Fair Registration", "https://docs.google.com/forms/d/e/1FAIpQLSd2POlBM9yr-WfNbRYFOhnTAZCNg8mfF8gFhfSNKCEm2RACsw/viewform?c=0&w=1", method: :get, class: "btn btn-info main-btn" %>
     </div><br>
   <% end %>
+
+  <p class="main-content underline">
+    PARKING
+  </p>
+  <p class="main-content">
+  Parking is limited and public transportation is encouraged. Street parking is available on Milwaukee and a few side streets surrounding ASPIRA’s campus. Please be aware of permitted parking zones. Candidates are <span class="underline">NOT</span> permitted to park in the ASPIRA parking lot.
+  </p>
+  <p class="main-content underline">
+    CANDIDATE ENTRANCE
+  </p>
+  <p class="main-content">
+    Please enter the school through the entrance on Monticello. Please do not enter through Milwaukee. 
+  </p>
+  <p class="main-content underline">
+    PUBLIC TRANSPORTATION DIRECTIONS
+  </p>
+  <p class="main-content underline">
+    CTA BLUE Line
+  </p>
+  <p class="main-content">
+    <span class="underline">Belmont Stop:</span> The school is approximately 0.5 mile southwest of the Belmont Blue Line stop, about a 10 minute walk.
+  </p>
+  <p class="main-content underline">
+    Bus Transportation
+  </p>
+  <p class="main-content">
+    #56 Milwaukee: Take #56 to Milwaukee & Ridgeway. This stop is a 1-minute walk to the ASPIRA Business & Finance campus.
+  </p>
 
   <%# <p class="main-content"><br>Click <a href="https://www.facebook.com/media/set/?set=a.10152791985156379.1073741839.91629716378&type=1">here</a> to view photos of our 2015 INCS Teacher Job Fair, where recruiters from <em>over 120 Illinois charter public school campuses met with</em> highly-qualified applicants for more than <em>500</em> teaching, school leadership, social work, school nurse and administrative positions. %>
   <%# </p> %>
