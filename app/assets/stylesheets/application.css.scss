@@ -48,11 +48,11 @@ label {
 }
 
 .flex-one {
-  -webkit-flex: 1 1 auto;
-  -moz-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  -o-flex: 1 1 auto;
-  flex: 1 1 auto;
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  -o-flex: 1;
+  flex: 1;
 }
 
 .label-up {
@@ -416,6 +416,10 @@ em label {
 
 .field-radio input[type="radio"], input[type="checkbox"], input[type="text"] {
   margin: 0px 4px 0px 0px;
+}
+.field-radio input[type="radio"], input[type="checkbox"] {
+  margin: 0px 4px 0px 0px;
+  height: 12px;
 }
 
 .field-radio label {

@@ -23,5 +23,8 @@
     <%= f.file_field :attachment %>
     <%= f.submit "Upload", class: "btn btn-primary btn-submit" %>
     <%= f.hidden_field :active, value: false %>
+    <a href="/users/<%= User.find(session[:user_id]).id %>">
+      <button class="btn btn-danger">Skip</button>
+    </a>
   <% end %>
 </div>

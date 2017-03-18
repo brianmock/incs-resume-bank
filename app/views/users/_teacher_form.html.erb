@@ -19,11 +19,11 @@
     <em class="teacher-label"><%= f.label :prefix %></em>
     <%= f.select :prefix, options_for_select(prefixes, @user.prefix),{}, class: 'form-control' %>
   </div>
-  <div class="field-flex">
+  <div class="field field-flex">
     <em class="teacher-label"><%= f.label(:name, "First name *") %></em>
     <%= f.text_field :first_name %><br>
   </div>
-  <div class="field-flex">
+  <div class="field field-flex">
     <em class="teacher-label"><%= f.label(:name, "Last name *") %></em>
     <%= f.text_field :last_name %>
   </div>
@@ -91,7 +91,7 @@
   </div> 
 
   <div class="field">
-    <label><em class="label-bold">How did you hear about the 2017 INCS Teacher Job Fair or Resume Bank? (Check all that apply) *</em></label><br>
+    <label><em class="label-bold">How did you hear about the 2017 INCS Teacher Job Fair or Resume Bank? (Check all that apply)</em></label><br>
     <ul class="checkbox-grid2">
       <% resume_bank_references.each do |source| %>
         <% if @user.sources.pluck(:source_name).include?(source) %>
