@@ -8,17 +8,13 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def getreset
+  def getreset() end
 
-  end
-
-  def reset
-
-  end
+  def reset() end
 
   def register
     @current_user = User.find(session[:user_id])
-    if @current_user.register2017 == 'bank' || @current_user.register2017 == nil
+    if @current_user.register2017 == 'bank' || @current_user.register2017.nil?
       @current_user.register2017 = 'both'
       @current_user.save
       redirect_to user_path(@current_user), notice: 'You have been registered for the 2017 INCS Teacher Job Fair'
@@ -33,7 +29,7 @@ class UsersController < ApplicationController
       @user = User.find_by(email: params['email'])
       @pass = (0...8).map { (65 + rand(26)).chr }.join
       @user.update_attribute(:password, @pass)
-      @url = "www.teacherjobfair.org/users/reset"
+      @url = 'www.teacherjobfair.org/users/reset'
       UserMailer.forgot_password(@user, @pass, @url).deliver_now
       redirect_to root_path, notice: 'You have been sent an email with instructions for resetting your password'
     else
@@ -125,7 +121,6 @@ class UsersController < ApplicationController
   end
 
   def download_teachers
-    puts params["filter"]
     case params["filter"]
     when 'bank-only'
       @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'bank'}
@@ -240,10 +235,10 @@ class UsersController < ApplicationController
         end
       end
       if @user.save
-        #save uploaded resume
-        if @user.access == "teacher"
+        # save uploaded resume
+        if @user.access == 'teacher'
           @resume = Resume.new
-          #save licenses
+          # save licenses
           if params["licenses"]
             params["licenses"].each do |lic|
               next if lic == ""
@@ -433,10 +428,10 @@ class UsersController < ApplicationController
             @user.sources << Source.find_or_create_by(source_name: source)
           end
         end
-        if params["more-sources"]
-          more_sources = params["more_sources"].split(",").map(&:strip)
+        if params['more-sources']
+          more_sources = params['more_sources'].split(',').map(&:strip)
           more_sources.each do |source|
-            source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+            source_name = source.split('  ').map do |word| word.downcase.capitalize end.join(' ')
             @user.sources << Sources.find_or_create_by(source_name: source_name)
           end
         end
@@ -452,7 +447,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    if (@user.id == session[:user_id])
+    if @user.id == session[:user_id]
       session[:user_id] = nil
       @user.destroy
       respond_to do |format|
@@ -469,27 +464,37 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find_by(id: params[:id])
-      p params
-      if @user
-        @user
-      else
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find_by(id: params[:id])
+    if @user
+      @user
+    else
+      redirect_to root_path
+    end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :access,
+                                 :prefix, :first_name, :last_name,
+                                 :phone_number, :street, :street_second,
+                                 :city, :state, :zip, :country,
+                                 :register, :register2017, :il_licensed,
+                                 :licenses, :degree, :major,
+                                 :masters_concentration, :endorses,
+                                 :previous, :subs, :relocation,
+                                 :orgs, :additional, :years, :grade_pref,
+                                 :positions, :school, :resume_id,
+                                 :location_pref, :sources)
+  end
+
+  def authorize
+    if session[:user_id]
+      if User.find_by(id: session[:user_id]).access == "pending"
         redirect_to root_path
       end
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:username, :email, :password, :access, :prefix, :first_name, :last_name, :phone_number, :street, :street_second, :city, :state, :zip, :country, :register, :register2017, :il_licensed, :licenses, :degree, :major, :masters_concentration, :endorses, :previous, :subs, :relocation, :orgs, :additional, :years, :grade_pref, :positions, :school, :resume_id, :location_pref, :sources)
-    end
-
-    def authorize
-      if session[:user_id]
-        if User.find_by(id: session[:user_id]).access == "pending"
-          redirect_to root_path
-        end
-      end
-    end
+  end
 end
