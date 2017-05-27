@@ -24,6 +24,10 @@ label {
   font-weight: normal;
 }
 
+p {
+  font-size: inherit;
+}
+
 .topic {
   text-align: center;
   color: #005088;
@@ -615,4 +619,10 @@ li.field-flex {
 
 .red {
   color: red;
+}
+
+.grayed {
+  font-size: 1.2em;
+  color: #999;
+  text-align: justify;
 }
