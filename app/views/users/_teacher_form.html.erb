@@ -74,24 +74,7 @@
   </div><br><br>
 
   <div class="field">
-    <em class="label-bold">
-    <%= f.label(:name, "Please select the option that best fits you *") %></em><br>
-  <div class="field-radio">
-    <%= f.radio_button(:register2017, "bank") %>
-    <%= f.label(:name, "I would like to add my resume to the INCS Online Resume Bank only.", class: 'flex-one') %><br>
-  </div> 
-  <div class="field-radio">
-    <%= f.radio_button(:register2017, "both") %>
-    <%= f.label :name, class: 'flex-one' do "I would like to add my resume to the INCS Online Resume Bank AND would like this to serve as my registration for the #{link_to('2017 Teacher Job Fair', 'https://www.incschools.org/events/tjf/')} on March 18th, 2017.".html_safe  end%>
-  </div> 
-  <div class="field-radio">
-    <%= f.radio_button(:register2017, "jobfaironly") %>
-    <%= f.label(:name, "I would only like to register for the 2017 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.", class: 'flex-one') %>
-    </div> 
-  </div> 
-
-  <div class="field">
-    <label><em class="label-bold">How did you hear about the 2017 INCS Teacher Job Fair or Resume Bank? (Check all that apply)</em></label><br>
+    <label><em class="label-bold">How did you hear about the INCS Resume Bank? (Check all that apply)</em></label><br>
     <ul class="checkbox-grid2">
       <% resume_bank_references.each do |source| %>
         <% if @user.sources.pluck(:source_name).include?(source) %>

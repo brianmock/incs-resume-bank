@@ -14,7 +14,8 @@
   </div>
 <% end %>
 
-<h3>Please upload your resume to complete your registration. A resume is required for registration to the job fair but it will only be included in the INCS Resume Bank if you opted in on the previous page. You will always have the chance to remove your resume from the database on your profile page.</h3>
+<h3 class="main-content">Please upload your resume to complete your registration.</h3> 
+<p class="main-content disclaimer">You will always have the chance to update or remove your resume from the database on your profile page.</p>
 
 <div class="well">
   <%= form_for @resume, html: { multipart: true} do |f| %>
@@ -23,8 +24,5 @@
     <%= f.file_field :attachment %>
     <%= f.submit "Upload", class: "btn btn-primary btn-submit" %>
     <%= f.hidden_field :active, value: false %>
-    <a href="/users/<%= User.find(session[:user_id]).id %>">
-      <button class="btn btn-danger">Skip</button>
-    </a>
   <% end %>
 </div>
