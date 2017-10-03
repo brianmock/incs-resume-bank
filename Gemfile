@@ -35,7 +35,7 @@ gem 'autoprefixer-rails'
 
 gem 'bcrypt'
 
-gem 'carrierwave-dropbox', :git => 'git@github.com:hellocompass/carrierwave-dropbox.git'
+gem 'carrierwave-dropbox', :git => 'git://github.com:hellocompass/carrierwave-dropbox.git'
 
 gem 'sendgrid'
 
