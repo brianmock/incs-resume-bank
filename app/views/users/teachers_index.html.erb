@@ -55,5 +55,5 @@
 <% end %>
 
 <% if User.find(session[:user_id]).access == "admin" || User.find(session[:user_id]).access == "school"%>
-  <a href=<%="/users/teachers-csv?filter=#{@filter}"%>><button class="btn btn-info" id="gen-csv">Generate CSV</button></a>
+  <a download href=<%="/users/teachers-csv?filter=#{@filter}"%>><button class="btn btn-info export" id="gen-csv">Generate CSV</button></a>
 <% end %>
