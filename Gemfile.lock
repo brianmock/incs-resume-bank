@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:hellocompass/carrierwave-dropbox.git
+  remote: https://github.com/hellocompass/carrierwave-dropbox.git
   revision: afb030bea1edb04c916f9c651d98fa3a697a24c6
   specs:
     carrierwave-dropbox (2.0.0)
