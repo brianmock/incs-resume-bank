@@ -636,3 +636,11 @@ li.field-flex {
   justify-content: center;
   margin-bottom: 8px;
 }
+
+.result_button_container {
+  display: flex;
+  margin-bottom: 8px;
+  > form:nth-child(1) {
+    margin-right: 8px;
+  }
+}

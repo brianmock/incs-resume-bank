@@ -59,7 +59,10 @@
   <label>Registered for 2017 Job Fair:</label> <% if user.register2017 == 'bank' || user.register2017 == nil %> No <% else %> Yes <% end %><br>
   <label>Active:</label> <% if user.is_active? %> Yes <% else %> No
   <% end %>
-  <%= button_to "Delete", user, method: :delete, class: "btn btn-danger" %>
+  <div class="result_button_container">
+    <%= button_to "Profile", user, method: :get, class: "btn btn-info" %>
+    <%= button_to "Delete", user, method: :delete, class: "btn btn-danger" %>
+  </div>
 </div>
 <% end %>
 
