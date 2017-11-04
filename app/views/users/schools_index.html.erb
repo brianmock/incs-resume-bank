@@ -1,3 +1,8 @@
+<%= form_tag(users_schools_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search by school name" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
 <h2>Registered schools:</h2>
 <h3><%= @users.count %> Results</h3>
 
