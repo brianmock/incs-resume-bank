@@ -1,4 +1,3 @@
-<h2 class="admin-header"><%= @header %>:</h2>
 <ul class="admin-buttons-list">
   <li class="admin-button">
     <% if @filter == 'bank-only' %>
@@ -36,11 +35,21 @@
     <% end %>
   </li>
 </ul>
+
+<%= form_tag(users_teachers_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search by name" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
 <ul class="admin-buttons-list">
   <li class="admin-clear-button">
       <a href="/users/teachers/"><button class="btn btn-info">Clear Filters</button></a>
   </li>
 </ul>
+
+<h2 class="admin-header"><%= @header %>:</h2>
+
+
 <h3><%= @users.count %> Results</h3>
 
 <% @users.each do |user| %>

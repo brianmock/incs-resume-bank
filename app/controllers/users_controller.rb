@@ -83,7 +83,12 @@ class UsersController < ApplicationController
   end
 
   def show_all_schools
-    @users = User.where('access' => 'school').order(:school)
+    if params[:search]
+      @users = User.school_search(params[:search])
+    else 
+      @users = User.where('access' => 'school').order(:school)
+    end
+
     respond_to do |format|
       format.html { render :schools_index }
       format.csv {send_data User.school_to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
@@ -91,32 +96,39 @@ class UsersController < ApplicationController
   end
 
   def show_all_teachers
-    case params["filter"]
-    when 'bank-only'
-      @users = User.where('access' => 'teacher').select {|user| (user.register2017 == 'bank') || (user.register2017 == nil && user.register == 'bank')}
-      @header = 'Candidates only registered with Resume Bank'
-      @filter = 'bank-only'
-    when '2017-job-fair'
-      @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'both' || user.register2017 == 'jobfaironly'}
-      @header = 'All Candidates registered for 2017 Teacher Job Fair'
-      @filter = '2017-job-fair'
-    when '2016-job-fair'
-      @users = User.where('access' => 'teacher').select {|user| user.register == 'both' || user.register == 'jobfaironly'}
-      @header = 'All Candidates registered for 2016 Teacher Job Fair'
-      @filter = '2016-job-fair'
-    when '2017-job-fair-only'
-      @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'jobfaironly'}
-      @header = 'All Candidates only registered for 2017 Teacher Job Fair (no resume bank)'
-      @filter = '2017-job-fair-only'
-    when '2016-job-fair-only'
-      @users = User.where('access' => 'teacher').select {|user| user.register == 'jobfaironly'}
-      @header = 'All Candidates only registered for 2016 Teacher Job Fair (no resume bank)'
-      @filter = '2016-job-fair-only'
+    if params["filter"]
+      case params["filter"]
+      when 'bank-only'
+        @users = User.where('access' => 'teacher').select {|user| (user.register2017 == 'bank') || (user.register2017 == nil && user.register == 'bank')}
+        @header = 'Candidates only registered with Resume Bank'
+        @filter = 'bank-only'
+      when '2017-job-fair'
+        @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'both' || user.register2017 == 'jobfaironly'}
+        @header = 'All Candidates registered for 2017 Teacher Job Fair'
+        @filter = '2017-job-fair'
+      when '2016-job-fair'
+        @users = User.where('access' => 'teacher').select {|user| user.register == 'both' || user.register == 'jobfaironly'}
+        @header = 'All Candidates registered for 2016 Teacher Job Fair'
+        @filter = '2016-job-fair'
+      when '2017-job-fair-only'
+        @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'jobfaironly'}
+        @header = 'All Candidates only registered for 2017 Teacher Job Fair (no resume bank)'
+        @filter = '2017-job-fair-only'
+      when '2016-job-fair-only'
+        @users = User.where('access' => 'teacher').select {|user| user.register == 'jobfaironly'}
+        @header = 'All Candidates only registered for 2016 Teacher Job Fair (no resume bank)'
+        @filter = '2016-job-fair-only'
+      end
+    elsif params[:search]
+      @users = User.teacher_search(params[:search])
+      @header = "Results for #{params[:search]}"
+      @filter = 'none'
     else
       @users = User.where('access' => 'teacher')
       @header = 'All Candidates'
       @filter = 'none'
     end
+
     render :teachers_index
   end
 

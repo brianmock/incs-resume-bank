@@ -27,6 +27,14 @@ class User < ActiveRecord::Base
     !self.resumes.select { |res| res.active == true }.empty?
   end
 
+  def self.teacher_search(search)
+    where("access = ? AND CONCAT_WS(' ', lower(first_name), lower(last_name)) LIKE ?", "teacher", "%#{search.downcase}%")
+  end
+
+  def self.school_search(search)
+    where("access = ? AND lower(school) LIKE ?", "school", "%#{search.downcase}%")
+  end
+
   def self.school_to_csv(results)
     attributes = ['first_name', 'last_name', 'email','school','created_at']
     headers = ['First Name', 'Last Name', 'Email', 'School', 'Created At']
