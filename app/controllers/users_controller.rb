@@ -14,8 +14,8 @@ class UsersController < ApplicationController
 
   def register
     @current_user = User.find(session[:user_id])
-    if @current_user.register2017 == 'bank' || @current_user.register2017.nil?
-      @current_user.register2017 = 'both'
+    if @current_user.register2018 == 'bank' || @current_user.register2018.nil?
+      @current_user.register2018 = 'both'
       @current_user.save
       redirect_to user_path(@current_user), notice: 'You have been registered for the 2017 INCS Teacher Job Fair'
     else
@@ -99,25 +99,33 @@ class UsersController < ApplicationController
     if params["filter"]
       case params["filter"]
       when 'bank-only'
-        @users = User.where('access' => 'teacher').select {|user| (user.register2017 == 'bank') || (user.register2017 == nil && user.register == 'bank')}
+        @users = User.where('access' => 'teacher').select {|user| (user.register2017 == 'bank') || (user.register == 'bank') || (user.register2018 == 'bank')}
         @header = 'Candidates only registered with Resume Bank'
         @filter = 'bank-only'
+      when '2018-job-fair'
+        @users = User.where('access' => 'teacher').select {|user| user.register2018 == 'both' || user.register2018 == 'jobfaironly'}
+        @header = 'All Candidates registered for 2018 Teacher Job Fair'
+        @filter = '2018-job-fair'
       when '2017-job-fair'
         @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'both' || user.register2017 == 'jobfaironly'}
         @header = 'All Candidates registered for 2017 Teacher Job Fair'
         @filter = '2017-job-fair'
-      when '2016-job-fair'
-        @users = User.where('access' => 'teacher').select {|user| user.register == 'both' || user.register == 'jobfaironly'}
-        @header = 'All Candidates registered for 2016 Teacher Job Fair'
-        @filter = '2016-job-fair'
+      # when '2016-job-fair'
+      #   @users = User.where('access' => 'teacher').select {|user| user.register == 'both' || user.register == 'jobfaironly'}
+      #   @header = 'All Candidates registered for 2016 Teacher Job Fair'
+      #   @filter = '2016-job-fair'
+      when '2018-job-fair-only'
+        @users = User.where('access' => 'teacher').select {|user| user.register2018 == 'jobfaironly'}
+        @header = 'All Candidates only registered for 2018 Teacher Job Fair (no resume bank)'
+        @filter = '2018-job-fair-only'
       when '2017-job-fair-only'
         @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'jobfaironly'}
         @header = 'All Candidates only registered for 2017 Teacher Job Fair (no resume bank)'
         @filter = '2017-job-fair-only'
-      when '2016-job-fair-only'
-        @users = User.where('access' => 'teacher').select {|user| user.register == 'jobfaironly'}
-        @header = 'All Candidates only registered for 2016 Teacher Job Fair (no resume bank)'
-        @filter = '2016-job-fair-only'
+      # when '2016-job-fair-only'
+      #   @users = User.where('access' => 'teacher').select {|user| user.register == 'jobfaironly'}
+      #   @header = 'All Candidates only registered for 2016 Teacher Job Fair (no resume bank)'
+      #   @filter = '2016-job-fair-only'
       end
     elsif params[:search]
       @users = User.teacher_search(params[:search])
@@ -135,25 +143,33 @@ class UsersController < ApplicationController
   def download_teachers
     case params["filter"]
     when 'bank-only'
-      @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'bank'}
+      @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'bank' || user.register2018 == 'bank' || user.register == 'bank'}
       @header = 'Candidates only registered with Resume Bank'
       @filter = 'bank-only'
     when '2017-job-fair'
       @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'both' || user.register2017 == 'jobfaironly'}
       @header = 'All Candidates registered for 2017 Teacher Job Fair'
       @filter = '2017-job-fair'
-    when '2016-job-fair'
-      @users = User.where('access' => 'teacher').select {|user| user.register == 'both' || user.register == 'jobfaironly'}
-      @header = 'All Candidates registered for 2016 Teacher Job Fair'
-      @filter = '2016-job-fair'
+    when '2018-job-fair'
+      @users = User.where('access' => 'teacher').select {|user| user.register2018 == 'both' || user.register2018 == 'jobfaironly'}
+      @header = 'All Candidates registered for 2018 Teacher Job Fair'
+      @filter = '2018-job-fair'
+    # when '2016-job-fair'
+    #   @users = User.where('access' => 'teacher').select {|user| user.register == 'both' || user.register == 'jobfaironly'}
+    #   @header = 'All Candidates registered for 2016 Teacher Job Fair'
+    #   @filter = '2016-job-fair'
     when '2017-job-fair-only'
       @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'jobfaironly'}
       @header = 'All Candidates only registered for 2017 Teacher Job Fair (no resume bank)'
       @filter = '2017-job-fair-only'
-    when '2016-job-fair-only'
-      @users = User.where('access' => 'teacher').select {|user| user.register == 'jobfaironly'}
-      @header = 'All Candidates only registered for 2016 Teacher Job Fair (no resume bank)'
-      @filter = '2016-job-fair-only'
+    when '2018-job-fair-only'
+      @users = User.where('access' => 'teacher').select {|user| user.register2018 == 'jobfaironly'}
+      @header = 'All Candidates only registered for 2018 Teacher Job Fair (no resume bank)'
+      @filter = '2018-job-fair-only'
+    # when '2016-job-fair-only'
+    #   @users = User.where('access' => 'teacher').select {|user| user.register == 'jobfaironly'}
+    #   @header = 'All Candidates only registered for 2016 Teacher Job Fair (no resume bank)'
+    #   @filter = '2016-job-fair-only'
     else
       @users = User.where('access' => 'teacher')
       @header = 'All Candidates'
@@ -180,7 +196,7 @@ class UsersController < ApplicationController
       @users = @users.select {|user| user.grade_pref == params["grade_pref"]}
     end
     if params["registered"] == "Yes"
-      @users = @users.select {|user| user.register2017 == "both"}
+      @users = @users.select {|user| user.register2018 == "both" || user.register2018 == 'jobfaironly'}
     end
     if params["location_pref"] == "Chicago"
       @users = @users.select {|user| user.location_pref == "Chicago"}
@@ -493,8 +509,8 @@ class UsersController < ApplicationController
                                  :prefix, :first_name, :last_name,
                                  :phone_number, :street, :street_second,
                                  :city, :state, :zip, :country,
-                                 :register, :register2017, :il_licensed,
-                                 :licenses, :degree, :major,
+                                 :register, :register2017, :register2018,
+                                 :il_licensed, :licenses, :degree, :major,
                                  :masters_concentration, :endorses,
                                  :previous, :subs, :relocation,
                                  :orgs, :additional, :years, :grade_pref,

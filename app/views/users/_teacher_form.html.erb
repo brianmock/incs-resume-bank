@@ -29,12 +29,12 @@
   </div>
 
   <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "Resume Bank Login Email *") %></em>
+    <em class="teacher-label"><%= f.label(:name, "What would you like your resume bank login email to be? *") %></em>
     <%= f.text_field :email, class: 'med-field' %>
   </div>
 
   <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "Resume Bank Login Password *") %></em>
+    <em class="teacher-label"><%= f.label(:name, "What would you like your resume bank password to be? *") %></em>
     <%= f.password_field :password %>
   </div>
 
@@ -72,6 +72,21 @@
     <em class="select-label"><%= f.label :country %></em>
     <%= f.select :country, options_for_select(countries,@user.country),{}, class: 'form-control' %>
   </div><br><br>
+
+  <div class="field">
+    <div class="field-radio">
+      <%= f.radio_button(:register2018, "bank") %>
+      <%= f.label(:name, "I would like to add my resume to the INCS Online Resume Bank only.", class: 'flex-one') %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:register2018, "both") %>
+      <%= f.label :name, class: 'flex-one' do "I would like to add my resume to the INCS Online Resume Bank AND would like this to serve as my registration for the #{link_to('2018 Teacher Job Fair', 'https://www.incschools.org/events/tjf/')} on April 7th, 2018.".html_safe  end%>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:register2018, "jobfaironly") %>
+      <%= f.label(:name, "I would only like to register for the 2018 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.", class: 'flex-one') %>
+    </div>
+  </div>
 
   <div class="field">
     <label><em class="label-bold">How did you hear about the INCS Resume Bank? (Check all that apply)</em></label><br>
