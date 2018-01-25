@@ -15,9 +15,10 @@
       <%= button_to "Candidate Resume Bank Registration", users_new_teacher_path, method: :get, class: "btn btn-info main-btn"%>
       <%= button_to "Hiring Manager Registration", users_new_school_path, method: :get, class: "btn btn-info main-btn"%>
     </div>
+    <br>
   <% end %>
 
-  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'teacher' && User.find(session[:user_id]).register2017 == 'bank' %>
+  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'teacher' && User.find(session[:user_id]).register2018 == 'bank' %>
     <div class="main-container">
     <%= button_to "Register for Job Fair", users_register_path, method: :post, class: "btn btn-info main-btn" %>
     </div>
