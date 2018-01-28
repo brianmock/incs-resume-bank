@@ -3,7 +3,15 @@ require 'csv'
 class User < ActiveRecord::Base
   has_secure_password
   validates_uniqueness_of :email
-  validates_presence_of :first_name, :last_name, :email
+  validates :email, presence: { message: "Email can't be blank" }
+  validates :first_name, presence: { message: "First name can't be blank" }
+  validates :last_name, presence: { message: "Last name can't be blank" }
+  with_options if: :is_teacher? do |teacher|
+    teacher.validates :zip, presence: { message: "Zip code can't be blank" }
+    teacher.validates :years, presence: { message: "Years of experience can't be blank" }
+    teacher.validates :il_licensed, presence: { message: "IL license status can't be blank" }
+    teacher.validates :register2018, presence: { message: "Add which service you are signing up for (resume bank/job fair)" }
+  end
   has_many :resumes, foreign_key: "teacher_id"
   has_many :licenses_helds, foreign_key: "teacher_id"
   has_many :licenses, through: :licenses_helds
@@ -20,6 +28,10 @@ class User < ActiveRecord::Base
   # validates :references, :presence => {:message => ": please tell us how you heard about us" }, :if => :condition_testing?
 
   def condition_testing?
+    self.access == 'teacher'
+  end
+
+  def is_teacher?
     self.access == 'teacher'
   end
 

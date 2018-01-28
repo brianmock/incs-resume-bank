@@ -1,11 +1,15 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(@user.errors.count, "error") %>:</h2>
 
       <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <% @user.errors.messages.each do |message| %>
+        <% if message[0] == :password %>
+          <li>Password can't be blank</li>
+        <% else %>
+          <li><%= message[1][0] %></li>
+        <% end %>
       <% end %>
       </ul>
     </div>
@@ -59,7 +63,7 @@
   </div>
 
   <div class="field field-flex">
-    <em class="teacher-label"><%= f.label :zip %></em>
+    <em class="teacher-label"><%= f.label(:name, "Zip Code *") %></em>
     <%= f.text_field :zip, class: 'tiny-field' %>
   </div>
 

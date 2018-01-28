@@ -17,9 +17,9 @@ class UsersController < ApplicationController
     if @current_user.register2018 == 'bank' || @current_user.register2018.nil?
       @current_user.register2018 = 'both'
       @current_user.save
-      redirect_to user_path(@current_user), notice: 'You have been registered for the 2017 INCS Teacher Job Fair'
+      redirect_to user_path(@current_user), notice: 'You have been registered for the 2018 INCS Teacher Job Fair'
     else
-      redirect_to user_path(@current_user), notice: 'You have already registered for the 2017 INCS Teacher Job Fair'
+      redirect_to user_path(@current_user), notice: 'You have already registered for the 2018 INCS Teacher Job Fair'
     end
 
   end
@@ -350,6 +350,7 @@ class UsersController < ApplicationController
           UserMailer.steph_email(@user).deliver_now
           UserMailer.school_email(@user).deliver_now
           format.html { redirect_to root_path }
+          format.html { redirect_to root_path, notice: 'Your profile was successfully created and you should receive an email shortly with further instructions.' }
         end
         format.json { render :show, status: :created, location: @user }
       else
