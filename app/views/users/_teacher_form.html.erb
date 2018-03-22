@@ -97,7 +97,7 @@
     <label><em class="label-bold">How did you hear about the INCS Resume Bank? (Check all that apply)</em></label><br>
     <ul class="checkbox-grid2">
       <% resume_bank_references.each do |source| %>
-        <% if @user.sources.pluck(:source_name).include?(source) %>
+        <% if @user.sources.map{|source| source.source_name}.include?(source) %>
           <li><input type="checkbox" name="sources[]" value="<%= source %>" checked/>
         <% else %>
           <li><input type="checkbox" name="sources[]" value="<%= source %>" />
@@ -145,7 +145,7 @@
     <label><em class="label-bold">Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
     <% position_options.sort.each do |pos| %>
-      <% if @user.positions.pluck(:title).include?(pos) %>
+      <% if @user.positions.map{|pos| pos.title}.include?(pos) %>
         <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" checked/>
       <% else %>
         <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
@@ -167,7 +167,7 @@
       <li><input type="checkbox" name="subs[]" value="None" />
       <label>N/A</label></li>
       <% Subject.all.order(:subject).each do |sub| %>
-        <% if @user.subjects.pluck(:subject).include?(sub.subject) %>
+        <% if @user.subjects.map{|sub| sub.subject}.include?(sub.subject) %>
           <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" checked/>
         <% else %>
           <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" />
@@ -206,7 +206,7 @@
     <label><em class="label-bold">What type of license do you hold? (Check all that apply) *</em></label><br>
     <% license_choices.each do |lic| %>
       <div class="field-radio">
-        <% if @user.licenses.pluck(:name).include?(lic) %>
+        <% if @user.licenses.map{|lic| lic.name}.include?(lic) %>
           <input type="checkbox" name="licenses[]" value="<%= lic %>" checked/>
         <% else %>
           <input type="checkbox" name="licenses[]" value="<%= lic %>" />
@@ -239,7 +239,7 @@
     <label><em class="label-bold">Endorsements completed (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
     <% Endorsement.all.order(:name).each do |endo| %>
-      <% if @user.endorsements.pluck(:name).include?(endo.name) %>
+      <% if @user.endorsements.map{|endo| endo.name}.include?(endo.name) %>
         <li><input type="checkbox" name="endorses[]" value="<%= endo.name %>" checked/>
       <% else %>
         <li><input type="checkbox" name="endorses[]" value="<%= endo.name %>" />
@@ -276,7 +276,7 @@
     <label><em class="label-bold">Membership or Alumni Organization (Check all that apply)</em></label><br>
     <ul class="checkbox-grid2">
     <% Organization.all.order(:name).each do |org| %>
-      <% if @user.organizations.pluck(:name).include?(org.name) %>
+      <% if @user.organizations.map{|org| org.name}.include?(org.name) %>
         <li class="field-flex"><input type="checkbox" name="orgs[]" value="<%= org.name %>" checked/>
       <% else %>
         <li class="field-flex"><input type="checkbox" name="orgs[]" value="<%= org.name %>" />

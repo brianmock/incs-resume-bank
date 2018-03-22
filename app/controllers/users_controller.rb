@@ -262,86 +262,87 @@ class UsersController < ApplicationController
           end
         end
       end
-      if @user.save
         # save uploaded resume
-        if @user.access == 'teacher'
-          @resume = Resume.new
-          # save licenses
-          if params["licenses"]
-            params["licenses"].each do |lic|
-              next if lic == ""
-              @user.licenses << License.find_by(name: lic)
-            end
-          end
-          if params["add-licenses"]
-            more_licenses = params["add-licenses"].split(",").map(&:strip)
-            more_licenses.each do |lic|
-              name = lic.split(" ").map do |word| word.downcase.capitalize end.join(" ")
-
-              @user.licenses << License.find_or_create_by(name: name)
-            end
-          end
-          #save positions
-          if params["positions"]
-            params["positions"].each do |pos|
-              next if pos == ""
-              @user.positions << Position.find_or_create_by(title: pos)
-            end
-          end
-          if params["add-positions"]
-            more_positions = params["add-positions"].split(",").map(&:strip)
-            more_positions.each do |pos|
-              title = pos.split(" ").map do |word| word.downcase.capitalize end.join(" ")
-
-              @user.positions << Position.find_or_create_by(title: title)
-            end
-          end
-          #save endorsements
-          if params["endorses"]
-            params["endorses"].each do |endo|
-              next if endo == ""
-              @user.endorsements << Endorsement.find_by(name: endo)
-            end
-          end
-          if params["add-endorses"]
-            more_endorses = params["add-endorses"].split(",").map(&:strip)
-            more_endorses.each do |endo|
-              name = endo.split(" ").map do |word| word.downcase.capitalize end.join(" ")
-
-              @user.endorsements << Endorsement.find_or_create_by(name: name)
-            end
-          end
-          #save subjects
-          if params["subs"]
-            params["subs"].each do |sub|
-              next if sub == ""
-              @user.subjects << Subject.find_by(subject: sub)
-            end
-          end
-          if params["add-subs"]
-            more_subs = params["add-subs"].split(",").map(&:strip)
-            more_subs.each do |sub|
-              subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
-
-              @user.subjects << Subject.find_or_create_by(subject: subject)
-            end
-          end
-          #save organizations
-          if params["orgs"]
-            params["orgs"].each do |org|
-              next if org == ""
-              @user.organizations << Organization.find_by(name: org)
-            end
-          end
-          if params["add-orgs"]
-            more_orgs = params["add-orgs"].split(",").map(&:strip)
-            more_orgs.each do |org|
-              name = org.split(" ").map do |word| word.downcase.capitalize end.join(" ")
-
-              @user.organizations << Organization.find_or_create_by(name: name)
-            end
+      if @user.access == 'teacher'
+        @resume = Resume.new
+        # save licenses
+        p params["licenses"] && params["add-licenses"]
+        if params["licenses"]
+          params["licenses"].each do |lic|
+            next if lic == ""
+            @user.licenses << License.find_by(name: lic)
           end
         end
+        if params["add-licenses"]
+          more_licenses = params["add-licenses"].split(",").map(&:strip)
+          more_licenses.each do |lic|
+            name = lic.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.licenses << License.find_or_create_by(name: name)
+          end
+        end
+        #save positions
+        if params["positions"]
+          params["positions"].each do |pos|
+            next if pos == ""
+            @user.positions << Position.find_or_create_by(title: pos)
+          end
+        end
+        if params["add-positions"]
+          more_positions = params["add-positions"].split(",").map(&:strip)
+          more_positions.each do |pos|
+            title = pos.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.positions << Position.find_or_create_by(title: title)
+          end
+        end
+        #save endorsements
+        if params["endorses"]
+          params["endorses"].each do |endo|
+            next if endo == ""
+            @user.endorsements << Endorsement.find_by(name: endo)
+          end
+        end
+        if params["add-endorses"]
+          more_endorses = params["add-endorses"].split(",").map(&:strip)
+          more_endorses.each do |endo|
+            name = endo.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.endorsements << Endorsement.find_or_create_by(name: name)
+          end
+        end
+        #save subjects
+        if params["subs"]
+          params["subs"].each do |sub|
+            next if sub == ""
+            @user.subjects << Subject.find_by(subject: sub)
+          end
+        end
+        if params["add-subs"]
+          more_subs = params["add-subs"].split(",").map(&:strip)
+          more_subs.each do |sub|
+            subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.subjects << Subject.find_or_create_by(subject: subject)
+          end
+        end
+        #save organizations
+        if params["orgs"]
+          params["orgs"].each do |org|
+            next if org == ""
+            @user.organizations << Organization.find_by(name: org)
+          end
+        end
+        if params["add-orgs"]
+          more_orgs = params["add-orgs"].split(",").map(&:strip)
+          more_orgs.each do |org|
+            name = org.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.organizations << Organization.find_or_create_by(name: name)
+          end
+        end
+      end
+      if @user.save
         session[:user_id] = @user.id
         if @user.access == "teacher"
           UserMailer.teacher_email(@user).deliver_now
