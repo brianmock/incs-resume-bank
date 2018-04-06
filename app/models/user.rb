@@ -6,15 +6,15 @@ class User < ActiveRecord::Base
   validates :email, presence: { message: "Email can't be blank" }
   validates :first_name, presence: { message: "First name can't be blank" }
   validates :last_name, presence: { message: "Last name can't be blank" }
-  with_options if: :is_teacher? do |teacher|
-    teacher.validates :zip, presence: { message: "Zip code can't be blank" }
-    teacher.validates :years, presence: { message: "Years of experience can't be blank" }
-    teacher.validates :il_licensed, presence: { message: "IL license status can't be blank" }
-    teacher.validates :register2018, presence: { message: "Add which service you are signing up for (resume bank/job fair)" }
-    teacher.validates :licenses_helds, presence: { message: "Add your currently held licenses" } 
-    teacher.validates :position_choices, presence: { message: "Add your desired position(s)" } 
-    teacher.validates :endorsements_completed, presence: { message: "Add your completed endorsements" } 
-  end
+  # with_options if: :is_teacher? do |teacher|
+    # teacher.validates :zip, presence: { message: "Zip code can't be blank" }
+    # teacher.validates :years, presence: { message: "Years of experience can't be blank" }
+    # teacher.validates :il_licensed, presence: { message: "IL license status can't be blank" }
+    # teacher.validates :register2018, presence: { message: "Add which service you are signing up for (resume bank/job fair)" }
+    # teacher.validates :licenses_helds, presence: { message: "Add your currently held licenses" } 
+    # teacher.validates :position_choices, presence: { message: "Add your desired position(s)" } 
+    # teacher.validates :endorsements_completed, presence: { message: "Add your completed endorsements" } 
+  # end
   has_many :resumes, foreign_key: "teacher_id"
   has_many :licenses_helds, foreign_key: "teacher_id"
   has_many :licenses, through: :licenses_helds
