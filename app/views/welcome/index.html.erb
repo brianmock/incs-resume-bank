@@ -4,7 +4,7 @@
       <%= flash[:notice] %>
     </div>
   <% end %>
-  <h1 class="main-header">Welcome to the INCS Online Resume Bank. You may register for the 2018 INCS Teacher & Administrator Job Fair and/or register for the Resume Bank below.</h1>
+  <h1 class="main-header">Welcome to the INCS Online Resume Bank</h1>
 
   <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'pending' %>
     <p>Thank you for your registration. Please allow up to 2 business days for INCS staff to process approval of your account. You have received an email with further information.</p>
