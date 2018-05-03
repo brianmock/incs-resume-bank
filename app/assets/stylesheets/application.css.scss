@@ -319,6 +319,16 @@ em label {
   margin-bottom: 10px;
 }
 
+.admin-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid grey;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 400px;
+}
+
 .footer {
   position: fixed;
   height: 25px;

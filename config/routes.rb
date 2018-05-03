@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'users/search' => 'users#search'
   resources :users
 
+  get 'admin' => 'admin#index'
 
   post 'users/search' => 'users#search'
   post 'users/password_reset' => 'users#password_reset'
@@ -26,6 +27,11 @@ Rails.application.routes.draw do
   post 'users/register' => 'users#register'
 
   resources :resumes, only: [:index, :new, :create, :destroy, :update]
+  resources :endorsements, only: [:destroy]
+  resources :licenses, only: [:destroy]
+  resources :organizations, only: [:destroy]
+  resources :positions, only: [:destroy]
+  resources :subjects, only: [:destroy]
   root "welcome#index"
 
   # The priority is based upon order of creation: first created -> highest priority.

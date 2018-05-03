@@ -1,0 +1,39 @@
+<h3>Endorsements:</h3>
+<% @endorsements.order(:name).each do |endo| %>
+<div class="admin-result">
+  <%= endo.name %>
+  <%= button_to "Delete Item", endo, :class => "btn btn-danger", :method => :delete, :confirm => 'Are you sure you want to delete this item?' %>
+</div>
+<% end %>
+
+<h3>Licenses:</h3>
+<% @licenses.order(:name).each do |lic| %>
+<div class="admin-result">
+  <%= lic.name %>
+  <%= button_to "Delete Item", lic, :class => "btn btn-danger", :method => :delete, :confirm => 'Are you sure you want to delete this item?' %>
+</div>
+<% end %>
+
+<h3>Organizations:</h3>
+<% @organizations.order(:name).each do |org| %>
+<div class="admin-result">
+  <%= org.name %>
+  <%= button_to "Delete Item", org, :class => "btn btn-danger", :method => :delete, :confirm => 'Are you sure you want to delete this item?' %>
+</div>
+<% end %>
+
+<h3>Positions:</h3>
+<% @positions.order(:title).each do |pos| %>
+<div class="admin-result">
+  <%= pos.title %>
+  <%= button_to "Delete Item", pos, :class => "btn btn-danger", :method => :delete, :confirm => 'Are you sure you want to delete this item?' %>
+</div>
+<% end %>
+
+<h3>Subjects:</h3>
+<% @subjects.order(:subject).each do |sub| %>
+<div class="admin-result">
+  <%= sub.subject %>
+  <%= button_to "Delete Item", sub, :class => "btn btn-danger", :method => :delete, :confirm => 'Are you sure you want to delete this item?' %>
+</div>
+<% end %>
