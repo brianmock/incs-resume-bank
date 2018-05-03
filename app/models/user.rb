@@ -1,8 +1,14 @@
 require 'csv'
 
 class User < ActiveRecord::Base
+  attr_accessor :password_confirmation, :email_confirmation
+
   has_secure_password
   validates_uniqueness_of :email
+  validates_confirmation_of :password
+  validates_confirmation_of :email
+  validates_presence_of :password_confirmation
+  validates_presence_of :email_confirmation
   validates :email, presence: { message: "Email can't be blank" }
   validates :first_name, presence: { message: "First name can't be blank" }
   validates :last_name, presence: { message: "Last name can't be blank" }
@@ -28,11 +34,6 @@ class User < ActiveRecord::Base
   has_many :subjects, through: :preferences
   has_many :references, foreign_key: "teacher_id"
   has_many :sources, through: :references
-  # validates :references, :presence => {:message => ": please tell us how you heard about us" }, :if => :condition_testing?
-
-  def condition_testing?
-    self.access == 'teacher'
-  end
 
   def is_teacher?
     self.access == 'teacher'
