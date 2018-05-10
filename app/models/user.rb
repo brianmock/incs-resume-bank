@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
   has_secure_password
   validates_uniqueness_of :email
   validates_confirmation_of :password, on: :create
-  validates_confirmation_of :email
+  validates_confirmation_of :email, on: :create
   validates_presence_of :password_confirmation, on: :create
-  validates_presence_of :email_confirmation
+  validates_presence_of :email_confirmation, on: :create
   validates :email, presence: { message: "Email can't be blank" }
   validates :first_name, presence: { message: "First name can't be blank" }
   validates :last_name, presence: { message: "Last name can't be blank" }
