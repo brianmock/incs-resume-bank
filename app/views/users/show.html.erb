@@ -71,12 +71,9 @@
 <label>Current or Previous Organizations:</label> <%= @user.organizations.map{|org| org.name }.join(", ") %><br>
 <label>Additional Information:</label> <div class="additional-info"><p><%= @user.additional %></p></div><br>
 
-<% if @current_user.access == "teacher" && @current_user.id == @user.id %>
+<% if @current_user.access == "admin" || (@current_user.access == "teacher" && @current_user.id == @user.id) %>
   <div class="actions">
     <%= button_to "Edit Information", edit_user_path, :class => "btn btn-primary", :method => :get %>
-    <% if @current_user.register2018 == 'bank' || @current_user.register2018 == nil %>
-      <%= button_to "Register for 2018 Job Fair", users_register_path, :class => "btn btn-info", :method => :post %>
-    <% end %>
-    <%= button_to "Delete Profile", @current_user, :class => "btn btn-danger", :method => :delete, :confirm => 'Are you sure you want to remove yourself from the INCS Resume Bank?' %>
+    <%= button_to "Delete Profile", @user, :class => "btn btn-danger", :method => :delete, :confirm => 'Are you sure you want to remove yourself from the INCS Resume Bank?' %>
   </div>
 <% end %>

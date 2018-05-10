@@ -224,7 +224,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    redirect_to root_path unless params[:id].to_i == session[:user_id].to_i
+    @current_user = User.find_by(id: session[:user_id])
+    redirect_to root_path unless params[:id].to_i == session[:user_id].to_i || @current_user.access == "admin"
   end
 
   # Put /users/1/activate
@@ -370,7 +371,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
         if params["licenses"]
           @user.licenses.destroy_all
           params["licenses"].each do |lic|
@@ -465,6 +465,7 @@ class UsersController < ApplicationController
             @user.sources << Sources.find_or_create_by(source_name: source_name)
           end
         end
+      if @user.update(user_params)
         format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else

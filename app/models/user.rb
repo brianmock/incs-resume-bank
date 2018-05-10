@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
 
   has_secure_password
   validates_uniqueness_of :email
-  validates_confirmation_of :password
+  validates_confirmation_of :password, on: :create
   validates_confirmation_of :email
-  validates_presence_of :password_confirmation
+  validates_presence_of :password_confirmation, on: :create
   validates_presence_of :email_confirmation
   validates :email, presence: { message: "Email can't be blank" }
   validates :first_name, presence: { message: "First name can't be blank" }
@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
     teacher.validates :zip, presence: { message: "Zip code can't be blank" }
     teacher.validates :years, presence: { message: "Years of experience can't be blank" }
     teacher.validates :il_licensed, presence: { message: "IL license status can't be blank" }
-    teacher.validates :register2018, presence: { message: "Add which service you are signing up for (resume bank/job fair)" }
     teacher.validates :licenses_helds, presence: { message: "Add your currently held licenses" } 
     teacher.validates :position_choices, presence: { message: "Add your desired position(s)" } 
     teacher.validates :endorsements_completed, presence: { message: "Add your completed endorsements" } 

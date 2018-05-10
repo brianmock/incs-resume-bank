@@ -1,1 +1,288 @@
-<%= render 'teacher_form' %>
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %>:</h2>
+
+      <ul>
+      <% @user.errors.messages.each do |message| %>
+          <li><%= message[1][0] %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h3>Update your info below and click submit</h3><br>
+
+  <%= f.hidden_field :access, value: "teacher" %>
+  <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label :prefix %></em>
+    <%= f.select :prefix, options_for_select(prefixes, @user.prefix),{}, class: 'form-control' %>
+  </div>
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "First name *") %></em>
+    <%= f.text_field :first_name %><br>
+  </div>
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Last name *") %></em>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "What would you like your resume bank login email to be? *") %></em>
+    <%= f.text_field :email, class: 'med-field' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Please confirm your email address *") %></em>
+    <%= f.text_field :email_confirmation, class: 'med-field' %>
+  </div>
+
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label :phone_number %></em>
+    <%= f.phone_field :phone_number %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Address Line 1") %></em>
+    <%= f.text_field :street, class: 'long-field' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Address Line 2") %></em>
+    <%= f.text_field :street_second, class: 'long-field' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label :city %></em>
+    <%= f.text_field :city %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Zip Code *") %></em>
+    <%= f.text_field :zip, class: 'tiny-field' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="select-label"><%= f.label :state %></em>
+    <%= f.select :state, options_for_select(us_states,@user.state),{}, class: 'form-control' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="select-label"><%= f.label :country %></em>
+    <%= f.select :country, options_for_select(countries,@user.country),{}, class: 'form-control' %>
+  </div><br><br>
+
+  <div class="field">
+    <label><em class="label-bold">How did you hear about the INCS Resume Bank? (Check all that apply)</em></label><br>
+    <ul class="checkbox-grid2">
+      <% resume_bank_references.each do |source| %>
+        <% if @user.sources.map{|source| source.source_name}.include?(source) %>
+          <li><input type="checkbox" name="sources[]" value="<%= source %>" checked/>
+        <% else %>
+          <li><input type="checkbox" name="sources[]" value="<%= source %>" />
+        <% end %>
+        <label><%= source %></label></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="sources[]" value=""/>
+    <label>College jobs board, newsletter, or staff. If so, please specify which one.</label>
+    <input type="text" name="add-sources" value="" /><br>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="sources[]" value=""/>
+    <label>Other (please specify so that we may thank our partners)</label>
+    <input type="text" name="add-sources" value="" /><br>
+  </div>
+  <br>
+
+  <div class="field field-flex">
+    <em class="teacher-label3"><%= f.label(:name, "Years of Teaching/School Administration Experience *") %></em>
+    <%= f.select :years, options_for_select(exp_years, @user.years),{}, class: 'form-control form-control-tiny' %>
+  </div><br>
+
+  <div class="field field-flex">
+    <em class="teacher-label3"><%= f.label(:name, "Preferred Grade Level") %></em>
+    <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control form-control-small' %>
+  </div><br>
+
+  <div class="field">
+    <em class="label-bold">
+    <%= f.label(:name, "Do you have previous experience in a charter?") %></em><br>
+    <div class="field-radio">
+      <%= f.radio_button(:previous, true) %>
+      <%= f.label(:name, "Yes") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:previous, false) %>
+      <%= f.label(:name, "No") %><br>
+    </div>
+  </div><br>
+
+  <div class="field">
+    <label><em class="label-bold">Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
+    <ul class="checkbox-grid2">
+    <% position_options.sort.each do |pos| %>
+      <% if @user.positions.map{|pos| pos.title}.include?(pos) %>
+        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" checked/>
+      <% else %>
+        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
+      <% end %>
+    <label class="flex-one no-margin"><%= pos %></label></li>
+    <% end %>
+    </ul>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="positions[]" value=""/>
+    <label>Other (if multiple, separate with a comma)</label>
+    <input type="text" name="add-positions" value="" />
+  </div>
+  <br>
+
+  <div class="field">
+    <label><em class="label-bold">Preferred Subject(s) For Teaching Candidates</em></label><br>
+    <ul class="checkbox-grid">
+      <li><input type="checkbox" name="subs[]" value="None" />
+      <label>N/A</label></li>
+      <% Subject.all.order(:subject).each do |sub| %>
+        <% if @user.subjects.map{|sub| sub.subject}.include?(sub.subject) %>
+          <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" checked/>
+        <% else %>
+          <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" />
+        <% end %>
+        <label><%= sub.subject %></label></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="subs[]" value=""/>
+    <label>Other (if multiple, separate with a comma)</label>
+    <input type="text" name="add-subs" value="" /><br>
+  </div>
+  <br>
+
+  <div class="field">
+    <em class="label-bold">
+    <%= f.label(:name, "Are you licensed to teach in Illinois? *") %></em><br>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "Yes") %>
+      <%= f.label(:name, "Yes") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "No") %>
+      <%= f.label(:name, "No") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "Other") %>
+      <%= f.label(:name, "I am licensed in another state.")%>
+      <%= link_to "Click here for Illinois license information", "/uploads/licCheatSheet.pdf" %>
+    </div>
+  </div>
+  <br>
+
+  <div class="field">
+    <label><em class="label-bold">What type of license do you hold? (Check all that apply) *</em></label><br>
+    <% license_choices.each do |lic| %>
+      <div class="field-radio">
+        <% if @user.licenses.map{|lic| lic.name}.include?(lic) %>
+          <input type="checkbox" name="licenses[]" value="<%= lic %>" checked/>
+        <% else %>
+          <input type="checkbox" name="licenses[]" value="<%= lic %>" />
+        <% end %>
+        <label><%= lic %></label><br>
+      </div>
+    <% end %>
+    <div class="field-radio">
+      <input type="checkbox" name="licenses[]" value=""/>
+      <label>Other (if multiple, separate with a comma)</label>
+      <input type="text" name="add-licenses" value="" />
+    </div>
+  </div><br>
+
+  <div class="field field-flex">
+    <em class="teacher-label2"><%= f.label :degree %></em>
+    <%= f.select :degree, options_for_select(degrees),{}, class: 'form-control' %>
+  </div><br>
+
+  <div class="field">
+    <em class="label-bold"><%= f.label :major, :class => "teacher-label2" %></em>
+    <%= f.text_field :major %>
+  </div><br>
+  <div class="field">
+    <em class="label-bold"><%= f.label :masters_concentration, :class => "teacher-label2" %></em>
+    <%= f.text_field :masters_concentration %>
+  </div><br>
+
+  <div class="field">
+    <label><em class="label-bold">Endorsements completed (Check all that apply) *</em></label><br>
+    <ul class="checkbox-grid2">
+    <% Endorsement.all.order(:name).each do |endo| %>
+      <% if @user.endorsements.map{|endo| endo.name}.include?(endo.name) %>
+        <li><input type="checkbox" name="endorses[]" value="<%= endo.name %>" checked/>
+      <% else %>
+        <li><input type="checkbox" name="endorses[]" value="<%= endo.name %>" />
+      <% end %>
+    <label><%= endo.name %></label><br></li>
+    <% end %>
+    </ul>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="endorses[]" value=""/>
+    <label>Other (if multiple, separate with a comma)</label>
+    <input type="text" name="add-endorses" value="" />
+  </div><br>
+
+
+
+  <div class="field field5">
+    <em class="label-bold"><%= f.label(:location_pref, "Where are you willing to teach?") %></em><br>
+    <div class="field-radio">
+      <%= f.radio_button(:location_pref, "Chicago") %>
+      <%= f.label(:name, "Chicago") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:location_pref, "Non-Chicago, Greater Illinois") %>
+      <%= f.label(:name, "Non-Chicago, Greater Illinois") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:location_pref, "Chicago or Greater Illinois") %>
+      <%= f.label(:name, "Both") %><br>
+    </div>
+  </div><br>
+
+  <div class="field">
+    <label><em class="label-bold">Membership or Alumni Organization (Check all that apply)</em></label><br>
+    <ul class="checkbox-grid2">
+    <% Organization.all.order(:name).each do |org| %>
+      <% if @user.organizations.map{|org| org.name}.include?(org.name) %>
+        <li class="field-flex"><input type="checkbox" name="orgs[]" value="<%= org.name %>" checked/>
+      <% else %>
+        <li class="field-flex"><input type="checkbox" name="orgs[]" value="<%= org.name %>" />
+      <% end %>
+    <label class="flex-one no-margin"><%= org.name %></label><br></li>
+    <% end %>
+    </ul>
+    </div>
+    <div class="field2">
+      <input type="checkbox" name="orgs[]" value=""/>
+      <label>Other (if multiple, separate with a comma)</label>
+      <input type="text" name="add-orgs" value="" />
+    </div><br>
+
+  <div class="field field8">
+    <em class="label-bold"><%= f.label(:name, "Additional information") %></em><br>
+    <%= f.text_area :additional, cols: "100", rows: "10" %>
+  </div><br>
+
+  <div class="actions">
+    <%= f.submit 'Update Information', :name => 'submit', :class => "btn btn-info" %>
+    <a href="/users/<%=@user.id%>">
+      <button class="btn btn-danger">Cancel</button>
+    </a>
+  </div>
+   <br>
+    <br>
+<% end %>
