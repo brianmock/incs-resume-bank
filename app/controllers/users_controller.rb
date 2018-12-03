@@ -99,40 +99,32 @@ class UsersController < ApplicationController
     if params["filter"]
       case params["filter"]
       when 'bank-only'
-        @users = User.where('access' => 'teacher').select {|user| (user.register2017 == 'bank') || (user.register == 'bank') || (user.register2018 == 'bank')}
+        @users = User.where('access' => 'teacher').select {|user| (user.register2017 == 'bank') || (user.register == 'bank') || (user.register2018 == 'bank')}.paginate(page: params[:page], per_page: 25)
         @header = 'Candidates only registered with Resume Bank'
         @filter = 'bank-only'
       when '2018-job-fair'
-        @users = User.where('access' => 'teacher').select {|user| user.register2018 == 'both' || user.register2018 == 'jobfaironly'}
+        @users = User.where('access' => 'teacher').select {|user| user.register2018 == 'both' || user.register2018 == 'jobfaironly'}.paginate(page: params[:page], per_page: 25)
         @header = 'All Candidates registered for 2018 Teacher Job Fair'
         @filter = '2018-job-fair'
       when '2017-job-fair'
-        @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'both' || user.register2017 == 'jobfaironly'}
+        @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'both' || user.register2017 == 'jobfaironly'}.paginate(page: params[:page], per_page: 25)
         @header = 'All Candidates registered for 2017 Teacher Job Fair'
         @filter = '2017-job-fair'
-      # when '2016-job-fair'
-      #   @users = User.where('access' => 'teacher').select {|user| user.register == 'both' || user.register == 'jobfaironly'}
-      #   @header = 'All Candidates registered for 2016 Teacher Job Fair'
-      #   @filter = '2016-job-fair'
       when '2018-job-fair-only'
-        @users = User.where('access' => 'teacher').select {|user| user.register2018 == 'jobfaironly'}
+        @users = User.where('access' => 'teacher').select {|user| user.register2018 == 'jobfaironly'}.paginate(page: params[:page], per_page: 25)
         @header = 'All Candidates only registered for 2018 Teacher Job Fair (no resume bank)'
         @filter = '2018-job-fair-only'
       when '2017-job-fair-only'
-        @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'jobfaironly'}
+        @users = User.where('access' => 'teacher').select {|user| user.register2017 == 'jobfaironly'}.paginate(page: params[:page], per_page: 25)
         @header = 'All Candidates only registered for 2017 Teacher Job Fair (no resume bank)'
         @filter = '2017-job-fair-only'
-      # when '2016-job-fair-only'
-      #   @users = User.where('access' => 'teacher').select {|user| user.register == 'jobfaironly'}
-      #   @header = 'All Candidates only registered for 2016 Teacher Job Fair (no resume bank)'
-      #   @filter = '2016-job-fair-only'
       end
     elsif params[:search]
-      @users = User.teacher_search(params[:search])
+      @users = User.teacher_search(params[:search]).paginate(page: params[:page], per_page: 25)
       @header = "Results for #{params[:search]}"
       @filter = 'none'
     else
-      @users = User.where('access' => 'teacher')
+      @users = User.where('access' => 'teacher').paginate(page: params[:page], per_page: 25)
       @header = 'All Candidates'
       @filter = 'none'
     end
