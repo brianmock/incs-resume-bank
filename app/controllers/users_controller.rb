@@ -166,7 +166,7 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.with_active_resumes.includes(:positions, :subjects, :licenses)
+    @users = User.with_active_resumes.includes(:positions, :subjects, :licenses, :sources)
     if params["years"] != "Any"
       @users = @users.select {|user| user.years.to_i >= params["years"].to_i}
     end
