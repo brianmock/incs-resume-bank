@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   has_many :references, foreign_key: "teacher_id"
   has_many :sources, through: :references
 
+  scope :with_active_resumes, -> { joins(:resumes).where('resumes.active = true') }
+
   def is_teacher?
     self.access == 'teacher'
   end

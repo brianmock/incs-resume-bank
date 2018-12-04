@@ -174,9 +174,9 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.all.select {|user| user.is_active?}
+    @users = User.with_active_resumes.includes(:positions, :subjects, :licenses)
     if params["years"] != "Any"
-      @users = @users.select {|user| user.years.to_i >= params["years"].to_i}
+      @users = @users.where('CAST(years AS INT) >= ?', params["years"].to_i)
     end
     if params["positions"]
       @users = @users.select {|user| ((user.positions.pluck(:title) & params["positions"]).empty? == false)}
@@ -185,17 +185,13 @@ class UsersController < ApplicationController
       @users = @users.select {|user| ((user.subjects.pluck(:subject) & params["subjects"]).empty? == false)}
     end
     if params["grade_pref"] != "Any"
-      @users = @users.select {|user| user.grade_pref == params["grade_pref"]}
+      @users = @users.where({ grade_pref: params["grade_pref"] })
     end
     if params["registered"] == "Yes"
       @users = @users.select {|user| user.register2018 == "both" || user.register2018 == 'jobfaironly'}
     end
-    if params["location_pref"] == "Chicago"
-      @users = @users.select {|user| user.location_pref == "Chicago"}
-    elsif params["location_pref"] == "Non-Chicago, Greater Illinois"
-      @users = @users.select {|user| user.location_pref == "Non-Chicago, Greater Illinois"}
-    elsif params["location_pref"] == "Chicago or Greater Illinois"
-      @users = @users.select {|user| user.location_pref == "Chicago or Greater Illinois"}
+    if params["location_pref"]
+      @users = @users.where({ location_pref: params["location_pref"]})
     end
 
     respond_to do |format|
