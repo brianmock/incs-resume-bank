@@ -1,0 +1,51 @@
+<div class="centered">
+  <% if !flash[:notice].blank? %>
+    <div class="alert alert-info">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+  <h1 class="main-header">Welcome to the INCS Online Resume Bank</h1>
+
+  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'pending' %>
+    <p>Thank you for your registration. Please allow up to 2 business days for INCS staff to process approval of your account. You have received an email with further information.</p>
+  <% end %>
+
+  <% if session[:user_id] == nil %>
+    <div class="main-container">
+      <%= button_to "Candidate Resume Bank Registration", users_new_teacher_path, method: :get, class: "btn btn-info main-btn"%>
+      <%= button_to "Hiring Manager Registration", users_new_school_path, method: :get, class: "btn btn-info main-btn"%>
+    </div>
+    <br>
+  <% end %>
+
+  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'teacher' && User.find(session[:user_id]).register2018 == 'bank' %>
+    <div class="main-container">
+    <%= button_to "Register for Job Fair", users_register_path, method: :post, class: "btn btn-info main-btn" %>
+    </div>
+  <% end %>
+
+  <p class="main-content">
+    <p class="main-content">
+    The Illinois Network of Charter Schools (INCS) hosted our 13th annual Teacher Job Fair on Saturday, April 7, 2018 at Perspectives/IIT Math &amp; Science Academy. Representatives from the state’s charter schools were on hand to recruit hundreds of teachers, social workers, counselors, nurses, and other administrators.
+    </p>
+
+    <p class="main-content">
+    INCS continues to seek highly qualified candidates who are excited to work in a mission-driven environment and to TEACH, LEAD, and SUCCEED. To upload your resume into our resume database, which is available to Illinois charter school hiring managers year-round, please select “Candidate Resume Bank Registration” above.
+    </p>
+    <br>
+
+    <p class="main-content">
+      Did you know INCS also has a <span class="bold">jobs board</span>? To browse current openings in Illinois charter public schools, please visit us <a href="https://www.incschools.org/jobs/jobs-at-charter-schools/">here</a>. To browse current openings at INCS, please visit us <a href="https://www.incschools.org/jobs/jobs-at-incs/">here</a>.
+    </p>
+
+    <p class="main-content">
+      To find a charter public school near you, please visit us <a href="https://www.incschools.org/about-charters/find-a-charter-school/">here</a>.
+    </p>
+  </p>
+
+  <p class="main-content grayed">
+    ABOUT INCS: The Illinois Network of Charter Schools (INCS) advocates for the improvement of public education by leveraging the charter school model as a catalyst to transform lives and communities. INCS works to ensure that charter public schools have adequate and equitable resources, the autonomy to find innovative approaches to meet student needs, and a fair and transparent policy landscape that allows high-quality options to thrive. As the voice of Illinois charter schools, INCS engages a diverse coalition of policymakers, school leaders, parents, and community members to create systemic change and secure high-quality schools for undeserved communities. Learn more about us <a target="_blank" href="https://www.incschools.org/">here</a>. 
+  </p>
+
+
+</div>
