@@ -236,7 +236,7 @@ body > div > table > thead > tr > th {
 }
 
 .teacher-label {
-  width: 15%;
+  width: 36%;
   font-weight: bold;
 }
 
@@ -407,11 +407,10 @@ em label {
   -ms-flex: 1 1 auto;
   -o-flex: 1 1 auto;
   flex: 1 1 auto;
-  padding-bottom: 4px;
+  padding-bottom: 12px;
 }
 
 .field_with_errors {
-  padding-bottom: 4px;
 }
 
 .field_with_errors input {
@@ -454,7 +453,7 @@ em label {
 }
 .select-label {
   margin-top: 5px;
-  width: 15%;
+  width: 36%;
 }
 
 .resume {

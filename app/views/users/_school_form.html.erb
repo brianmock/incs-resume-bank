@@ -1,11 +1,11 @@
-<%= form_for(@user) do |f| %>
+<%= form_for @user, url: '/users/new_school' do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <% @user.errors.messages.each do |message| %>
+        <li><%= message[1][0] %></li>
       <% end %>
       </ul>
     </div>
@@ -17,32 +17,32 @@
 
   <%= f.hidden_field :access, value: "pending" %>
   <div class="field field-flex">
-    <%= f.label :first_name, :class => 'teacher-label' %><br>
+  <em class="teacher-label"><%= f.label :first_name %></em>
     <%= f.text_field :first_name, size: 45 %><br>
   </div>
   <div class="field field-flex">
-    <%= f.label :last_name, :class => 'teacher-label' %><br>
+  <em class="teacher-label"><%= f.label :last_name %></em>
     <%= f.text_field :last_name, size: 45 %><br>
   </div>
   <div class="field field-flex">
-    <%= f.label :school, :class => 'teacher-label' %><br>
+  <em class="teacher-label"><%= f.label :school %></em>
     <%= f.text_field :school, size: 60 %><br>
   </div>
   <div class="field field-flex">
-    <%= f.label :email, :class => 'teacher-label' %><br>
+  <em class="teacher-label"><%= f.label :email %></em>
     <%= f.text_field :email, size: 45 %><br>
   </div>
   <div class="field field-flex">
-    <%= f.label :email_confirmation, :class => 'teacher-label' %><br>
+  <em class="teacher-label"><%= f.label :email_confirmation %></em>
     <%= f.text_field :email_confirmation, size: 45 %><br>
   </div>
   <div class="field field-flex">
-    <%= f.label :password, :class => 'teacher-label' %><br>
+  <em class="teacher-label"><%= f.label :password %></em>
     <%= f.password_field :password %><br>
   </div>
   <div class="field field-flex">
-    <%= f.label :password_confirmation, :class => 'teacher-label' %><br>
-    <%= f.password_field :password_confirmation %>
+  <em class="teacher-label"><%= f.label :password_confirmation %></em>
+    <%= f.password_field :password_confirmation %><br>
   </div>
 
   <div class="actions">
