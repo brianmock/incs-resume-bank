@@ -134,7 +134,7 @@
   <div class="field">
     <label><em class="label-bold">Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
-    <% position_options.sort.each do |pos| %>
+    <% position_options.each do |pos| %>
       <% if @user.positions.map{|pos| pos.title}.include?(pos) %>
         <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" checked/>
       <% else %>
@@ -188,6 +188,10 @@
       <%= f.radio_button(:il_licensed, "Other") %>
       <%= f.label(:name, "I am licensed in another state.")%>
       <%= link_to "Click here for Illinois license information", "/uploads/licCheatSheet.pdf" %>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "Educator Prep Program") %>
+      <%= f.label(:name, "I am enrolled in an educator preparation program.") %><br>
     </div>
   </div>
   <br>

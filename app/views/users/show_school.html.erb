@@ -5,7 +5,7 @@
   <div class="field">
     <label class="label-bold"><em>Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
-    <% position_options.sort.each do |pos| %>
+    <% position_options.each do |pos| %>
         <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
     <label class="flex-one"><%= pos %></label></li>
     <% end %>

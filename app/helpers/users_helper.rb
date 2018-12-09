@@ -2,25 +2,22 @@ module UsersHelper
 
   def position_options
     [
-      'College Counseling (including career services and alumni support)',
-      'School Leadership (principal, assistant principal, director, network director, etc)',
-      'Operations ',
-      'Finance',
-      'Social Work',
-      'Special Education (including clinicians, case manager, paraprofessionals, etc) ',
       'Teaching',
-      'Technology',
-      'Athletic Programs',
-      'Recruitment',
-      'Data',
-      'Front Office',
-      'Substitute',
-      'Personal Counseling',
-      'Culture and Climate (including deans, special projects, etc)',
-      'Academic and Student Advising',
+      'Teaching Assistant or Paraprofessional',
+      'Substitute Teaching',
+      'Instructional Coaching',
+      'School Leadership (principal, assistant principal, dean, director, network director, etc.)',
+      'Special Education Related Service Provider (clinicians such as speech language pathologist, occupational therapist, etc.)',
+      'Student Academic Advising, College Counseling, Career Services or Alumni Support',
+      'Social Work or Counseling',
+      'Community/Parent Partnerships or Student Recruitment',
+      'Facilities Maintenance or Custodian',
+      'Front Office / Administrative',
+      'Information Technology',
+      'Data Management or Analysis',
+      'Finance and Operations',
       'Human Resources',
-      'Community/Parent Partnerships',
-      'Facilities Maintenance',
+      'Athletic Programs',
     ]
   end
   def resume_bank_references
@@ -28,21 +25,21 @@ module UsersHelper
       'Flyer',
       'INCS website',
       'INCS email',
-      'INCS twitter',
-      'INCS facebook',
-      'Linkedin',
+      'INCS Twitter',
+      'INCS Facebook',
+      'Eventbrite',
       'Friend or colleague',
+      'Craigslist',
       'Idealist',
       'Indeed',
+      'LinkedIn',
+      'NPO.net',
+      'Bronzecomm',
+      'Chicago Latino Network',
+      'HACE - Hispanic Alliance for Career Enhancement',
+      'Surge Institute',
       'Austin Weekly',
       'Wednesday Journal',
-      'NPO',
-      'DNA Info',
-      'Eventbrite',
-      'Surge Institute',
-      'HACE - Hispanic Alliance for Career Enhancement',
-      'Chicago Latino Network',
-      'Craigslist'
     ]
   end
 
@@ -51,7 +48,7 @@ module UsersHelper
       'None',
       'Professional Educator License (PEL)',
       'Educator License with Stipulations',
-      'Substitute Teaching License'
+      'Substitute Teaching License',
     ]
   end
   def us_states
@@ -107,7 +104,8 @@ module UsersHelper
       ['Washington', 'WA'],
       ['West Virginia', 'WV'],
       ['Wisconsin', 'WI'],
-      ['Wyoming', 'WY']
+      ['Wyoming', 'WY'],
+      ['International', 'N/A']
     ]
   end
 
@@ -386,14 +384,14 @@ module UsersHelper
 
   def degrees
     [
-      "Associates",
-      "Associates in progress",
-      "Bachelors",
-      "Bachelors in progress",
-      "Masters",
-      "Masters in progress",
+      "Associate",
+      "Associate in progress",
+      "Bachelor's",
+      "Bachelor's in progress",
+      "Master's",
+      "Master's in progress",
       "Doctorate",
-      "Doctorate in progress"
+      "Doctorate in progress",
     ]
   end
 
@@ -410,7 +408,7 @@ module UsersHelper
       8,
       9,
       "10+",
-      "N/A or not a teacher"
+      "N/A or not a teacher/school administrator",
     ]
   end
 
@@ -433,12 +431,13 @@ module UsersHelper
 
   def grades
     [
-      "Pre-k",
+      "Pre K",
       "Kindergarten",
       "Primary (1st-2nd)",
       "Elementary (3rd-5th)",
       "Middle School (6th-8th)",
-      "High School (9th-12th)"
+      "High School (9th-12th)",
+      "No preference",
     ]
   end
 
@@ -450,7 +449,7 @@ module UsersHelper
       "Primary (1st-2nd)",
       "Elementary (3rd-5th)",
       "Middle School (6th-8th)",
-      "High School (9th-12th)"
+      "High School (9th-12th)",
     ]
   end
 
