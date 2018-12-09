@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   get 'welcome/index'
   get 'users/new_teacher' => 'users#new_teacher'
+  post 'users/new_teacher' => 'users#create'
   get 'users/new_school' => 'users#new_school'
+  post 'users/new_school' => 'users#create'
 
   get 'resumes/additional' => 'resumes#additional'
   get 'users/schools' => 'users#show_all_schools'

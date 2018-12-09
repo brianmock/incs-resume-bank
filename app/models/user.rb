@@ -4,14 +4,15 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation, :email_confirmation
 
   has_secure_password
-  validates_uniqueness_of :email
-  validates_confirmation_of :password, on: :create
-  validates_confirmation_of :email, on: :create
-  validates_presence_of :password_confirmation, on: :create
-  validates_presence_of :email_confirmation, on: :create
-  validates :email, presence: { message: "Email can't be blank" }
+  validates_uniqueness_of :email, message: "This email address is already in the Resume Bank. Please log in using the button in the top right corner of the page."
   validates :first_name, presence: { message: "First name can't be blank" }
   validates :last_name, presence: { message: "Last name can't be blank" }
+  validates :email, presence: { message: "Email can't be blank" }
+  validates_presence_of :email_confirmation, on: :create, message: "Email confirmation can't be blank"
+  validates_presence_of :password, on: :create, message: "Password can't be blank"
+  validates_presence_of :password_confirmation, on: :create, message: "Password confirmation can't be blank"
+  validates_confirmation_of :password, on: :create, message: "Password confirmation must match password"
+  validates_confirmation_of :email, on: :create, message: "Email confirmation must match email"
   with_options if: :is_teacher? do |teacher|
     teacher.validates :zip, presence: { message: "Zip code can't be blank" }
     teacher.validates :years, presence: { message: "Years of experience can't be blank" }
