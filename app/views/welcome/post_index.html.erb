@@ -18,7 +18,7 @@
     <br>
   <% end %>
 
-  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'teacher' && User.find(session[:user_id]).register2018 == 'bank' %>
+  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'teacher' && User.find(session[:user_id]).register2019 == 'bank' %>
     <div class="main-container">
     <%= button_to "Register for Job Fair", users_register_path, method: :post, class: "btn btn-info main-btn" %>
     </div>

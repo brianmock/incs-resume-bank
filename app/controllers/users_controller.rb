@@ -14,12 +14,12 @@ class UsersController < ApplicationController
 
   def register
     @current_user = User.find(session[:user_id])
-    if @current_user.register2018 == 'bank' || @current_user.register2018.nil?
-      @current_user.register2018 = 'both'
+    if @current_user.register2019 == 'bank' || @current_user.register2019.nil?
+      @current_user.register2019 = 'both'
       @current_user.save
-      redirect_to user_path(@current_user), notice: 'You have been registered for the 2018 INCS Teacher Job Fair'
+      redirect_to user_path(@current_user), notice: 'You have been registered for the 2019 INCS Teacher Job Fair'
     else
-      redirect_to user_path(@current_user), notice: 'You have already registered for the 2018 INCS Teacher Job Fair'
+      redirect_to user_path(@current_user), notice: 'You have already registered for the 2019 INCS Teacher Job Fair'
     end
 
   end
@@ -99,25 +99,25 @@ class UsersController < ApplicationController
     if params["filter"]
       case params["filter"]
       when 'bank-only'
-        @users = User.where('access' => 'teacher').where('register2017= ? OR register2018= ? OR register= ?', 'bank', 'bank', 'bank').paginate(page: params[:page], per_page: 25)
+        @users = User.where('access' => 'teacher').where('register2018= ? OR register2019= ? OR register= ?', 'bank', 'bank', 'bank').paginate(page: params[:page], per_page: 25)
         @header = 'Candidates only registered with Resume Bank'
         @filter = 'bank-only'
+      when '2019-job-fair'
+        @users = User.where('access' => 'teacher').where(:register2019 => ['both', 'jobfaironly']).paginate(page: params[:page], per_page: 25)
+        @header = 'All Candidates registered for 2019 Teacher Job Fair'
+        @filter = '2019-job-fair'
       when '2018-job-fair'
         @users = User.where('access' => 'teacher').where(:register2018 => ['both', 'jobfaironly']).paginate(page: params[:page], per_page: 25)
         @header = 'All Candidates registered for 2018 Teacher Job Fair'
         @filter = '2018-job-fair'
-      when '2017-job-fair'
-        @users = User.where('access' => 'teacher').where(:register2017 => ['both', 'jobfaironly']).paginate(page: params[:page], per_page: 25)
-        @header = 'All Candidates registered for 2017 Teacher Job Fair'
-        @filter = '2017-job-fair'
+      when '2019-job-fair-only'
+        @users = User.where('access' => 'teacher').where(:register2019 => 'jobfaironly').paginate(page: params[:page], per_page: 25)
+        @header = 'All Candidates only registered for 2019 Teacher Job Fair (no resume bank)'
+        @filter = '2019-job-fair-only'
       when '2018-job-fair-only'
         @users = User.where('access' => 'teacher').where(:register2018 => 'jobfaironly').paginate(page: params[:page], per_page: 25)
         @header = 'All Candidates only registered for 2018 Teacher Job Fair (no resume bank)'
         @filter = '2018-job-fair-only'
-      when '2017-job-fair-only'
-        @users = User.where('access' => 'teacher').where(:register2017 => 'jobfaironly').paginate(page: params[:page], per_page: 25)
-        @header = 'All Candidates only registered for 2017 Teacher Job Fair (no resume bank)'
-        @filter = '2017-job-fair-only'
       end
     elsif params[:search]
       @users = User.teacher_search(params[:search]).paginate(page: params[:page], per_page: 25)
@@ -135,25 +135,25 @@ class UsersController < ApplicationController
   def download_teachers
     case params["filter"]
     when 'bank-only'
-      @users = User.where('access' => 'teacher').where('register2017= ? OR register2018= ? OR register= ?', 'bank', 'bank', 'bank')
+      @users = User.where('access' => 'teacher').where('register2018= ? OR register2019= ? OR register= ?', 'bank', 'bank', 'bank')
       @header = 'Candidates only registered with Resume Bank'
       @filter = 'bank-only'
-    when '2017-job-fair'
-      @users = User.where('access' => 'teacher').where(:register2017 => ['both', 'jobfaironly'])
-      @header = 'All Candidates registered for 2017 Teacher Job Fair'
-      @filter = '2017-job-fair'
     when '2018-job-fair'
       @users = User.where('access' => 'teacher').where(:register2018 => ['both', 'jobfaironly'])
       @header = 'All Candidates registered for 2018 Teacher Job Fair'
       @filter = '2018-job-fair'
-    when '2017-job-fair-only'
-      @users = User.where('access' => 'teacher').where(:register2017 => 'jobfaironly')
-      @header = 'All Candidates only registered for 2017 Teacher Job Fair (no resume bank)'
-      @filter = '2017-job-fair-only'
+    when '2019-job-fair'
+      @users = User.where('access' => 'teacher').where(:register2019 => ['both', 'jobfaironly'])
+      @header = 'All Candidates registered for 2019 Teacher Job Fair'
+      @filter = '2019-job-fair'
     when '2018-job-fair-only'
       @users = User.where('access' => 'teacher').where(:register2018 => 'jobfaironly')
       @header = 'All Candidates only registered for 2018 Teacher Job Fair (no resume bank)'
       @filter = '2018-job-fair-only'
+    when '2019-job-fair-only'
+      @users = User.where('access' => 'teacher').where(:register2019 => 'jobfaironly')
+      @header = 'All Candidates only registered for 2019 Teacher Job Fair (no resume bank)'
+      @filter = '2019-job-fair-only'
     else
       @users = User.where('access' => 'teacher')
       @header = 'All Candidates'
@@ -180,7 +180,7 @@ class UsersController < ApplicationController
       @users = @users.select {|user| user.grade_pref == params["grade_pref"]}
     end
     if params["registered"] == "Yes"
-      @users = @users.select {|user| user.register2018 == "both" || user.register2018 == "jobfaironly"}
+      @users = @users.select {|user| user.register2019 == "both" || user.register2019 == "jobfaironly"}
     end
     if params["location_pref"]
       @users = @users.select {|user| user.location_pref == params["location_pref"]}
@@ -494,9 +494,9 @@ class UsersController < ApplicationController
                                  :phone_number, :street, :street_second,
                                  :city, :state, :zip, :country,
                                  :register, :register2017, :register2018,
-                                 :il_licensed, :licenses, :degree, :major,
-                                 :masters_concentration, :endorses,
-                                 :previous, :subs, :relocation,
+                                 :register2019, :il_licensed, :licenses,
+                                 :degree, :major, :masters_concentration,
+                                 :endorses, :previous, :subs, :relocation,
                                  :orgs, :additional, :years, :grade_pref,
                                  :positions, :school, :resume_id,
                                  :location_pref, :sources)
