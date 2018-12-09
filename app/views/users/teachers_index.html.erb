@@ -7,13 +7,6 @@
     <% end %>
   </li>
   <li class="admin-button">
-    <% if @filter == '2017-job-fair' %>
-      <a href="/users/teachers/?filter=2017-job-fair"><button class="btn btn-info btn-active">2017 Teacher Job Fair Registrants</button></a>
-    <% else %>
-      <a href="/users/teachers/?filter=2017-job-fair"><button class="btn btn-info">2017 Teacher Job Fair Registrants</button></a>
-    <% end %>
-  </li>
-  <li class="admin-button">
     <% if @filter == '2018-job-fair' %>
       <a href="/users/teachers/?filter=2018-job-fair"><button class="btn btn-info btn-active">2018 Teacher Job Fair Registrants</button></a>
     <% else %>
@@ -21,10 +14,10 @@
     <% end %>
   </li>
   <li class="admin-button">
-    <% if @filter == '2017-job-fair-only' %>
-      <a href="/users/teachers/?filter=2017-job-fair-only"><button class="btn btn-info btn-active">2017 Job Fair Only Registrants</button></a>
+    <% if @filter == '2019-job-fair' %>
+      <a href="/users/teachers/?filter=2019-job-fair"><button class="btn btn-info btn-active">2019 Teacher Job Fair Registrants</button></a>
     <% else %>
-      <a href="/users/teachers/?filter=2017-job-fair-only"><button class="btn btn-info">2017 Job Fair Only Registrants</button></a>
+      <a href="/users/teachers/?filter=2019-job-fair"><button class="btn btn-info">2019 Teacher Job Fair Registrants</button></a>
     <% end %>
   </li>
   <li class="admin-button">
@@ -32,6 +25,13 @@
       <a href="/users/teachers/?filter=2018-job-fair-only"><button class="btn btn-info btn-active">2018 Job Fair Only Registrants</button></a>
     <% else %>
       <a href="/users/teachers/?filter=2018-job-fair-only"><button class="btn btn-info">2018 Job Fair Only Registrants</button></a>
+    <% end %>
+  </li>
+  <li class="admin-button">
+    <% if @filter == '2019-job-fair-only' %>
+      <a href="/users/teachers/?filter=2019-job-fair-only"><button class="btn btn-info btn-active">2019 Job Fair Only Registrants</button></a>
+    <% else %>
+      <a href="/users/teachers/?filter=2019-job-fair-only"><button class="btn btn-info">2019 Job Fair Only Registrants</button></a>
     <% end %>
   </li>
 </ul>
@@ -58,7 +58,7 @@
 <div class="result">
   <label>Name:</label> <%= user.first_name %> <%= user.last_name %><br>
   <label>Email:</label> <%= user.email %><br>
-  <label>Registered for 2018 Job Fair:</label> <% if user.register2018 == 'bank' || user.register2018 == nil %> No <% else %> Yes <% end %><br>
+  <label>Registered for 2019 Job Fair:</label> <% if user.register2019 == 'bank' || user.register2019 == nil %> No <% else %> Yes <% end %><br>
   <label>Active:</label> <% if user.is_active? %> Yes <% else %> No
   <% end %>
   <div class="result_button_container">
