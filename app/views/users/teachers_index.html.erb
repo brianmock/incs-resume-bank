@@ -52,6 +52,8 @@
 
 <h3><%= @users.count %> Results</h3>
 
+<%= page_entries_info(@users, :model => "Candidate")%>
+
 <% @users.each do |user| %>
 <div class="result">
   <label>Name:</label> <%= user.first_name %> <%= user.last_name %><br>
@@ -65,6 +67,8 @@
   </div>
 </div>
 <% end %>
+
+<%= will_paginate @users %>
 
 <% if User.find(session[:user_id]).access == "admin" || User.find(session[:user_id]).access == "school"%>
   <a download href=<%="/users/teachers-csv?filter=#{@filter}"%>><button class="btn btn-info export" id="gen-csv">Generate CSV</button></a>
