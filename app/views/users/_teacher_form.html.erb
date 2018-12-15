@@ -215,16 +215,34 @@
   <div class="field">
     <label><em class="label-bold">What type of license do you hold? (Check all that apply) *</em></label><br>
     <% license_choices.each do |lic| %>
-      <div class="field-radio">
-        <% if @user.licenses.map{|lic| lic.name}.include?(lic) %>
-          <input type="checkbox" name="licenses[]" value="<%= lic %>" checked/>
+      <% if lic[:title] %>
+        <div class="field-label">
+          <%= lic[:title] %>
+        </div>
+      <% end %>
+      <% lic[:values].each do |value| %>
+        <% if lic[:title] %>
+          <div class="field-radio-indent">
+            <% if @user.licenses.map{|lic| lic.name}.include?(value) %>
+              <input type="checkbox" name="licenses[]" value="<%= value %>" checked/>
+            <% else %>
+              <input type="checkbox" name="licenses[]" value="<%= value %>" />
+            <% end %>
+            <label><%= value %></label><br>
+          </div>
         <% else %>
-          <input type="checkbox" name="licenses[]" value="<%= lic %>" />
+          <div class="field-radio">
+            <% if @user.licenses.map{|lic| lic.name}.include?(value) %>
+              <input type="checkbox" name="licenses[]" value="<%= value %>" checked/>
+            <% else %>
+              <input type="checkbox" name="licenses[]" value="<%= value %>" />
+            <% end %>
+            <label><%= value %></label><br>
+          </div>
         <% end %>
-        <label><%= lic %></label><br>
-      </div>
+      <% end %>
     <% end %>
-    <div class="field-radio">
+    <div class="field-radio-indent">
       <input type="checkbox" name="licenses[]" value=""/>
       <label>Other (if multiple, separate with a comma)</label>
       <input type="text" name="add-licenses" value="" />
@@ -247,18 +265,36 @@
 
   <div class="field">
     <label><em class="label-bold">Endorsements completed (Check all that apply) *</em></label><br>
-    <ul class="checkbox-grid2">
-    <% Endorsement.all.order(:name).each do |endo| %>
-      <% if @user.endorsements.map{|endo| endo.name}.include?(endo.name) %>
-        <li><input type="checkbox" name="endorses[]" value="<%= endo.name %>" checked/>
-      <% else %>
-        <li><input type="checkbox" name="endorses[]" value="<%= endo.name %>" />
+    <% endorsement_choices.each do |endo| %>
+      <% if endo[:title] %>
+        <div class="field-label">
+          <%= endo[:title] %>
+        </div>
       <% end %>
-    <label><%= endo.name %></label><br></li>
+      <% endo[:values].each do |value| %>
+        <% if endo[:title] %>
+          <div class="field-radio-indent">
+            <% if @user.endorsements.map{|endo| endo.name}.include?(value) %>
+              <input type="checkbox" name="endorses[]" value="<%= value %>" checked/>
+            <% else %>
+              <input type="checkbox" name="endorses[]" value="<%= value %>" />
+            <% end %>
+            <label><%= value %></label><br>
+          </div>
+        <% else %>
+          <div class="field-radio">
+            <% if @user.endorsements.map{|endo| endo.name}.include?(value) %>
+              <input type="checkbox" name="endorses[]" value="<%= value %>" checked/>
+            <% else %>
+              <input type="checkbox" name="endorses[]" value="<%= value %>" />
+            <% end %>
+            <label><%= value %></label><br>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
-    </ul>
   </div>
-  <div class="field2">
+  <div class="field-radio-indent-other">
     <input type="checkbox" name="endorses[]" value=""/>
     <label>Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-endorses" value="" />
