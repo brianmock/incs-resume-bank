@@ -45,10 +45,78 @@ module UsersHelper
 
   def license_choices
     [
-      'None',
-      'Professional Educator License (PEL)',
-      'Educator License with Stipulations',
-      'Substitute Teaching License',
+      {
+        title: 'Professional Educator License (PEL)',
+        values: [
+          'Teacher',
+          'School Support Personnel',
+          'Administrative',
+        ],
+      }, {
+        title: 'Educator License with Stipulations (ELS)',
+        values: [
+          'ELS Provisional Educator (ELS PEDU)', 
+          'ELS Endorsed as a Paraprofessional (ELS PARA)',
+        ],
+      }, {
+        title: 'Other', 
+        values: [
+          'Substitute Teaching License',
+          'None'
+        ],
+      }
+    ]
+  end
+
+  def endorsement_choices
+    [
+      {
+        title: 'Teaching Endorsements',
+        values: [
+          'Early Childhood',
+          'Elementary',
+          'Middle Grades',
+          'Secondary',
+          'Special Education K-12',
+          'Special Education Pre K-Age 21',
+          'Early Childhood Special Education',
+        ]
+      }, {
+        title: 'Subsequent Teaching Endorsements',
+        values: [
+          'Bilingual Education',
+          'English as a Second Language (ESL)',
+          'Reading Teacher',
+          'Language Arts',
+          'Mathematics',
+          'Science',
+          'Social Science',
+          'Foreign Language (please specify which language/s in “Other”)',
+        ]
+      }, {
+        title: 'School Support Personnel Endorsements',
+        values: [
+          'School Social Worker – Pre K-Age 21',
+          'School Counselor – Pre K-Age 21',
+          'School Psychologist – Pre K-Age 21',
+          'School Nurse – Pre K-Age 21',
+          'Speech-Language Pathologist (non-teaching) - Pre K-Age 21',
+        ],
+      }, {
+        title: 'Administrative Endorsements',
+        values: [
+          'Chief School Business Official (CSBO) - Pre K-Grade 12',
+          'Director of Special Education – Pre K-Grade 12',
+          'Principal - Pre K-Grade 12',
+          'Superintendent – Pre K-Grade 12',
+          'Teacher Leader – Pre K-Grade 12',
+        ],
+      }, {
+        title: 'Other', 
+        values: [
+          'None',
+        ],
+      }
     ]
   end
   def us_states
