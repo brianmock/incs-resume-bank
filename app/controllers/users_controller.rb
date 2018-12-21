@@ -247,11 +247,10 @@ class UsersController < ApplicationController
       if @user.access == 'teacher'
         @resume = Resume.new
         # save licenses
-        p params["licenses"] && params["add-licenses"]
         if params["licenses"]
           params["licenses"].each do |lic|
             next if lic == ""
-            @user.licenses << License.find_by(name: lic)
+            @user.licenses << License.find_or_create_by(name: lic)
           end
         end
         if params["add-licenses"]
@@ -281,7 +280,7 @@ class UsersController < ApplicationController
         if params["endorses"]
           params["endorses"].each do |endo|
             next if endo == ""
-            @user.endorsements << Endorsement.find_by(name: endo)
+            @user.endorsements << Endorsement.find_or_create_by(name: endo)
           end
         end
         if params["add-endorses"]
@@ -296,7 +295,7 @@ class UsersController < ApplicationController
         if params["subs"]
           params["subs"].each do |sub|
             next if sub == ""
-            @user.subjects << Subject.find_by(subject: sub)
+            @user.subjects << Subject.find_or_create_by(subject: sub)
           end
         end
         if params["add-subs"]

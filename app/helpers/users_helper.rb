@@ -22,7 +22,6 @@ module UsersHelper
   end
   def resume_bank_references
     [
-      'Flyer',
       'INCS website',
       'INCS email',
       'INCS Twitter',
