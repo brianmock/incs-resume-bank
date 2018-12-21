@@ -11,21 +11,21 @@
     </div>
   <% end %>
 
-  <h3>Please fill out the form below and select "Next" at the bottom to upload your resume and complete your registration as a Candidate.</h3><br>
+  <h3>Please fill out the form below and select "Next" at the bottom to upload your resume and complete your Job Fair/Resume Bank registration.</h3><br>
 
   <div class="field">
     <label><em class="label-bold">What would you like to do? *</em></label><br>
     <div class="field-radio">
-      <%= f.radio_button(:register2019, "bank") %>
-      <%= f.label(:name, "I would like to add my resume to the INCS Online Resume Bank only.", class: 'flex-one') %><br>
+      <%= f.radio_button(:register2019, "both") %>
+      <%= f.label(:name, "Register for the 2019 INCS Teacher & Administrator Job Fair and Online Resume Bank.", class: 'flex-one') %><br>
     </div>
     <div class="field-radio">
-      <%= f.radio_button(:register2019, "both") %>
-      <%= f.label :name, class: 'flex-one' do "I would like to add my resume to the INCS Online Resume Bank AND would like this to serve as my registration for the #{link_to('2019 Teacher Job Fair', 'https://www.incschools.org/events/tjf/')}.".html_safe  end%>
+      <%= f.radio_button(:register2019, "bank") %>
+      <%= f.label(:name, "Add my resume to the INCS Online Resume Bank only.", class: 'flex-one') %><br>
     </div>
     <div class="field-radio">
       <%= f.radio_button(:register2019, "jobfaironly") %>
-      <%= f.label(:name, "I would only like to register for the 2019 Teacher Job Fair and would NOT like my resume to be added to the INCS Online Resume Bank for charter school leaders to see. Note: your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option.", class: 'flex-one') %>
+      <%= f.label(:name, "Register for the 2019 INCS Teacher & Administartor Job Fair only. (Note: Your resume is required in order to register you for the fair, but we will not include it in our online database if you select this option. This means hiring managers will not receive your resume in advance of the Job Fair.)", class: 'flex-one') %>
     </div>
   </div>
 
@@ -45,7 +45,7 @@
   </div>
 
   <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "What would you like your resume bank login email to be? *") %></em>
+    <em class="teacher-label"><%= f.label(:name, "Enter a resume bank login email *") %></em>
     <%= f.text_field :email, class: 'med-field' %>
   </div>
 
@@ -55,7 +55,7 @@
   </div>
 
   <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "What would you like your resume bank password to be? *") %></em>
+    <em class="teacher-label"><%= f.label(:name, "Enter a resume bank password *") %></em>
     <%= f.password_field :password %>
   </div>
 
@@ -114,80 +114,35 @@
   </div>
   <div class="field2">
     <input type="checkbox" name="sources[]" value=""/>
-    <label>College jobs board, newsletter, or staff. If so, please specify which one.</label>
+    <label>Flyer (Please specify where you saw/received it.)</label>
     <input type="text" name="add-sources" value="" /><br>
   </div>
   <div class="field2">
     <input type="checkbox" name="sources[]" value=""/>
-    <label>Other (please specify so that we may thank our partners)</label>
+    <label>College/university jobs board, newsletter, or staff. (Please specify which one.)</label>
+    <input type="text" name="add-sources" value="" /><br>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="sources[]" value=""/>
+    <label>Other (Please specify so that we may thank our partners.)</label>
     <input type="text" name="add-sources" value="" /><br>
   </div>
   <br>
 
   <div class="field field-flex">
-    <em class="teacher-label3"><%= f.label(:name, "Years of Teaching/School Administration Experience *") %></em>
-    <%= f.select :years, options_for_select(exp_years, @user.years),{}, class: 'form-control form-control-tiny' %>
-  </div><br>
-
-  <div class="field field-flex">
-    <em class="teacher-label3"><%= f.label(:name, "Preferred Grade Level") %></em>
-    <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control form-control-small' %>
+    <em class="teacher-label2"><%= f.label :degree %></em>
+    <%= f.select :degree, options_for_select(degrees),{}, class: 'form-control' %>
   </div><br>
 
   <div class="field">
-    <em class="label-bold">
-    <%= f.label(:name, "Do you have previous experience in a charter?") %></em><br>
-    <div class="field-radio">
-      <%= f.radio_button(:previous, true) %>
-      <%= f.label(:name, "Yes") %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:previous, false) %>
-      <%= f.label(:name, "No") %><br>
-    </div>
+    <em class="label-bold"><%= f.label :major, :class => "teacher-label2" %></em>
+    <%= f.text_field :major %>
   </div><br>
 
   <div class="field">
-    <label><em class="label-bold">Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
-    <ul class="checkbox-grid2">
-    <% position_options.each do |pos| %>
-      <% if @user.positions.map{|pos| pos.title}.include?(pos) %>
-        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" checked/>
-      <% else %>
-        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
-      <% end %>
-    <label class="flex-one no-margin"><%= pos %></label></li>
-    <% end %>
-    </ul>
-  </div>
-  <div class="field2">
-    <input type="checkbox" name="positions[]" value=""/>
-    <label>Other (if multiple, separate with a comma)</label>
-    <input type="text" name="add-positions" value="" />
-  </div>
-  <br>
-
-  <div class="field">
-    <label><em class="label-bold">Preferred Subject(s) For Teaching Candidates</em></label><br>
-    <ul class="checkbox-grid">
-      <li><input type="checkbox" name="subs[]" value="None" />
-      <label>N/A</label></li>
-      <% Subject.all.order(:subject).each do |sub| %>
-        <% if @user.subjects.map{|sub| sub.subject}.include?(sub.subject) %>
-          <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" checked/>
-        <% else %>
-          <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" />
-        <% end %>
-        <label><%= sub.subject %></label></li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="field2">
-    <input type="checkbox" name="subs[]" value=""/>
-    <label>Other (if multiple, separate with a comma)</label>
-    <input type="text" name="add-subs" value="" /><br>
-  </div>
-  <br>
+    <em class="label-bold"><%= f.label :masters_concentration, :class => "teacher-label2" %></em>
+    <%= f.text_field :masters_concentration %>
+  </div><br>
 
   <div class="field">
     <em class="label-bold">
@@ -213,7 +168,7 @@
   <br>
 
   <div class="field">
-    <label><em class="label-bold">What type of license do you hold? (Check all that apply) *</em></label><br>
+    <label><em class="label-bold">What type of license do you hold or anticipate receiving by summer 2019? (Check all that apply) *</em></label><br>
     <% license_choices.each do |lic| %>
       <% if lic[:title] %>
         <div class="field-label">
@@ -247,20 +202,6 @@
       <label>Other (if multiple, separate with a comma)</label>
       <input type="text" name="add-licenses" value="" />
     </div>
-  </div><br>
-
-  <div class="field field-flex">
-    <em class="teacher-label2"><%= f.label :degree %></em>
-    <%= f.select :degree, options_for_select(degrees),{}, class: 'form-control' %>
-  </div><br>
-
-  <div class="field">
-    <em class="label-bold"><%= f.label :major, :class => "teacher-label2" %></em>
-    <%= f.text_field :major %>
-  </div><br>
-  <div class="field">
-    <em class="label-bold"><%= f.label :masters_concentration, :class => "teacher-label2" %></em>
-    <%= f.text_field :masters_concentration %>
   </div><br>
 
   <div class="field">
@@ -300,7 +241,15 @@
     <input type="text" name="add-endorses" value="" />
   </div><br>
 
+  <div class="field field-flex">
+    <em class="teacher-label3"><%= f.label(:name, "Years of Teaching/School Administration Experience *") %></em>
+    <%= f.select :years, options_for_select(exp_years, @user.years),{}, class: 'form-control form-control-tiny' %>
+  </div><br>
 
+  <div class="field field-flex">
+    <em class="teacher-label3"><%= f.label(:name, "Preferred Grade Level") %></em>
+    <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control form-control-small' %>
+  </div><br>
 
   <div class="field field5">
     <em class="label-bold"><%= f.label(:location_pref, "Where are you willing to teach?") %></em><br>
@@ -319,23 +268,62 @@
   </div><br>
 
   <div class="field">
-    <label><em class="label-bold">Membership or Alumni Organization (Check all that apply)</em></label><br>
+    <em class="label-bold">
+    <%= f.label(:name, "Do you have previous experience in a charter?") %></em><br>
+    <div class="field-radio">
+      <%= f.radio_button(:previous, true) %>
+      <%= f.label(:name, "Yes") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:previous, false) %>
+      <%= f.label(:name, "No") %><br>
+    </div>
+  </div><br>
+
+  <div class="field">
+    <label><em class="label-bold">Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
-    <% Organization.all.order(:name).each do |org| %>
-      <% if @user.organizations.map{|org| org.name}.include?(org.name) %>
-        <li class="field-flex"><input type="checkbox" name="orgs[]" value="<%= org.name %>" checked/>
+    <% position_options.each do |pos| %>
+      <% if @user.positions.map{|pos| pos.title}.include?(pos) %>
+        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" checked/>
       <% else %>
-        <li class="field-flex"><input type="checkbox" name="orgs[]" value="<%= org.name %>" />
+        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
       <% end %>
-    <label class="flex-one no-margin"><%= org.name %></label><br></li>
+    <label class="flex-one no-margin"><%= pos %></label></li>
     <% end %>
     </ul>
-    </div>
-    <div class="field2">
-      <input type="checkbox" name="orgs[]" value=""/>
-      <label>Other (if multiple, separate with a comma)</label>
-      <input type="text" name="add-orgs" value="" />
-    </div><br>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="positions[]" value=""/>
+    <label>Other (if multiple, separate with a comma)</label>
+    <input type="text" name="add-positions" value="" />
+  </div>
+  <br>
+
+  <div class="field">
+    <label><em class="label-bold">Preferred Subject(s) For Teaching/Instructional Coach Candidate (Check all that apply)</em></label><br>
+    <ul class="checkbox-grid">
+      <% selectable_subjects.each do |sub| %>
+        <% if @user.subjects.map{|sub| sub.subject}.include?(sub) %>
+          <li><input type="checkbox" name="subs[]" value="<%= sub %>" checked/>
+        <% else %>
+          <li><input type="checkbox" name="subs[]" value="<%= sub %>" />
+        <% end %>
+        <label><%= sub %></label></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="subs[]" value=""/>
+    <label>Foreign Language (Please specify language.)</label>
+    <input type="text" name="add-subs" value="" /><br>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="subs[]" value=""/>
+    <label>Other (if multiple, separate with a comma)</label>
+    <input type="text" name="add-subs" value="" /><br>
+  </div>
+  <br>
 
   <div class="field field8">
     <em class="label-bold"><%= f.label(:name, "Additional information") %></em><br>

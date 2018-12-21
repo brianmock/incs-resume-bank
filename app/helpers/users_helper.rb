@@ -497,6 +497,24 @@ module UsersHelper
     ]
   end
 
+  def selectable_subjects
+    [
+      'N/A',
+      'All Subjects',
+      'General Education',
+      'Bilingual Teacher',
+      'English Language Learners',
+      'Special Education',
+      'Mathematics',
+      'Science',
+      'Language Arts',
+      'Social Studies',
+      'Art',
+      'Music',
+      'Physical Education',
+    ]
+  end
+
   def grades
     [
       "Pre K",
@@ -523,7 +541,6 @@ module UsersHelper
 
   def prefixes
     [
-      "N/A",
       "Mr.",
       "Ms.",
     ]
