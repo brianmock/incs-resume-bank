@@ -29,8 +29,23 @@
   </div>
 
   <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "What would you like your resume bank login email to be? *") %></em>
+    <em class="teacher-label"><%= f.label(:name, "Enter a resume bank login email *") %></em>
     <%= f.text_field :email, class: 'med-field' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Please confirm your email address *") %></em>
+    <%= f.text_field :email_confirmation, class: 'med-field' %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Enter a resume bank password *") %></em>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="field field-flex">
+    <em class="teacher-label"><%= f.label(:name, "Please confirm your password *") %></em>
+    <%= f.password_field :password_confirmation %>
   </div>
 
   <div class="field field-flex">
@@ -83,15 +98,132 @@
   </div>
   <div class="field2">
     <input type="checkbox" name="sources[]" value=""/>
-    <label>College jobs board, newsletter, or staff. If so, please specify which one.</label>
+    <label>Flyer (Please specify where you saw/received it.)</label>
     <input type="text" name="add-sources" value="" /><br>
   </div>
   <div class="field2">
     <input type="checkbox" name="sources[]" value=""/>
-    <label>Other (please specify so that we may thank our partners)</label>
+    <label>College/university jobs board, newsletter, or staff. (Please specify which one.)</label>
+    <input type="text" name="add-sources" value="" /><br>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="sources[]" value=""/>
+    <label>Other (Please specify so that we may thank our partners.)</label>
     <input type="text" name="add-sources" value="" /><br>
   </div>
   <br>
+
+  <div class="field field-flex">
+    <em class="teacher-label2"><%= f.label :degree %></em>
+    <%= f.select :degree, options_for_select(degrees),{}, class: 'form-control' %>
+  </div><br>
+
+  <div class="field">
+    <em class="label-bold"><%= f.label :major, :class => "teacher-label2" %></em>
+    <%= f.text_field :major %>
+  </div><br>
+
+  <div class="field">
+    <em class="label-bold"><%= f.label :masters_concentration, :class => "teacher-label2" %></em>
+    <%= f.text_field :masters_concentration %>
+  </div><br>
+
+  <div class="field">
+    <em class="label-bold">
+    <%= f.label(:name, "Are you licensed to teach in Illinois? *") %></em><br>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "Yes") %>
+      <%= f.label(:name, "Yes") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "No") %>
+      <%= f.label(:name, "No") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "Other") %>
+      <%= f.label(:name, "I am licensed in another state.")%>
+      <%= link_to "Click here for Illinois license information", "/uploads/licCheatSheet.pdf" %>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:il_licensed, "Educator Prep Program") %>
+      <%= f.label(:name, "I am enrolled in an educator preparation program.") %><br>
+    </div>
+  </div>
+  <br>
+
+  <div class="field">
+    <label><em class="label-bold">What type of license do you hold or anticipate receiving by summer 2019? (Check all that apply) *</em></label><br>
+    <% license_choices.each do |lic| %>
+      <% if lic[:title] %>
+        <div class="field-label">
+          <%= lic[:title] %>
+        </div>
+      <% end %>
+      <% lic[:values].each do |value| %>
+        <% if lic[:title] %>
+          <div class="field-radio-indent">
+            <% if @user.licenses.map{|lic| lic.name}.include?(value) %>
+              <input type="checkbox" name="licenses[]" value="<%= value %>" checked/>
+            <% else %>
+              <input type="checkbox" name="licenses[]" value="<%= value %>" />
+            <% end %>
+            <label><%= value %></label><br>
+          </div>
+        <% else %>
+          <div class="field-radio">
+            <% if @user.licenses.map{|lic| lic.name}.include?(value) %>
+              <input type="checkbox" name="licenses[]" value="<%= value %>" checked/>
+            <% else %>
+              <input type="checkbox" name="licenses[]" value="<%= value %>" />
+            <% end %>
+            <label><%= value %></label><br>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+    <div class="field-radio-indent">
+      <input type="checkbox" name="licenses[]" value=""/>
+      <label>Other (if multiple, separate with a comma)</label>
+      <input type="text" name="add-licenses" value="" />
+    </div>
+  </div><br>
+
+  <div class="field">
+    <label><em class="label-bold">Endorsements completed (Check all that apply) *</em></label><br>
+    <% endorsement_choices.each do |endo| %>
+      <% if endo[:title] %>
+        <div class="field-label">
+          <%= endo[:title] %>
+        </div>
+      <% end %>
+      <% endo[:values].each do |value| %>
+        <% if endo[:title] %>
+          <div class="field-radio-indent">
+            <% if @user.endorsements.map{|endo| endo.name}.include?(value) %>
+              <input type="checkbox" name="endorses[]" value="<%= value %>" checked/>
+            <% else %>
+              <input type="checkbox" name="endorses[]" value="<%= value %>" />
+            <% end %>
+            <label><%= value %></label><br>
+          </div>
+        <% else %>
+          <div class="field-radio">
+            <% if @user.endorsements.map{|endo| endo.name}.include?(value) %>
+              <input type="checkbox" name="endorses[]" value="<%= value %>" checked/>
+            <% else %>
+              <input type="checkbox" name="endorses[]" value="<%= value %>" />
+            <% end %>
+            <label><%= value %></label><br>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="field-radio-indent-other">
+    <input type="checkbox" name="endorses[]" value=""/>
+    <label>Other (if multiple, separate with a comma)</label>
+    <input type="text" name="add-endorses" value="" />
+  </div><br>
 
   <div class="field field-flex">
     <em class="teacher-label3"><%= f.label(:name, "Years of Teaching/School Administration Experience *") %></em>
@@ -101,6 +233,22 @@
   <div class="field field-flex">
     <em class="teacher-label3"><%= f.label(:name, "Preferred Grade Level") %></em>
     <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control form-control-small' %>
+  </div><br>
+
+  <div class="field field5">
+    <em class="label-bold"><%= f.label(:location_pref, "Where are you willing to teach?") %></em><br>
+    <div class="field-radio">
+      <%= f.radio_button(:location_pref, "Chicago") %>
+      <%= f.label(:name, "Chicago") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:location_pref, "Non-Chicago, Greater Illinois") %>
+      <%= f.label(:name, "Non-Chicago, Greater Illinois") %><br>
+    </div>
+    <div class="field-radio">
+      <%= f.radio_button(:location_pref, "Chicago or Greater Illinois") %>
+      <%= f.label(:name, "Both") %><br>
+    </div>
   </div><br>
 
   <div class="field">
@@ -137,19 +285,22 @@
   <br>
 
   <div class="field">
-    <label><em class="label-bold">Preferred Subject(s) For Teaching Candidates</em></label><br>
+    <label><em class="label-bold">Preferred Subject(s) For Teaching/Instructional Coach Candidate (Check all that apply)</em></label><br>
     <ul class="checkbox-grid">
-      <li><input type="checkbox" name="subs[]" value="None" />
-      <label>N/A</label></li>
-      <% Subject.all.order(:subject).each do |sub| %>
-        <% if @user.subjects.map{|sub| sub.subject}.include?(sub.subject) %>
-          <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" checked/>
+      <% selectable_subjects.each do |sub| %>
+        <% if @user.subjects.map{|sub| sub.subject}.include?(sub) %>
+          <li><input type="checkbox" name="subs[]" value="<%= sub %>" checked/>
         <% else %>
-          <li><input type="checkbox" name="subs[]" value="<%= sub.subject %>" />
+          <li><input type="checkbox" name="subs[]" value="<%= sub %>" />
         <% end %>
-        <label><%= sub.subject %></label></li>
+        <label><%= sub %></label></li>
       <% end %>
     </ul>
+  </div>
+  <div class="field2">
+    <input type="checkbox" name="subs[]" value=""/>
+    <label>Foreign Language (Please specify language.)</label>
+    <input type="text" name="add-subs" value="" /><br>
   </div>
   <div class="field2">
     <input type="checkbox" name="subs[]" value=""/>
@@ -158,125 +309,23 @@
   </div>
   <br>
 
-  <div class="field">
-    <em class="label-bold">
-    <%= f.label(:name, "Are you licensed to teach in Illinois? *") %></em><br>
-    <div class="field-radio">
-      <%= f.radio_button(:il_licensed, "Yes") %>
-      <%= f.label(:name, "Yes") %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:il_licensed, "No") %>
-      <%= f.label(:name, "No") %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:il_licensed, "Other") %>
-      <%= f.label(:name, "I am licensed in another state.")%>
-      <%= link_to "Click here for Illinois license information", "/uploads/licCheatSheet.pdf" %>
-    </div>
-  </div>
-  <br>
-
-  <div class="field">
-    <label><em class="label-bold">What type of license do you hold? (Check all that apply) *</em></label><br>
-    <% license_choices.each do |lic| %>
-      <div class="field-radio">
-        <% if @user.licenses.map{|lic| lic.name}.include?(lic) %>
-          <input type="checkbox" name="licenses[]" value="<%= lic %>" checked/>
-        <% else %>
-          <input type="checkbox" name="licenses[]" value="<%= lic %>" />
-        <% end %>
-        <label><%= lic %></label><br>
-      </div>
-    <% end %>
-    <div class="field-radio">
-      <input type="checkbox" name="licenses[]" value=""/>
-      <label>Other (if multiple, separate with a comma)</label>
-      <input type="text" name="add-licenses" value="" />
-    </div>
-  </div><br>
-
-  <div class="field field-flex">
-    <em class="teacher-label2"><%= f.label :degree %></em>
-    <%= f.select :degree, options_for_select(degrees),{}, class: 'form-control' %>
-  </div><br>
-
-  <div class="field">
-    <em class="label-bold"><%= f.label :major, :class => "teacher-label2" %></em>
-    <%= f.text_field :major %>
-  </div><br>
-  <div class="field">
-    <em class="label-bold"><%= f.label :masters_concentration, :class => "teacher-label2" %></em>
-    <%= f.text_field :masters_concentration %>
-  </div><br>
-
-  <div class="field">
-    <label><em class="label-bold">Endorsements completed (Check all that apply) *</em></label><br>
-    <ul class="checkbox-grid2">
-    <% Endorsement.all.order(:name).each do |endo| %>
-      <% if @user.endorsements.map{|endo| endo.name}.include?(endo.name) %>
-        <li><input type="checkbox" name="endorses[]" value="<%= endo.name %>" checked/>
-      <% else %>
-        <li><input type="checkbox" name="endorses[]" value="<%= endo.name %>" />
-      <% end %>
-    <label><%= endo.name %></label><br></li>
-    <% end %>
-    </ul>
-  </div>
-  <div class="field2">
-    <input type="checkbox" name="endorses[]" value=""/>
-    <label>Other (if multiple, separate with a comma)</label>
-    <input type="text" name="add-endorses" value="" />
-  </div><br>
-
-
-
-  <div class="field field5">
-    <em class="label-bold"><%= f.label(:location_pref, "Where are you willing to teach?") %></em><br>
-    <div class="field-radio">
-      <%= f.radio_button(:location_pref, "Chicago") %>
-      <%= f.label(:name, "Chicago") %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:location_pref, "Non-Chicago, Greater Illinois") %>
-      <%= f.label(:name, "Non-Chicago, Greater Illinois") %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:location_pref, "Chicago or Greater Illinois") %>
-      <%= f.label(:name, "Both") %><br>
-    </div>
-  </div><br>
-
-  <div class="field">
-    <label><em class="label-bold">Membership or Alumni Organization (Check all that apply)</em></label><br>
-    <ul class="checkbox-grid2">
-    <% Organization.all.order(:name).each do |org| %>
-      <% if @user.organizations.map{|org| org.name}.include?(org.name) %>
-        <li class="field-flex"><input type="checkbox" name="orgs[]" value="<%= org.name %>" checked/>
-      <% else %>
-        <li class="field-flex"><input type="checkbox" name="orgs[]" value="<%= org.name %>" />
-      <% end %>
-    <label class="flex-one no-margin"><%= org.name %></label><br></li>
-    <% end %>
-    </ul>
-    </div>
-    <div class="field2">
-      <input type="checkbox" name="orgs[]" value=""/>
-      <label>Other (if multiple, separate with a comma)</label>
-      <input type="text" name="add-orgs" value="" />
-    </div><br>
-
   <div class="field field8">
     <em class="label-bold"><%= f.label(:name, "Additional information") %></em><br>
     <%= f.text_area :additional, cols: "100", rows: "10" %>
   </div><br>
 
-  <div class="actions">
-    <%= f.submit 'Update Information', :name => 'submit', :class => "btn btn-info" %>
-    <a href="/users/<%=@user.id%>">
-      <button class="btn btn-danger">Cancel</button>
-    </a>
-  </div>
+  <% if @user.id == nil %>
+    <div class="actions">
+      <%= f.submit 'Next', :name => 'submit', :class => "btn btn-info" %>
+    </div>
+  <% else %>
+    <div class="actions">
+      <%= f.submit 'Update Information', :name => 'submit', :class => "btn btn-info" %>
+      <a href="/users/<%=@user.id%>">
+        <button class="btn btn-danger">Cancel</button>
+      </a>
+    </div>
+  <% end %>
    <br>
     <br>
 <% end %>
