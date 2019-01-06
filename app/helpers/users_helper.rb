@@ -24,8 +24,7 @@ module UsersHelper
     [
       'INCS website',
       'INCS email',
-      'INCS Twitter',
-      'INCS Facebook',
+      'Facebook',
       'Eventbrite',
       'Twitter',
       'Craigslist',
