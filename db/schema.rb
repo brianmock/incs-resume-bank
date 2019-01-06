@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190106204900) do
+ActiveRecord::Schema.define(version: 20190106232923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,15 +142,15 @@ ActiveRecord::Schema.define(version: 20190106204900) do
     t.string   "major"
     t.string   "masters_concentration"
     t.string   "years"
-    t.string   "grade_pref"
+    t.text     "grade_pref",            default: [],              array: true
     t.boolean  "previous"
     t.boolean  "relocation"
-    t.string   "location_pref"
+    t.text     "location_pref",         default: [],              array: true
     t.string   "password_digest"
     t.string   "access"
     t.string   "additional"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "register2017"
     t.string   "register2018"
     t.string   "register2019"

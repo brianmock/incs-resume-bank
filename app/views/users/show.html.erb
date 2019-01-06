@@ -64,14 +64,14 @@
 <label><strong>Major:</strong></label> <%= @user.major %><br>
 <label><strong>Graduate Degree Concentration:</strong></label> <%= @user.masters_concentration%><br>
 <label><strong>Licensed in Illinois:</strong></label> <% if @user.il_licensed != "Other" %><%= @user.il_licensed %><% else %>Licensed in different state<% end %><br>
-<label><strong>Licenses:</strong></label> <%= @user.licenses.map{|lic| lic.name }.join(", ") %><br>
-<label><strong>Endorsements:</strong></label> <%= @user.endorsements.map{|endo| endo.name }.join(", ") %><br>
+<label><strong>Licenses:</strong></label> <%= @user.licenses.map{|lic| lic.name }.to_sentence %><br>
+<label><strong>Endorsements:</strong></label> <%= @user.endorsements.map{|endo| endo.name }.to_sentence %><br>
 <label><strong>Years of Experience:</strong></label> <%= @user.years %><br>
-<label><strong>Preferred Grade(s):</strong></label> <%= @user.grade_pref %><br>
-<label><strong>Location Preference:</strong></label> <%= @user.location_pref%> <br>
+<label><strong>Preferred Grade(s):</strong></label> <%= @user.grade_pref.to_sentence %><br>
+<label><strong>Location Preference:</strong></label> <%= @user.location_pref.to_sentence %> <br>
 <label><strong>Prior Charter Experience:</strong></label> <%= @user.previous ? 'Yes' : 'No' %> <br>
-<label><strong>Preferred Position(s):</strong></label> <%= @user.positions.map{|pos| pos.title }.join(", ") %><br>
-<label><strong>Preferred Subject(s):</strong></label> <%= @user.subjects.map{|subj| subj.subject}.join(", ")%><br>
+<label><strong>Preferred Position(s):</strong></label> <%= @user.positions.map{|pos| pos.title }.to_sentence %><br>
+<label><strong>Preferred Subject(s):</strong></label> <%= @user.subjects.map{|subj| subj.subject}.to_sentence %><br>
 <label><strong>Additional Information:</strong></label> <div class="additional-info"><p><%= @user.additional %></p></div><br>
 
 <% if @current_user.access == "admin" || (@current_user.access == "teacher" && @current_user.id == @user.id) %>

@@ -514,6 +514,15 @@ module UsersHelper
     ]
   end
 
+  def locations 
+    [
+      "Chicago",
+      "Collar Counties (surrounding Chicago)",
+      "Greater Illinois (more than 1 hour from Chicago)",
+      "Central or Southern Illinois",
+    ]
+  end
+
   def grades
     [
       "Pre K",

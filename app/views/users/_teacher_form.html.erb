@@ -246,25 +246,32 @@
     <%= f.select :years, options_for_select(exp_years, @user.years),{}, class: 'form-control form-control-tiny' %>
   </div><br>
 
-  <div class="field field-flex">
-    <em class="teacher-label3"><%= f.label(:name, "Preferred Grade Level *") %></em>
-    <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control form-control-small' %>
+  <div class="field field5">
+    <em class="label-bold"><%= f.label(:grade_pref, "Preferred Grade Level (Check all that apply) *") %></em><br>
+    <ul class="checkbox-grid2">
+      <% grades.each do |grade| %>
+        <% if @user.grade_pref.include?(grade) %>
+          <li><input type="checkbox" name="grade_pref[]" value="<%= grade %>" checked/>
+        <% else %>
+          <li><input type="checkbox" name="grade_pref[]" value="<%= grade %>" />
+        <% end %>
+        <label><%= grade %></label></li>
+      <% end %>
+    </ul>
   </div><br>
 
   <div class="field field5">
-    <em class="label-bold"><%= f.label(:location_pref, "Where are you willing to work? *") %></em><br>
-    <div class="field-radio">
-      <%= f.radio_button(:location_pref, "Chicago") %>
-      <%= f.label(:name, "Chicago") %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:location_pref, "Non-Chicago, Greater Illinois") %>
-      <%= f.label(:name, "Non-Chicago, Greater Illinois") %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:location_pref, "Chicago or Greater Illinois") %>
-      <%= f.label(:name, "Both") %><br>
-    </div>
+    <em class="label-bold"><%= f.label(:location_pref, "Where are you willing to work? (Check all that apply) *") %></em><br>
+    <ul class="checkbox-grid2">
+      <% locations.each do |loc| %>
+        <% if @user.location_pref.include?(loc) %>
+          <li><input type="checkbox" name="location_pref[]" value="<%= loc %>" checked/>
+        <% else %>
+          <li><input type="checkbox" name="location_pref[]" value="<%= loc %>" />
+        <% end %>
+        <label><%= loc %></label></li>
+      <% end %>
+    </ul>
   </div><br>
 
   <div class="field">
