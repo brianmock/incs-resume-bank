@@ -59,16 +59,19 @@
 <label><strong>Phone:</strong></label> <%= @user.phone_number %><br>
 <label><strong>Registered for 2019 Fair:</strong></label> <%= @user.register2019 == 'bank' ? 'No' : 'Yes' %><br>
 <label><strong>City of Residence:</strong></label> <%= @user.city %><br>
+<label><strong>State of Residence:</strong></label> <%= @user.state%><br>
+<label><strong>Highest Degree Earned:</strong></label> <%= @user.degree %><br>
+<label><strong>Major:</strong></label> <%= @user.major %><br>
+<label><strong>Graduate Degree Concentration:</strong></label> <%= @user.masters_concentration%><br>
 <label><strong>Licensed in Illinois:</strong></label> <% if @user.il_licensed != "Other" %><%= @user.il_licensed %><% else %>Licensed in different state<% end %><br>
 <label><strong>Licenses:</strong></label> <%= @user.licenses.map{|lic| lic.name }.join(", ") %><br>
-<label><strong>Positions Desired:</strong></label> <%= @user.positions.map{|pos| pos.title }.join(", ") %><br>
 <label><strong>Endorsements:</strong></label> <%= @user.endorsements.map{|endo| endo.name }.join(", ") %><br>
-<label><strong>Grade Preference:</strong></label> <%= @user.grade_pref %><br>
-<label><strong>Preferred Subjects:</strong></label> <%= @user.subjects.map{|subj| subj.subject}.join(", ")%><br>
-<label><strong>Highest Degree:</strong></label> <%= @user.degree %><br>
-<label><strong>College Major:</strong></label> <%= @user.major %><br>
 <label><strong>Years of Experience:</strong></label> <%= @user.years %><br>
+<label><strong>Preferred Grade(s):</strong></label> <%= @user.grade_pref %><br>
 <label><strong>Location Preference:</strong></label> <%= @user.location_pref%> <br>
+<label><strong>Prior Charter Experience:</strong></label> <%= @user.previous ? 'Yes' : 'No' %> <br>
+<label><strong>Preferred Position(s):</strong></label> <%= @user.positions.map{|pos| pos.title }.join(", ") %><br>
+<label><strong>Preferred Subject(s):</strong></label> <%= @user.subjects.map{|subj| subj.subject}.join(", ")%><br>
 <label><strong>Additional Information:</strong></label> <div class="additional-info"><p><%= @user.additional %></p></div><br>
 
 <% if @current_user.access == "admin" || (@current_user.access == "teacher" && @current_user.id == @user.id) %>

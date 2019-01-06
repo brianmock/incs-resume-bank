@@ -435,7 +435,6 @@ em label {
   display: -o-flex;
   display: flex;
   position: relative;
-  align-items: center;
   margin-bottom: 5px;
 }
 
@@ -474,7 +473,7 @@ em label {
   margin: 0px 4px 0px 0px;
 }
 .field-radio input[type="radio"], input[type="checkbox"] {
-  margin: 0px 4px 0px 0px;
+  margin: 4px 4px 0px 0px;
   height: 12px;
 }
 

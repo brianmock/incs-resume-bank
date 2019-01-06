@@ -96,7 +96,7 @@
   </div><br><br>
 
   <div class="field">
-    <label><em class="label-bold">How did you hear about the INCS Resume Bank? (Check all that apply)</em></label><br>
+    <label><em class="label-bold">How did you hear about the INCS Resume Bank? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
       <% resume_bank_references.each do |source| %>
         <% if @user.sources.map{|source| source.source_name}.include?(source) %>
@@ -126,7 +126,7 @@
   <br>
 
   <div class="field field-flex">
-    <em class="teacher-label2"><%= f.label :degree %></em>
+    <em class="teacher-label2"><%= f.label(:name, "Highest Degree Earned") %></em>
     <%= f.select :degree, options_for_select(degrees),{}, class: 'form-control' %>
   </div><br>
 
@@ -136,7 +136,7 @@
   </div><br>
 
   <div class="field">
-    <em class="label-bold"><%= f.label :masters_concentration, :class => "teacher-label2" %></em>
+    <em class="label-bold teacher-label2"><%= f.label(:name, "Graduate Degree Concentration") %></em>
     <%= f.text_field :masters_concentration %>
   </div><br>
 
@@ -243,12 +243,12 @@
   </div><br>
 
   <div class="field field-flex">
-    <em class="teacher-label3"><%= f.label(:name, "Preferred Grade Level") %></em>
+    <em class="teacher-label3"><%= f.label(:name, "Preferred Grade Level *") %></em>
     <%= f.select :grade_pref, options_for_select(grades, @user.grade_pref),{}, class: 'form-control form-control-small' %>
   </div><br>
 
   <div class="field field5">
-    <em class="label-bold"><%= f.label(:location_pref, "Where are you willing to teach?") %></em><br>
+    <em class="label-bold"><%= f.label(:location_pref, "Where are you willing to work? *") %></em><br>
     <div class="field-radio">
       <%= f.radio_button(:location_pref, "Chicago") %>
       <%= f.label(:name, "Chicago") %><br>
@@ -265,7 +265,7 @@
 
   <div class="field">
     <em class="label-bold">
-    <%= f.label(:name, "Do you have previous experience in a charter?") %></em><br>
+    <%= f.label(:name, "Do you have previous experience in a charter? *") %></em><br>
     <div class="field-radio">
       <%= f.radio_button(:previous, true) %>
       <%= f.label(:name, "Yes") %><br>
@@ -323,6 +323,7 @@
 
   <div class="field field8">
     <em class="label-bold"><%= f.label(:name, "Additional information") %></em><br>
+    <%= f.label(:name, "(Optional.) Please briefly provide additional relevant information, if desired. Do not include Cover Letter here. (You may upload a Cover Letter on the next page, if desired.)") %><br>
     <%= f.text_area :additional, cols: "100", rows: "10" %>
   </div><br>
 

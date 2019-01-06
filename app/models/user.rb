@@ -16,10 +16,14 @@ class User < ActiveRecord::Base
   with_options if: :is_teacher? do |teacher|
     teacher.validates :zip, presence: { message: "Zip code can't be blank" }
     teacher.validates :years, presence: { message: "Years of experience can't be blank" }
+    teacher.validates :grade_pref, presence: { message: "Add your preferred grade level" }
+    teacher.validates :location_pref, presence: { message: "Add where you are willing to teach" }
+    teacher.validates :previous, presence: { message: "Select an option for previous charter experience" }
     teacher.validates :il_licensed, presence: { message: "IL license status can't be blank" }
     teacher.validates :licenses_helds, presence: { message: "Add your currently held licenses" } 
     teacher.validates :position_choices, presence: { message: "Add your desired position(s)" } 
     teacher.validates :endorsements_completed, presence: { message: "Add your completed endorsements" } 
+    teacher.validates :references, presence: { message: "Add how you heard about the INCS Resume Bank" } 
   end
   has_many :resumes, foreign_key: "teacher_id"
   has_many :licenses_helds, foreign_key: "teacher_id"

@@ -27,7 +27,7 @@ module UsersHelper
       'INCS Twitter',
       'INCS Facebook',
       'Eventbrite',
-      'Friend or colleague',
+      'Twitter',
       'Craigslist',
       'Idealist',
       'Indeed',
@@ -39,6 +39,7 @@ module UsersHelper
       'Surge Institute',
       'Austin Weekly',
       'Wednesday Journal',
+      'Friend or colleague',
     ]
   end
 
