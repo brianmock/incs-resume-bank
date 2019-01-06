@@ -15,7 +15,7 @@ class UserMailer < ApplicationMailer
 
   def steph_email(user)
     @user = user
-    mail(to:'AJack@incschools.org', subject: 'New school leader signed up for resume bank')
+    mail(to:'AJack@incschools.org', cc: 'alevybrown@incschools.org', subject: 'New school leader signed up for resume bank')
   end
 
   def school_activated_email(user)

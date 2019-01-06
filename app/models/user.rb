@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
     teacher.validates :endorsements_completed, presence: { message: "Add your completed endorsements" } 
     teacher.validates :references, presence: { message: "Add how you heard about the INCS Resume Bank" } 
   end
+  with_options if: :is_school? do |school|
+    school.validates :job_title, presence: { message: "Job title can't be blank" }
+    school.validates :school, presence: { message: "School can't be blank" }
+  end
   has_many :resumes, foreign_key: "teacher_id"
   has_many :licenses_helds, foreign_key: "teacher_id"
   has_many :licenses, through: :licenses_helds
@@ -43,6 +47,10 @@ class User < ActiveRecord::Base
 
   def is_teacher?
     self.access == 'teacher'
+  end
+
+  def is_school?
+    self.access == 'school' || self.access == 'pending'
   end
 
   def is_active?
