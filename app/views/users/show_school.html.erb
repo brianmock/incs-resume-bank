@@ -19,7 +19,12 @@
 
   <div class="field7">
     <em><%= label_tag(:name, "What grade level are you hiring for?") %></em>
-    <%= select_tag :grade_pref, options_for_select(grades_search), class: 'form-control' %>
+    <ul class="checkbox-grid2">
+    <% grades.each do |grade| %>
+        <li class="field-flex"><input type="checkbox" name="grade_pref[]" value="<%= grade %>" />
+    <label class="flex-one"><%= grade %></label></li>
+    <% end %>
+    </ul>
   </div><br>
 
   <div class="field7">
@@ -32,12 +37,12 @@
 
   <div class="field7">
     <em><%= label_tag(:location_pref, "Filter candidates by their location preference by choosing an option below") %></em><br>
-    <%= radio_button_tag(:location_pref, "Chicago") %>
-    <%= label_tag(:name, "Open to positions in Chicago only") %><br>
-    <%= radio_button_tag(:location_pref, "Non-Chicago, Greater Illinois") %>
-    <%= label_tag(:name, "Open to non-Chicago, Greater Illinois positions") %><br>
-    <%= radio_button_tag(:location_pref, "Chicago or Greater Illinois") %>
-    <%= label_tag(:name, "Open to both options") %><br>
+    <ul class="checkbox-grid2">
+    <% locations.each do |loc| %>
+        <li class="field-flex"><input type="checkbox" name="location_pref[]" value="<%= loc %>" />
+    <label class="flex-one"><%= loc %></label></li>
+    <% end %>
+    </ul>
   </div><br>
 
   <div class="field7">

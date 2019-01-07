@@ -166,24 +166,24 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.with_active_resumes.includes(:positions, :subjects, :licenses, :sources)
+    @users = User.joins(:positions, :subjects).with_active_resumes.includes(:positions, :subjects, :licenses, :sources)
     if params["years"] != "Any"
-      @users = @users.select {|user| user.years.to_i >= params["years"].to_i}
+      @users = @users.where("years >= ?", params["years"])
     end
     if params["positions"]
-      @users = @users.select {|user| ((user.positions.pluck(:title) & params["positions"]).empty? == false)}
+      @users = @users.where('positions.title IN (?)', params["positions"])
     end
     if params["subjects"]
-      @users = @users.select {|user| ((user.subjects.pluck(:subject) & params["subjects"]).empty? == false)}
+      @users = @users.where('subjects.subject IN (?)', params["subjects"])
     end
-    if params["grade_pref"] != "Any"
-      @users = @users.select {|user| user.grade_pref == params["grade_pref"]}
+    if params["grade_pref"]
+      @users = @users.where("grade_pref @> ARRAY[?]::text[]", params["grade_pref"])
     end
     if params["registered"] == "Yes"
-      @users = @users.select {|user| user.register2019 == "both" || user.register2019 == "jobfaironly"}
+      @users = @users.where("register2019 = ? OR register2019 = ?", "jobfaironly", "both")
     end
     if params["location_pref"]
-      @users = @users.select {|user| user.location_pref == params["location_pref"]}
+      @users = @users.where("location_pref @> ARRAY[?]::text[]", params["location_pref"])
     end
 
     respond_to do |format|
