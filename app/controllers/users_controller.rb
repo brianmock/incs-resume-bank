@@ -177,13 +177,13 @@ class UsersController < ApplicationController
       @users = @users.where('subjects.subject IN (?)', params["subjects"])
     end
     if params["grade_pref"]
-      @users = @users.where("grade_pref @> ARRAY[?]::text[]", params["grade_pref"])
+      @users = @users.where("grade_pref && ARRAY[?]::text[]", params["grade_pref"])
     end
     if params["registered"] == "Yes"
       @users = @users.where("register2019 = ? OR register2019 = ?", "jobfaironly", "both")
     end
     if params["location_pref"]
-      @users = @users.where("location_pref @> ARRAY[?]::text[]", params["location_pref"])
+      @users = @users.where("location_pref && ARRAY[?]::text[]", params["location_pref"])
     end
 
     respond_to do |format|
