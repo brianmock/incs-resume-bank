@@ -67,8 +67,8 @@
 <label><strong>Licenses:</strong></label> <%= @user.licenses.map{|lic| lic.name }.to_sentence %><br>
 <label><strong>Endorsements:</strong></label> <%= @user.endorsements.map{|endo| endo.name }.to_sentence %><br>
 <label><strong>Years of Experience:</strong></label> <%= @user.years %><br>
-<label><strong>Preferred Grade(s):</strong></label> <%= @user.grade_pref.to_sentence %><br>
-<label><strong>Location Preference:</strong></label> <%= @user.location_pref.to_sentence %> <br>
+<label><strong>Preferred Grade(s):</strong></label> <%= @user.grade_pref ? @user.grade_pref.to_sentence : '' %><br>
+<label><strong>Location Preference:</strong></label> <%= @user.location_pref ? @user.location_pref.to_sentence : '' %> <br>
 <label><strong>Prior Charter Experience:</strong></label> <%= @user.previous ? 'Yes' : 'No' %> <br>
 <label><strong>Preferred Position(s):</strong></label> <%= @user.positions.map{|pos| pos.title }.to_sentence %><br>
 <label><strong>Preferred Subject(s):</strong></label> <%= @user.subjects.map{|subj| subj.subject}.to_sentence %><br>
