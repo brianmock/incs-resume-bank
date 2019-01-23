@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     teacher.validates :years, presence: { message: "Years of experience can't be blank" }
     teacher.validates :grade_pref, presence: { message: "Add your preferred grade level" }
     teacher.validates :location_pref, presence: { message: "Add where you are willing to teach" }
-    teacher.validates :previous, presence: { message: "Select an option for previous charter experience" }
+    teacher.validates :previous, inclusion: { in: [true, false], message: "Select an option for previous charter experience" }
     teacher.validates :il_licensed, presence: { message: "IL license status can't be blank" }
     teacher.validates :licenses_helds, presence: { message: "Add your currently held licenses" } 
     teacher.validates :position_choices, presence: { message: "Add your desired position(s)" } 
