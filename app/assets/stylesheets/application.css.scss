@@ -403,8 +403,10 @@ em label {
 }
 
 .navbar-right {
-  position: relative;
-  top: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  float: unset !important;
 }
 
 .navbar-right li {

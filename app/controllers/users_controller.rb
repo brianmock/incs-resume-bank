@@ -357,17 +357,22 @@ class UsersController < ApplicationController
         end
       end
       if @user.save
-        session[:user_id] = @user.id
-        if @user.access == "teacher"
-          UserMailer.teacher_email(@user).deliver_now
-          format.html { redirect_to new_resume_path(@resume) }
-        elsif @user.access == "pending"
-          UserMailer.steph_email(@user).deliver_now
-          UserMailer.school_email(@user).deliver_now
-          format.html { redirect_to root_path }
-          format.html { redirect_to root_path, notice: 'Your profile was successfully created and you should receive an email shortly with further instructions.' }
+        @current_user = User.find(session[:user_id])
+        if @current_user.access == "admin"
+          format.html { redirect_to root_path, notice: 'School was successfully created.' }
+        else
+          session[:user_id] = @user.id
+          if @user.access == "teacher"
+            UserMailer.teacher_email(@user).deliver_now
+            format.html { redirect_to new_resume_path(@resume) }
+          elsif @user.access == "pending"
+            UserMailer.steph_email(@user).deliver_now
+            UserMailer.school_email(@user).deliver_now
+            format.html { redirect_to root_path }
+            format.html { redirect_to root_path, notice: 'Your profile was successfully created and you should receive an email shortly with further instructions.' }
+          end
+          format.json { render :show, status: :created, location: @user }
         end
-        format.json { render :show, status: :created, location: @user }
       else
         if @user.access == "teacher"
           format.html { render :new_teacher }

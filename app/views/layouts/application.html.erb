@@ -23,6 +23,7 @@
           <li role="presentation"><a href="/admin">Admin</a></li>
           <li role="presentation"><a href="/users/pending">Pending Schools</a></li>
           <li role="presentation"><a href="/users/schools">All Schools</a></li>
+          <li role="presentation"><a href="/admin/new_school">New School</a></li>
           <li role="presentation"><a href="/users/teachers">All Candidates</a></li>
           <li role="presentation"><a href="/users/school/<%=session[:user_id]%>">Search</a></li>
         <% elsif User.find(session[:user_id]).access == "school" %>
