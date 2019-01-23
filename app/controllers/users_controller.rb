@@ -237,16 +237,35 @@ class UsersController < ApplicationController
         if params["add-sources"]
           more_sources = params["add-sources"].split(",").map(&:strip)
           more_sources.each do |source|
+            next if source == ""
             source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
 
             @user.sources << Source.find_or_create_by(source_name: source_name)
           end
         end
-      end
-        # save uploaded resume
-      if @user.access == 'teacher'
         p params
+        if params["add-flyer"]
+          more_sources = params["add-flyer"].split(",").map(&:strip)
+          more_sources.each do |source|
+            next if source == ""
+            source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.sources << Source.find_or_create_by(source_name: source_name)
+          end
+        end
+        if params["add-college"]
+          more_sources = params["add-college"].split(",").map(&:strip)
+          more_sources.each do |source|
+            next if source == ""
+            source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.sources << Source.find_or_create_by(source_name: source_name)
+          end
+        end
+
+        # save uploaded resume
         @resume = Resume.new
+
         # save licenses
         if params["licenses"]
           params["licenses"].each do |lic|
@@ -301,6 +320,14 @@ class UsersController < ApplicationController
         end
         if params["add-subs"]
           more_subs = params["add-subs"].split(",").map(&:strip)
+          more_subs.each do |sub|
+            subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.subjects << Subject.find_or_create_by(subject: subject)
+          end
+        end
+        if params["add-language"]
+          more_subs = params["add-language"].split(",").map(&:strip)
           more_subs.each do |sub|
             subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
 
@@ -426,6 +453,14 @@ class UsersController < ApplicationController
           @user.subjects << Subject.find_or_create_by(subject: subject)
         end
       end
+      if params["add-language"]
+        more_subs = params["add-language"].split(",").map(&:strip)
+        more_subs.each do |sub|
+          subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+          @user.subjects << Subject.find_or_create_by(subject: subject)
+        end
+      end
       #save organizations
       if params["orgs"]
         @user.organizations.destroy_all
@@ -450,11 +485,27 @@ class UsersController < ApplicationController
           @user.sources << Source.find_or_create_by(source_name: source)
         end
       end
-      if params['more-sources']
-        more_sources = params['more_sources'].split(',').map(&:strip)
+      if params['add-sources']
+        more_sources = params['add-sources'].split(',').map(&:strip)
         more_sources.each do |source|
           source_name = source.split('  ').map do |word| word.downcase.capitalize end.join(' ')
           @user.sources << Sources.find_or_create_by(source_name: source_name)
+        end
+      end
+      if params["add-flyer"]
+        more_sources = params["add-flyer"].split(",").map(&:strip)
+        more_sources.each do |source|
+          source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+          @user.sources << Source.find_or_create_by(source_name: source_name)
+        end
+      end
+      if params["add-college"]
+        more_sources = params["add-college"].split(",").map(&:strip)
+        more_sources.each do |source|
+          source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+          @user.sources << Source.find_or_create_by(source_name: source_name)
         end
       end
       if params["grade_pref"]
@@ -517,7 +568,7 @@ class UsersController < ApplicationController
                                  :endorses, :previous, :subs, :relocation,
                                  :orgs, :additional, :years, :grade_pref,
                                  :positions, :school, :resume_id,
-                                 :location_pref, :sources)
+                                 :location_pref, :sources, :job_title)
   end
 
   def authorize

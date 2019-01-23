@@ -96,7 +96,7 @@
   </div><br><br>
 
   <div class="field">
-    <label><em class="label-bold">How did you hear about the INCS Resume Bank? (Check all that apply) *</em></label><br>
+    <label><em class="label-bold">How did you hear about the INCS Teacher & Administrator Job Fair and/or INCS Resume Bank? (Check all that apply) *</em></label><br>
     <ul class="checkbox-grid2">
       <% resume_bank_references.each do |source| %>
         <% if @user.sources.map{|source| source.source_name}.include?(source) %>
@@ -111,12 +111,12 @@
   <div class="field2">
     <input type="checkbox" name="sources[]" value=""/>
     <label>Flyer (Please specify where you saw/received it.)</label>
-    <input type="text" name="add-sources" value="" /><br>
+    <input type="text" name="add-flyer" value="" /><br>
   </div>
   <div class="field2">
     <input type="checkbox" name="sources[]" value=""/>
     <label>College/university jobs board, newsletter, or staff. (Please specify which one.)</label>
-    <input type="text" name="add-sources" value="" /><br>
+    <input type="text" name="add-college" value="" /><br>
   </div>
   <div class="field2">
     <input type="checkbox" name="sources[]" value=""/>
@@ -319,7 +319,7 @@
   <div class="field2">
     <input type="checkbox" name="subs[]" value=""/>
     <label>Foreign Language (Please specify language.)</label>
-    <input type="text" name="add-subs" value="" /><br>
+    <input type="text" name="add-language" value="" /><br>
   </div>
   <div class="field2">
     <input type="checkbox" name="subs[]" value=""/>

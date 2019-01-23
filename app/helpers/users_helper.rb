@@ -549,6 +549,7 @@ module UsersHelper
 
   def prefixes
     [
+      "Dr.",
       "Mr.",
       "Ms.",
     ]
