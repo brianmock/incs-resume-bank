@@ -359,6 +359,8 @@ class UsersController < ApplicationController
       if @user.save
         @current_user = User.find(session[:user_id])
         if @current_user.access == "admin"
+          @user.access = "school"
+          @user.save
           format.html { redirect_to root_path, notice: 'School was successfully created.' }
         else
           session[:user_id] = @user.id
