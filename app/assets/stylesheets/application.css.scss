@@ -33,6 +33,16 @@ p {
   font-size: inherit;
 }
 
+.home-main-container {
+  display: flex;
+  > div:nth-child(1) {
+  }
+  > div:nth-child(2) {
+    min-width: 160px;
+    margin: 0px 32px;
+  }
+}
+
 .topic {
   text-align: center;
   color: #005088;
@@ -334,7 +344,7 @@ em label {
   color: #005088;
   text-align: center;
   position: relative;
-  bottom: 24px;
+  bottom: 12px;
   font-weight: bold;
   font-size: 20px;
 }
