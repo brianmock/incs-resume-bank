@@ -24,6 +24,11 @@ label {
   font-weight: normal;
 }
 
+h5 {
+  font-size: 1.4em;
+  line-height: 1.5em;
+}
+
 p {
   font-size: inherit;
 }
@@ -46,7 +51,7 @@ p {
 }
 
 .register-content-list {
-  font-size: 1em;
+  font-size: 1.2em;
   color: #000;
 }
 
@@ -54,6 +59,8 @@ p {
   text-align: center;
   align-self: center;
   width: 66%;
+  font-weight: 700;
+  font-size: 1.4em
 }
 
 .label-align {
