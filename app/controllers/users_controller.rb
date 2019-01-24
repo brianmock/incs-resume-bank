@@ -360,7 +360,7 @@ class UsersController < ApplicationController
         if session[:user_id] && User.find(session[:user_id]) && User.find(session[:user_id]).access == "admin"
           @user.access = "school"
           @user.save
-          format.html { redirect_to root_path, notice: 'School was successfully created.' }
+          format.html { redirect_to users_new_school_path, notice: 'School was successfully created.' }
         else
           session[:user_id] = @user.id
           if @user.access == "teacher"

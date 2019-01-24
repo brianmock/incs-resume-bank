@@ -61,7 +61,7 @@ module UsersHelper
         title: 'Other', 
         values: [
           'Substitute Teaching License',
-          'None'
+          'None, I do not have an educator\'s license.'
         ],
       }
     ]
@@ -113,7 +113,7 @@ module UsersHelper
       }, {
         title: 'Other', 
         values: [
-          'None',
+          'None, I do not have any endorsements.',
         ],
       }
     ]

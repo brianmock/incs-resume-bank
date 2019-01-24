@@ -2,6 +2,7 @@
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= "Error".pluralize(@user.errors.count)%>:</h2>
+      <h4>Please contact <a href="mailto:alevybrown@incschools.org?subject=Resume Bank Question">alevybrown@incschools.org</a> if you are having trouble completing the form.</h4>
 
       <ul>
       <% @user.errors.messages.each do |message| %>
@@ -11,7 +12,9 @@
     </div>
   <% end %>
 
-  <h3>Please fill out the form below and select "Next" at the bottom to upload your resume and complete your Job Fair/Resume Bank registration.</h3><br>
+  <h3>Please fill out the form below and select "Next" at the bottom to upload your resume and complete your Job Fair/Resume Bank registration.</h3>
+  <h5>We recommend answering questions, even when not required, to increase chances of being identified by a school.</h5>   
+  <h4>If you have any trouble with this form, please contact <a href="mailto:alevybrown@incschools.org?subject=Resume Bank Question">alevybrown@incschools.org</a>.</h4><br><br> 
 
   <div class="field">
     <label><em class="label-bold">What would you like to do? *</em></label><br>

@@ -11,6 +11,12 @@
     </div>
   <% end %>
 
+  <% if !flash[:notice].blank? %>
+    <div class="alert alert-info">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
   <h3 class="sub-header">INCS Resume Bank for Hiring Managers</h3>
   <h5>The INCS Resume Bank is a service provided by the Illinois Network of Charter Schools (INCS) to our member schools and non-member Illinois charter schools registered for the INCS Teacher & Administrator Job Fair. Through the INCS Resume Bank, you may access and search Job Seeker Profiles and resumes of hundreds of candidates for teaching, school leadership and other school positions, including job seekers registered for the 2019 INCS Teacher & Administrator Job Fair on April 6.</h5>
   <h4 class="register-header">School Registration for the 2019 INCS Teacher & Administrator Job Fair is coming soon!</h4>
