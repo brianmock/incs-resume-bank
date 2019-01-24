@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, on: :create, message: "Password confirmation must match password"
   validates_confirmation_of :email, on: :create, message: "Email confirmation must match email"
   with_options if: :is_teacher? do |teacher|
-    teacher.validates :zip, presence: { message: "Zip code can't be blank" }
     teacher.validates :years, presence: { message: "Years of experience can't be blank" }
     teacher.validates :grade_pref, presence: { message: "Add your preferred grade level" }
     teacher.validates :location_pref, presence: { message: "Add where you are willing to teach" }
