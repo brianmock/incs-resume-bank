@@ -38,19 +38,31 @@
       <%= image_tag("banner.jpg", width:"100%") %>
     </div>
     </nav>
-    <%# <div class="home-main-container"> %>
+    <% if session[:user_id] %>
+      <% if User.find(session[:user_id]).access == "teacher" %>
+        <div class="home-main-container">
+          <div class="container" style="padding-top:80px;">
+            <%= yield %>
+          </div>
+          <div class="resources-container" style="padding-top:92px;">
+            <h3 class="sub-header">Job Seeker Resources</h3>
+            <ul>
+              <li>
+                <%= link_to "Illinois license information", "/uploads/licCheatSheet.pdf" %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      <% else %>
+        <div class="container" style="padding-top:80px;">
+          <%= yield %>
+        </div>
+      <% end %>
+    <% else %>
       <div class="container" style="padding-top:80px;">
         <%= yield %>
       </div>
-      <%# <div class="resources-container" style="padding-top:92px;"> %>
-      <%#   <h3 class="sub-header">Job Seeker Resources</h3> %>
-      <%#   <ul> %>
-      <%#     <li> %>
-      <%#       <%= link_to "Illinois license information", "/uploads/licCheatSheet.pdf" %1> %>
-      <%#     </li> %>
-      <%#   </ul> %>
-      <%# </div> %>
-    <%# </div> %>
+    <% end %>
   <footer class="footer"><div class="prim-1"></div><div class="prim-2"></div><div class="prim-3"></div><div class="prim-4"></div></footer>
 </body>
 <%= render 'layouts/footer' %>
