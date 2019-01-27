@@ -38,26 +38,20 @@
       <%= image_tag("banner.jpg", width:"100%") %>
     </div>
     </nav>
-    <% if session[:user_id] %>
-      <% if User.find(session[:user_id]).access == "teacher" %>
-        <div class="home-main-container">
-          <div class="container" style="padding-top:80px;">
-            <%= yield %>
-          </div>
-          <div class="resources-container" style="padding-top:92px;">
-            <h3 class="sub-header">Job Seeker Resources</h3>
-            <ul>
-              <li>
-                <%= link_to "Illinois license information", "/uploads/licCheatSheet.pdf" %>
-              </li>
-            </ul>
-          </div>
-        </div>
-      <% else %>
+    <% if !session[:user_id] || (session[:user_id] && User.find(session[:user_id]).access == "teacher") %>
+      <div class="home-main-container">
         <div class="container" style="padding-top:80px;">
           <%= yield %>
         </div>
-      <% end %>
+        <div class="resources-container" style="padding-top:92px;">
+          <h3 class="sub-header">Job Seeker Resources</h3>
+          <ul>
+            <li>
+              <%= link_to "Illinois Educator Licensure Guide", "/uploads/licCheatSheet.pdf" %>
+            </li>
+          </ul>
+        </div>
+      </div>
     <% else %>
       <div class="container" style="padding-top:80px;">
         <%= yield %>

@@ -6,11 +6,12 @@
   <% end %>
   <h1 class="main-header">Welcome to the INCS Online Resume Bank.</h1>
   <h1 class="main-header">Join us at the 2019 INCS Teacher & Administrator Job Fair on April 6!</h1>
-  <h3 class="sub-header">Register for the Job Fair and Resume Bank below.</h3>
 
 
-  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'pending' %>
-    <p>Thank you for your registration. Please allow up to 2 business days for INCS staff to process approval of your account. You have received an email with further information.</p>
+  <% if session[:user_id] && User.find(session[:user_id]).access == 'pending' %>
+    <div class="alert alert-info">Thank you for your registration. Please allow up to one week for INCS staff to process approval of your account. You have received an email with further information.</div>
+  <% else %>
+    <h3 class="sub-header">Register for the Job Fair and Resume Bank below.</h3>
   <% end %>
 
   <% if session[:user_id] == nil %>
