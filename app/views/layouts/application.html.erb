@@ -38,7 +38,7 @@
       <%= image_tag("banner.jpg", width:"100%") %>
     </div>
     </nav>
-    <% if !session[:user_id] || (session[:user_id] && User.find(session[:user_id]).access == "teacher") %>
+    <% if session[:user_id] && User.find(session[:user_id]).access == "teacher" %>
       <div class="home-main-container">
         <div class="container" style="padding-top:80px;">
           <%= yield %>
