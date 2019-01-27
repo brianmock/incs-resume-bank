@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
   include SendGrid
-  default from: '"Allison Jack" <AJack@incschools.org>'
+  default from: '"Anne Levy Brown" <alevybrown@incschools.org>'
   def teacher_email(user)
     @user = user
     @url = "http://www.teacherjobfair.org"
