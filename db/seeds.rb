@@ -1,18 +1,1 @@
-sources = [
-  "Flyer",
-  "INCS Website",
-  "INCS Email",
-  "INCS Twitter, Facebook or LinkedIn",
-  "Friend or Colleague",
-  "Idealist",
-  "Indeed",
-  "Austin Weekly",
-  "Wednesday Journal",
-  "NPO",
-  "DNA Info",
-  "College jobs board, newsletter or staff"
-]
-
-sources.each do |source|
-  Source.create(source_name: source)
-end
+User.create(first_name: 'Brian', last_name: 'Mock', location_pref: 'none', register: 'none', years: 0, email: 'mock@nopical.com', password: 'Chicago32', access: 'admin')
