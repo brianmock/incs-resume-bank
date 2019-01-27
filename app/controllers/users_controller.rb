@@ -188,6 +188,12 @@ class UsersController < ApplicationController
     if params["registered"] == "Yes"
       @users = @users.where("register2019 = ? OR register2019 = ?", "jobfaironly", "both")
     end
+    if params["previous"] == "Yes"
+      @users = @users.where("previous = ?", true)
+    end
+    if params["previous"] == "No"
+      @users = @users.where("previous = ?", false)
+    end
     if params["location_pref"]
       @users = @users.where("location_pref && ARRAY[?]::text[]", params["location_pref"])
     end

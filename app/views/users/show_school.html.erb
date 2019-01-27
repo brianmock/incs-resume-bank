@@ -1,5 +1,5 @@
-<h1>Search for candidates below! </h1>
-<h3>To review all candidates in the INCS Resume Bank, please leave your selection criteria blank and select “search” below.</h3>
+<h1>Search for job seekers below! </h1>
+<h3>To review all job seekers in the INCS Resume Bank, please leave your selection criteria blank and select “search” below.</h3>
 
 <%= form_tag('/users/search', :method => 'get') do %>
   <div class="field">
@@ -18,6 +18,14 @@
   </div><br>
 
   <div class="field7">
+    <em><%= label_tag(:name, "Only show job seekers with previous charter experience?") %></em>
+    <%= radio_button_tag(:previous, "Yes") %>
+    <%= label_tag(:name, "Yes") %><br>
+    <%= radio_button_tag(:previous, "No") %>
+    <%= label_tag(:name, "No") %>
+  </div><br>
+
+  <div class="field7">
     <em><%= label_tag(:name, "What grade level are you hiring for?") %></em>
     <ul class="checkbox-grid2">
     <% grades.each do |grade| %>
@@ -28,7 +36,7 @@
   </div><br>
 
   <div class="field7">
-    <em><%= label_tag(:name, "Only show candidates registered for the 2019 INCS Job Fair?")%></em><br>
+    <em><%= label_tag(:name, "Only show job seekers registered for the 2019 INCS Job Fair?")%></em><br>
     <%= radio_button_tag(:registered, "Yes") %>
     <%= label_tag(:name, "Yes") %><br>
     <%= radio_button_tag(:registered, "No") %>
@@ -36,7 +44,7 @@
   </div><br>
 
   <div class="field7">
-    <em><%= label_tag(:location_pref, "Filter candidates by their location preference by choosing an option below") %></em><br>
+    <em><%= label_tag(:location_pref, "Filter job seekers by their location preference. (Check all that apply)") %></em><br>
     <ul class="checkbox-grid2">
     <% locations.each do |loc| %>
         <li class="field-flex"><input type="checkbox" name="location_pref[]" value="<%= loc %>" />
