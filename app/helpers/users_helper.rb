@@ -42,6 +42,30 @@ module UsersHelper
     ]
   end
 
+  def search_license_choices
+    [
+      {
+        title: 'Professional Educator License (PEL)',
+        values: [
+          'Teacher',
+          'School Support Personnel',
+          'Administrative',
+        ],
+      }, {
+        title: 'Educator License with Stipulations (ELS)',
+        values: [
+          'ELS Provisional Educator (ELS PEDU)', 
+          'ELS Endorsed as a Paraprofessional (ELS PARA)',
+        ],
+      }, {
+        title: 'Other', 
+        values: [
+          'Substitute Teaching License',
+        ],
+      }
+    ]
+  end
+
   def license_choices
     [
       {

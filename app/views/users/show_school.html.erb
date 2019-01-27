@@ -3,7 +3,7 @@
 
 <%= form_tag('/users/search', :method => 'get') do %>
   <div class="field">
-    <label class="label-bold"><em>Which field(s) does your desired position fall under? (Check all that apply) *</em></label><br>
+    <label class="label-bold"><em>Which field(s) does your desired position fall under? (Check all that apply)</em></label><br>
     <ul class="checkbox-grid2">
     <% position_options.each do |pos| %>
         <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
@@ -48,11 +48,59 @@
   <div class="field7">
     <em><%= label_tag(:name, "What subjects are you interested in hiring for? (Check all that apply)") %></em><br>
     <ul class="checkbox-grid">
-      <% Subject.all.order(:subject).each do |subj| %>
-        <li class="field-flex"><input type="checkbox" name="subjects[]" value="<%= subj.subject %>" />
-        <label style="margin: 0" class="flex-one"><%= subj.subject %></label></li>
+      <% selectable_subjects.each do |subj| %>
+        <li class="field-flex"><input type="checkbox" name="subjects[]" value="<%= subj %>" />
+        <label style="margin: 0" class="flex-one"><%= subj %></label></li>
       <% end %>
     </ul><br>
+  </div>
+
+  <div class="field7">
+    <label class="label-bold"><em>What endorsement(s) must the job seeker possess? (Check all that apply)</em></label><br>
+    <% endorsement_choices[0...-1].each do |endo| %>
+      <% if endo[:title] %>
+        <div class="field-label">
+          <%= endo[:title] %>
+        </div>
+      <% end %>
+      <% endo[:values].each do |value| %>
+        <% if endo[:title] %>
+          <div class="field-radio-indent">
+            <input type="checkbox" name="endorses[]" value="<%= value %>" u>
+            <label><%= value %></label><br>
+          </div>
+        <% else %>
+          <div class="field-radio">
+            <input type="checkbox" name="endorses[]" value="<%= value %>" />
+            <label><%= value %></label><br>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field7">
+    <label class="label-bold"><em>What license(s) must the job seeker possess? (Check all that apply)</em></label><br>
+    <% search_license_choices.each do |lic| %>
+      <% if lic[:title] %>
+        <div class="field-label">
+          <%= lic[:title] %>
+        </div>
+      <% end %>
+      <% lic[:values].each do |value| %>
+        <% if lic[:title] %>
+          <div class="field-radio-indent">
+            <input type="checkbox" name="licenses[]" value="<%= value %>" u>
+            <label><%= value %></label><br>
+          </div>
+        <% else %>
+          <div class="field-radio">
+            <input type="checkbox" name="licenses[]" value="<%= value %>" />
+            <label><%= value %></label><br>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 
   <label></label>
