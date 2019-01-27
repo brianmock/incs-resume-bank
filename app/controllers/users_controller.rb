@@ -179,8 +179,8 @@ class UsersController < ApplicationController
     if params["licenses"]
       @users = @users.where('licenses.name IN (?)', params["licenses"])
     end
-    if params["endorsements"]
-      @users = @users.where('endorsements.name IN (?)', params["endorsements"])
+    if params["endorses"]
+      @users = @users.where('endorsements.name IN (?)', params["endorses"])
     end
     if params["grade_pref"]
       @users = @users.where("grade_pref && ARRAY[?]::text[]", params["grade_pref"])
