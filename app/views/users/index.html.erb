@@ -6,6 +6,7 @@
   <label>Name:</label> <%= user.prefix == 'N/A' ? '' : user.prefix %> <%= user.first_name %> <%= user.last_name %><br>
   <label>Years of Experience: </label> <%= user.years %><br>
   <label>Licenses Held:</label> <%= user.licenses.map do |lic| lic.name end.to_sentence %><br>
+  <label>Endorsements:</label> <%= user.endorsements.map do |endo| endo.name end.to_sentence %><br>
   <label>Registered for 2019 Job Fair:</label> <% if user.register2019 == "both" || user.register2019 == "jobfaironly" %>Yes<% else %>No<%end%><br>
   <label>Location Preference:</label> <%= user.location_pref ? user.location_pref.to_sentence : '' %><br>
   <label><a href="/users/<%= user.id %>">Profile</a></label><br>
