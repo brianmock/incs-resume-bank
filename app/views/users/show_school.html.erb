@@ -18,14 +18,6 @@
   </div><br>
 
   <div class="field7">
-    <em><%= label_tag(:name, "Only show job seekers with previous charter experience?") %></em><br>
-    <%= radio_button_tag(:previous, "Yes") %>
-    <%= label_tag(:name, "Yes") %><br>
-    <%= radio_button_tag(:previous, "No") %>
-    <%= label_tag(:name, "No") %>
-  </div><br>
-
-  <div class="field7">
     <em><%= label_tag(:name, "What grade level are you hiring for?") %></em>
     <ul class="checkbox-grid2">
     <% grades.each do |grade| %>
