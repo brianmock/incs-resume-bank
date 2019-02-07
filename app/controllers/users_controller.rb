@@ -195,7 +195,7 @@ class UsersController < ApplicationController
         "Doctorate": degrees[6..-1],
       }
 
-      @users = @users.where('degree IN (?)', degree_queries[params["degree"]])
+      @users = @users.where("degree && ARRAY[?]::text[]", degree_queries[params["degree"]])
     end
 
     if params["il_licensed"]
