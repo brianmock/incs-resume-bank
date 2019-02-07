@@ -486,6 +486,16 @@ module UsersHelper
     ]
   end
 
+  def search_degrees
+    [
+      "Associate",
+      "Bachelor's",
+      "Master's",
+      "Doctorate",
+    ]
+  end
+
+
   def exp_years
     [
       0,
@@ -522,8 +532,6 @@ module UsersHelper
 
   def selectable_subjects
     [
-      'N/A',
-      'All Subjects',
       'General Education',
       'Bilingual Teacher',
       'English Language Learners',
@@ -561,7 +569,6 @@ module UsersHelper
 
   def grades_search
     [
-      "Any",
       "Pre-k",
       "Kindergarten",
       "Primary (1st-2nd)",

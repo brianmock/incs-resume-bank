@@ -1,42 +1,21 @@
 <h1>Search for job seekers below! </h1>
-<h3>To review all job seekers in the INCS Resume Bank, please leave your selection criteria blank and select “search” below.</h3>
+<h3>To review all job seekers in the INCS Resume Bank, please leave filters blank and select “search” below.</h3>
 
 <%= form_tag('/users/search', :method => 'get') do %>
-  <div class="field">
-    <label class="label-bold"><em>Which field(s) does your desired position fall under? (Check all that apply)</em></label><br>
-    <ul class="checkbox-grid2">
-    <% position_options.each do |pos| %>
-        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
-    <label class="flex-one"><%= pos %></label></li>
-    <% end %>
-    </ul>
-  </div>
-
   <div class="field7">
-    <em><%= label_tag(:name, "Minimum years of teaching or school administration experience") %></em>
-    <%= select_tag :years, options_for_select(exp_years_search), class: 'form-control' %>
+    <em><%= label_tag(:name, "Which profiles would you like to see?")%></em><br>
+    <%= radio_button_tag(:registered, "2019") %>
+    <%= label_tag(:name, "Job seekers registered for the 2019 Teacher & Administrator Job Fair") %><br>
+    <%= radio_button_tag(:registered, "6") %>
+    <%= label_tag(:name, "Job seekers who joined/updated their Resume Bank profiles in past 6 months") %><br>
+    <%= radio_button_tag(:registered, "12") %>
+    <%= label_tag(:name, "Job seekers who joined/updated their Resume Bank profiles in past 12 months") %><br>
+    <%= radio_button_tag(:registered, "All") %>
+    <%= label_tag(:name, "All job seekers in INCS Online Resume Bank") %><br>
   </div><br>
 
   <div class="field7">
-    <em><%= label_tag(:name, "What grade level are you hiring for?") %></em>
-    <ul class="checkbox-grid2">
-    <% grades.each do |grade| %>
-        <li class="field-flex"><input type="checkbox" name="grade_pref[]" value="<%= grade %>" />
-    <label class="flex-one"><%= grade %></label></li>
-    <% end %>
-    </ul>
-  </div><br>
-
-  <div class="field7">
-    <em><%= label_tag(:name, "Only show job seekers registered for the 2019 INCS Job Fair?")%></em><br>
-    <%= radio_button_tag(:registered, "Yes") %>
-    <%= label_tag(:name, "Yes") %><br>
-    <%= radio_button_tag(:registered, "No") %>
-    <%= label_tag(:name, "No") %>
-  </div><br>
-
-  <div class="field7">
-    <em><%= label_tag(:location_pref, "Filter job seekers by their location preference. (Check all that apply)") %></em><br>
+    <em><%= label_tag(:location_pref, "Location preference") %></em><br>
     <ul class="checkbox-grid2">
     <% locations.each do |loc| %>
         <li class="field-flex"><input type="checkbox" name="location_pref[]" value="<%= loc %>" />
@@ -46,7 +25,37 @@
   </div><br>
 
   <div class="field7">
-    <em><%= label_tag(:name, "What subjects are you interested in hiring for? (Check all that apply)") %></em><br>
+    <em><%= label_tag(:degree, "Minimum Degree Desired") %></em><br>
+    <%= select_tag :degree, options_for_select(search_degrees), class: 'form-control' %>
+  </div><br>
+
+  <div class="field7">
+    <em><%= label_tag(:name, "Minimum years of teaching or school administration experience") %></em>
+    <%= select_tag :years, options_for_select(exp_years_search), class: 'form-control' %>
+  </div><br>
+
+  <div class="field7">
+    <label class="label-bold"><em>Desired position(s)</em></label><br>
+    <ul class="checkbox-grid2">
+    <% position_options.each do |pos| %>
+        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
+    <label class="flex-one"><%= pos %></label></li>
+    <% end %>
+    </ul>
+  </div>
+
+  <div class="field7">
+    <em><%= label_tag(:name, "Grade Level(s) of Position") %></em>
+    <ul class="checkbox-grid2">
+    <% grades_search.each do |grade| %>
+        <li class="field-flex"><input type="checkbox" name="grade_pref[]" value="<%= grade %>" />
+    <label class="flex-one"><%= grade %></label></li>
+    <% end %>
+    </ul>
+  </div><br>
+
+  <div class="field7">
+    <em><%= label_tag(:name, "Subject Area(s) (for teaching or coaching positions)") %></em><br>
     <ul class="checkbox-grid">
       <% selectable_subjects.each do |subj| %>
         <li class="field-flex"><input type="checkbox" name="subjects[]" value="<%= subj %>" />
@@ -56,31 +65,20 @@
   </div>
 
   <div class="field7">
-    <label class="label-bold"><em>What endorsement(s) must the job seeker possess? (Check all that apply)</em></label><br>
-    <% endorsement_choices[0...-1].each do |endo| %>
-      <% if endo[:title] %>
-        <div class="field-label">
-          <%= endo[:title] %>
-        </div>
-      <% end %>
-      <% endo[:values].each do |value| %>
-        <% if endo[:title] %>
-          <div class="field-radio-indent">
-            <input type="checkbox" name="endorses[]" value="<%= value %>" u>
-            <label><%= value %></label><br>
-          </div>
-        <% else %>
-          <div class="field-radio">
-            <input type="checkbox" name="endorses[]" value="<%= value %>" />
-            <label><%= value %></label><br>
-          </div>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
+    <em><%= label_tag(:name, "Educator Licensure Status")%></em><br>
+    <%= radio_button_tag(:il_licensed, "Yes") %>
+    <%= label_tag(:name, "Licensed in Illinois") %><br>
+    <%= radio_button_tag(:il_licensed, "Other") %>
+    <%= label_tag(:name, "Licensed in another state") %><br>
+    <%= radio_button_tag(:il_licensed, "Educator Prep Program") %>
+    <%= label_tag(:name, "Enrolled in an educator preparation program") %><br>
+    <%= radio_button_tag(:il_licensed, "No") %>
+    <%= label_tag(:name, "Not licensed") %><br>
+  </div><br>
 
   <div class="field7">
-    <label class="label-bold"><em>What license(s) must the job seeker possess? (Check all that apply)</em></label><br>
+    <label class="label-bold"><em>Desired License(s)</em></label><br>
+    <label class="label-small">(Note: Selecting options below may filter out job seekers licensed in another state.)</label><br>
     <% search_license_choices.each do |lic| %>
       <% if lic[:title] %>
         <div class="field-label">
@@ -96,6 +94,30 @@
         <% else %>
           <div class="field-radio">
             <input type="checkbox" name="licenses[]" value="<%= value %>" />
+            <label><%= value %></label><br>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field7">
+    <label class="label-bold"><em>Desired Endorsement(s)</em></label><br>
+    <% endorsement_choices[0...-1].each do |endo| %>
+      <% if endo[:title] %>
+        <div class="field-label">
+          <%= endo[:title] %>
+        </div>
+      <% end %>
+      <% endo[:values].each do |value| %>
+        <% if endo[:title] %>
+          <div class="field-radio-indent">
+            <input type="checkbox" name="endorses[]" value="<%= value %>" u>
+            <label><%= value %></label><br>
+          </div>
+        <% else %>
+          <div class="field-radio">
+            <input type="checkbox" name="endorses[]" value="<%= value %>" />
             <label><%= value %></label><br>
           </div>
         <% end %>
