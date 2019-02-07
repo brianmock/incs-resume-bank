@@ -168,7 +168,7 @@ class UsersController < ApplicationController
   def search
     @users = User.joins(:positions, :subjects).with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
 
-    if params["years"] && params["years"] != "Any"
+    if params["years"] != "Any"
       @users = @users.where("years >= ?", params["years"])
     end
 
