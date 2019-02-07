@@ -189,16 +189,13 @@ class UsersController < ApplicationController
       ]
 
       degree_queries = {
-        "Associate": degrees,
-        "Bachelor's": degrees[2..-1],
-        "Master's": degrees[4..-1],
-        "Doctorate": degrees[6..-1],
+        "Associate" => degrees,
+        "Bachelor's" => degrees[2..-1],
+        "Master's" => degrees[4..-1],
+        "Doctorate" => degrees[6..-1],
       }
 
-      p params["degree"]
-      p degree_queries[params["degree"]]
-
-      @users = @users.where("degree IN ARRAY[?]::text[]", degree_queries[:params["degree"]])
+      @users = @users.where("degree IN (?)", degree_queries[params["degree"]])
     end
 
     if params["il_licensed"]
