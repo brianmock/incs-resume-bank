@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
     teacher.validates :position_choices, presence: { message: "Add your desired position(s)" } 
     teacher.validates :endorsements_completed, presence: { message: "Add your completed endorsements" } 
     teacher.validates :references, presence: { message: "Add how you heard about the INCS Resume Bank" } 
+    teacher.validates :register2019, presence: { message: "Add what you would like to do" } 
   end
   with_options if: :is_school? do |school|
     school.validates :job_title, presence: { message: "Job title can't be blank" }
