@@ -99,7 +99,7 @@ class UsersController < ApplicationController
     if params["filter"]
       case params["filter"]
       when 'bank-only'
-        @users = User.where('access' => 'teacher').where('register2018= ? OR register2019= ? OR register= ?', 'bank', 'bank', 'bank').paginate(page: params[:page], per_page: 25)
+        @users = User.where('access' => 'teacher').where('register2018= ? OR register2019= ?', 'bank', 'bank').paginate(page: params[:page], per_page: 25)
         @header = 'Candidates only registered with Resume Bank'
         @filter = 'bank-only'
       when '2019-job-fair'
