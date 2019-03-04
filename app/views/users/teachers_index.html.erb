@@ -59,6 +59,8 @@
   <label>Name:</label> <%= user.first_name %> <%= user.last_name %><br>
   <label>Email:</label> <%= user.email %><br>
   <label>Registered for 2019 Job Fair:</label> <% if user.register2019 == 'bank' || user.register2019 == nil %> No <% else %> Yes <% end %><br>
+  <label>Registered on:</label> <%= user.created_at %><br>
+  <label>Updated at:</label> <%= user.updated_at %><br>
   <label>Active:</label> <% if user.is_active? %> Yes <% else %> No
   <% end %>
   <div class="result_button_container">
