@@ -57,7 +57,7 @@
 <label><strong>Name:</strong></label> <%= @user.prefix == 'N/A' ? '' : @user.prefix%> <%= @user.first_name%> <%=@user.last_name%><br>
 <label><strong>Email:</strong></label> <%= @user.email%><br>
 <label><strong>Phone:</strong></label> <%= @user.phone_number %><br>
-<label><strong>Registered for 2019 Fair:</strong></label> <%= @user.register2019 == 'bank' ? 'No' : 'Yes' %><br>
+<label><strong>Registered for 2019 Fair:</strong></label> <%= @user.register2019 == 'both' || @user.register2019 == 'jobfaironly' ? 'Yes' : 'NO' %><br>
 <label><strong>City of Residence:</strong></label> <%= @user.city %><br>
 <label><strong>State of Residence:</strong></label> <%= @user.state%><br>
 <label><strong>Highest Degree Earned:</strong></label> <%= @user.degree %><br>
