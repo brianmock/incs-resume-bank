@@ -488,6 +488,7 @@ module UsersHelper
 
   def search_degrees
     [
+      "No preference",
       "Associate",
       "Bachelor's",
       "Master's",

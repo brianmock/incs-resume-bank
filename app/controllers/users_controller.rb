@@ -167,7 +167,7 @@ class UsersController < ApplicationController
 
   def search
     # @users = User.joins(:positions, :subjects).with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
-    @users = User.where('access' => 'teacher').joins(:positions, :subjects).includes(:positions, :subjects, :licenses, :sources, :endorsements)
+    @users = User.where('access' => 'teacher').includes(:positions, :subjects, :licenses, :sources, :endorsements)
 
     if params["years"] && params["years"] != "Any"
       @users = @users.where("years >= ?", params["years"])
@@ -177,7 +177,7 @@ class UsersController < ApplicationController
       @users = @users.where('positions.title IN (?)', params["positions"])
     end
 
-    if params["degree"] && params["degree"] != 'Associate'
+    if params["degree"] && params["degree"] != "No preference"
       degrees = [
         "Associate",
         "Associate in progress",
