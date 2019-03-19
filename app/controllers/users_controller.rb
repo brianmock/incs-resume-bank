@@ -236,7 +236,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { 
-        @users = @users.paginate(page: params[:page], per_page: 25)
+        @users = @users.uniq { |u| u.id }.paginate(page: params[:page], per_page: 25)
         render :index
       }
       format.csv {
