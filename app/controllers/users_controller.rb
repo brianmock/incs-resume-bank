@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     if @current_user.register2019 == 'bank' || @current_user.register2019.nil?
       @current_user.register2019 = 'both'
       @current_user.save
+      UserMailer.teacher_both_email(@user).deliver_now
       redirect_to user_path(@current_user), notice: 'You have been registered for the 2019 INCS Teacher Job Fair'
     else
       redirect_to user_path(@current_user), notice: 'You have already registered for the 2019 INCS Teacher Job Fair'
@@ -577,6 +578,15 @@ class UsersController < ApplicationController
         @user.location_pref = params["location_pref"]
       end
       if @user.update(user_params)
+        if params["register2019"] == "both"
+          UserMailer.teacher_both_email(@user).deliver_now
+        end
+        if params["register2019"] == "bank"
+          UserMailer.teacher_email(@user).deliver_now
+        end
+        if params["register2019"] == "jobfaironly"
+          UserMailer.teacher_fair_email(@user).deliver_now
+        end
         format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
