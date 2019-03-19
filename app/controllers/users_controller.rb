@@ -219,7 +219,7 @@ class UsersController < ApplicationController
     end
 
     if params["registered"] == "2019"
-      @users = @users.where("register2019 = ?", "both")
+      @users = @users.where("register2019 IN (?)", ["both", "jobfaironly"])
     end
 
     if params["registered"] == "6"
