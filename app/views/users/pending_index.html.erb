@@ -8,7 +8,7 @@
 <div class="result">
   <br>
   <label>School:</label> <%= user.school %><br>
-  <label>Name:</label> <%= user.prefix %> <%= user.first_name %> <%= user.last_name %><br>
+  <label>Name:</label> <%= user.prefix == 'N/A' ? '' : user.prefix %> <%= user.first_name %> <%= user.last_name %><br>
   <label>Email: </label> <%= user.email %><br>
   <label>Status:</label> <%= user.access %><br>
   <%= button_to "Activate", "/users/#{user.id}/activate", method: :put, class: "btn btn-info" %><br>

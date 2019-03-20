@@ -23,7 +23,12 @@ class ResumesController < ApplicationController
       end
     end
     if @resume.save
-      redirect_to user_path(@user), notice: "Your #{@resume.name.downcase} has been uploaded."
+      if @user.register2019 == "bank" 
+        notice = "Your #{@resume.name.downcase} has been uploaded."
+      else 
+        notice = "Your registration is complete. Please review your information below."
+      end
+      redirect_to user_path(@user), notice: notice
     else
       render "new"
     end

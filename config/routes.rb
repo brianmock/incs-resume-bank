@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :users
 
   get 'admin' => 'admin#index'
+  get 'admin/new_school' => 'users#new_school'
 
   post 'users/search' => 'users#search'
   post 'users/password_reset' => 'users#password_reset'

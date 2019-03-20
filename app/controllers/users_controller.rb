@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     if @current_user.register2019 == 'bank' || @current_user.register2019.nil?
       @current_user.register2019 = 'both'
       @current_user.save
+      UserMailer.teacher_both_email(@user).deliver_now
       redirect_to user_path(@current_user), notice: 'You have been registered for the 2019 INCS Teacher Job Fair'
     else
       redirect_to user_path(@current_user), notice: 'You have already registered for the 2019 INCS Teacher Job Fair'
@@ -99,7 +100,7 @@ class UsersController < ApplicationController
     if params["filter"]
       case params["filter"]
       when 'bank-only'
-        @users = User.where('access' => 'teacher').where('register2018= ? OR register2019= ? OR register= ?', 'bank', 'bank', 'bank').paginate(page: params[:page], per_page: 25)
+        @users = User.where('access' => 'teacher').where('register2018= ? OR register2019= ?', 'bank', 'bank').paginate(page: params[:page], per_page: 25)
         @header = 'Candidates only registered with Resume Bank'
         @filter = 'bank-only'
       when '2019-job-fair'
@@ -166,29 +167,77 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.with_active_resumes.includes(:positions, :subjects, :licenses, :sources)
-    if params["years"] != "Any"
-      @users = @users.select {|user| user.years.to_i >= params["years"].to_i}
+    @users = User.where('access' => 'teacher').with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
+
+    if params["years"] && params["years"] != "Any"
+      @users = @users.where("years >= ?", params["years"])
     end
+
     if params["positions"]
-      @users = @users.select {|user| ((user.positions.pluck(:title) & params["positions"]).empty? == false)}
+      @users = @users.where('positions.title IN (?)', params["positions"])
     end
+
+    if params["degree"] && params["degree"] != "No preference"
+      degrees = [
+        "Associate",
+        "Associate in progress",
+        "Bachelor's",
+        "Bachelor's in progress",
+        "Master's",
+        "Master's in progress",
+        "Doctorate",
+        "Doctorate in progress",
+      ]
+
+      degree_queries = {
+        "Associate" => degrees,
+        "Bachelor's" => degrees[2..-1],
+        "Master's" => degrees[4..-1],
+        "Doctorate" => degrees[6..-1],
+      }
+
+      @users = @users.where("degree IN (?)", degree_queries[params["degree"]])
+    end
+
+    if params["il_licensed"]
+      @users = @users.where(il_licensed: params["il_licensed"])
+    end
+
     if params["subjects"]
-      @users = @users.select {|user| ((user.subjects.pluck(:subject) & params["subjects"]).empty? == false)}
+      @users = @users.where('subjects.subject IN (?)', params["subjects"])
     end
-    if params["grade_pref"] != "Any"
-      @users = @users.select {|user| user.grade_pref == params["grade_pref"]}
+
+    if params["licenses"]
+      @users = @users.where('licenses.name IN (?)', params["licenses"])
     end
-    if params["registered"] == "Yes"
-      @users = @users.select {|user| user.register2019 == "both" || user.register2019 == "jobfaironly"}
+
+    if params["endorses"]
+      @users = @users.where('endorsements.name IN (?)', params["endorses"])
     end
+
+    if params["grade_pref"]
+      @users = @users.where("grade_pref && ARRAY[?]::text[]", params["grade_pref"])
+    end
+
+    if params["registered"] == "2019"
+      @users = @users.where("register2019 IN (?)", ["both", "jobfaironly"])
+    end
+
+    if params["registered"] == "6"
+      @users = @users.where(updated_at: (Time.now - 6.months)..Time.now)
+    end
+
+    if params["registered"] == "12"
+      @users = @users.where(updated_at: (Time.now - 12.months)..Time.now)
+    end
+
     if params["location_pref"]
-      @users = @users.select {|user| user.location_pref == params["location_pref"]}
+      @users = @users.where("location_pref && ARRAY[?]::text[]", params["location_pref"])
     end
 
     respond_to do |format|
       format.html { 
-        @users = @users.paginate(page: params[:page], per_page: 25)
+        @users = @users.uniq { |u| u.id }.paginate(page: params[:page], per_page: 25)
         render :index
       }
       format.csv {
@@ -237,21 +286,40 @@ class UsersController < ApplicationController
         if params["add-sources"]
           more_sources = params["add-sources"].split(",").map(&:strip)
           more_sources.each do |source|
+            next if source == ""
             source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
 
             @user.sources << Source.find_or_create_by(source_name: source_name)
           end
         end
-      end
+        p params
+        if params["add-flyer"]
+          more_sources = params["add-flyer"].split(",").map(&:strip)
+          more_sources.each do |source|
+            next if source == ""
+            source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.sources << Source.find_or_create_by(source_name: source_name)
+          end
+        end
+        if params["add-college"]
+          more_sources = params["add-college"].split(",").map(&:strip)
+          more_sources.each do |source|
+            next if source == ""
+            source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.sources << Source.find_or_create_by(source_name: source_name)
+          end
+        end
+
         # save uploaded resume
-      if @user.access == 'teacher'
         @resume = Resume.new
+
         # save licenses
-        p params["licenses"] && params["add-licenses"]
         if params["licenses"]
           params["licenses"].each do |lic|
             next if lic == ""
-            @user.licenses << License.find_by(name: lic)
+            @user.licenses << License.find_or_create_by(name: lic)
           end
         end
         if params["add-licenses"]
@@ -281,7 +349,7 @@ class UsersController < ApplicationController
         if params["endorses"]
           params["endorses"].each do |endo|
             next if endo == ""
-            @user.endorsements << Endorsement.find_by(name: endo)
+            @user.endorsements << Endorsement.find_or_create_by(name: endo)
           end
         end
         if params["add-endorses"]
@@ -296,11 +364,19 @@ class UsersController < ApplicationController
         if params["subs"]
           params["subs"].each do |sub|
             next if sub == ""
-            @user.subjects << Subject.find_by(subject: sub)
+            @user.subjects << Subject.find_or_create_by(subject: sub)
           end
         end
         if params["add-subs"]
           more_subs = params["add-subs"].split(",").map(&:strip)
+          more_subs.each do |sub|
+            subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+            @user.subjects << Subject.find_or_create_by(subject: subject)
+          end
+        end
+        if params["add-language"]
+          more_subs = params["add-language"].split(",").map(&:strip)
           more_subs.each do |sub|
             subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
 
@@ -322,19 +398,39 @@ class UsersController < ApplicationController
             @user.organizations << Organization.find_or_create_by(name: name)
           end
         end
+        if params["grade_pref"]
+          @user.grade_pref = params["grade_pref"]
+        end
+        if params["location_pref"]
+          @user.location_pref = params["location_pref"]
+        end
       end
       if @user.save
-        session[:user_id] = @user.id
-        if @user.access == "teacher"
-          UserMailer.teacher_email(@user).deliver_now
-          format.html { redirect_to new_resume_path(@resume) }
-        elsif @user.access == "pending"
-          UserMailer.steph_email(@user).deliver_now
-          UserMailer.school_email(@user).deliver_now
-          format.html { redirect_to root_path }
-          format.html { redirect_to root_path, notice: 'Your profile was successfully created and you should receive an email shortly with further instructions.' }
+        if session[:user_id] && User.find(session[:user_id]) && User.find(session[:user_id]).access == "admin"
+          @user.access = "school"
+          @user.save
+          format.html { redirect_to users_new_school_path, notice: 'School was successfully created.' }
+        else
+          session[:user_id] = @user.id
+          if @user.access == "teacher"
+            if @user.register2019 == "both"
+              UserMailer.teacher_both_email(@user).deliver_now
+            end
+            if @user.register2019 == "bank"
+              UserMailer.teacher_email(@user).deliver_now
+            end
+            if @user.register2019 == "jobfaironly"
+              UserMailer.teacher_fair_email(@user).deliver_now
+            end
+            format.html { redirect_to new_resume_path(@resume) }
+          elsif @user.access == "pending"
+            UserMailer.steph_email(@user).deliver_now
+            UserMailer.school_email(@user).deliver_now
+            format.html { redirect_to root_path }
+            format.html { redirect_to root_path, notice: 'Your profile was successfully created and you should receive an email shortly with further instructions.' }
+          end
+          format.json { render :show, status: :created, location: @user }
         end
-        format.json { render :show, status: :created, location: @user }
       else
         if @user.access == "teacher"
           format.html { render :new_teacher }
@@ -351,101 +447,146 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-        if params["licenses"]
-          @user.licenses.destroy_all
-          params["licenses"].each do |lic|
-            next if lic == ""
-            @user.licenses << License.find_by(name: lic)
-          end
+      if params["grade_pref"]
+        @user.grade_pref = params["grade_pref"]
+      end
+      if params["location_pref"]
+        @user.location_pref = params["location_pref"]
+      end
+      if params["licenses"]
+        @user.licenses.destroy_all
+        params["licenses"].each do |lic|
+          next if lic == ""
+          @user.licenses << License.find_by(name: lic)
         end
-        if params["add-licenses"]
-          more_licenses = params["add-licenses"].split(",").map(&:strip)
-          more_licenses.each do |lic|
-            name = lic.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+      end
+      if params["add-licenses"]
+        more_licenses = params["add-licenses"].split(",").map(&:strip)
+        more_licenses.each do |lic|
+          name = lic.split(" ").map do |word| word.downcase.capitalize end.join(" ")
 
-            @user.licenses << License.find_or_create_by(name: name)
-          end
+          @user.licenses << License.find_or_create_by(name: name)
         end
-        #save positions
-        if params["positions"]
-          @user.positions.destroy_all
-          params["positions"].each do |pos|
-            next if pos == ""
-            @user.positions << Position.find_or_create_by(title: pos)
-          end
+      end
+      #save positions
+      if params["positions"]
+        @user.positions.destroy_all
+        params["positions"].each do |pos|
+          next if pos == ""
+          @user.positions << Position.find_or_create_by(title: pos)
         end
-        if params["add-positions"]
-          more_positions = params["add-positions"].split(",").map(&:strip)
-          more_positions.each do |pos|
-            title = pos.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+      end
+      if params["add-positions"]
+        more_positions = params["add-positions"].split(",").map(&:strip)
+        more_positions.each do |pos|
+          title = pos.split(" ").map do |word| word.downcase.capitalize end.join(" ")
 
-            @user.positions << Position.find_or_create_by(title: title)
-          end
+          @user.positions << Position.find_or_create_by(title: title)
         end
-        #save endorsements
-        if params["endorses"]
-          @user.endorsements.destroy_all
-          params["endorses"].each do |endo|
-            next if endo == ""
-            @user.endorsements << Endorsement.find_by(name: endo)
-          end
+      end
+      #save endorsements
+      if params["endorses"]
+        @user.endorsements.destroy_all
+        params["endorses"].each do |endo|
+          next if endo == ""
+          @user.endorsements << Endorsement.find_by(name: endo)
         end
-        if params["add-endorses"]
-          more_endorses = params["add-endorses"].split(",").map(&:strip)
-          more_endorses.each do |endo|
-            name = endo.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+      end
+      if params["add-endorses"]
+        more_endorses = params["add-endorses"].split(",").map(&:strip)
+        more_endorses.each do |endo|
+          name = endo.split(" ").map do |word| word.downcase.capitalize end.join(" ")
 
-            @user.endorsements << Endorsement.find_or_create_by(name: name)
-          end
+          @user.endorsements << Endorsement.find_or_create_by(name: name)
         end
-        #save subjects
-        if params["subs"]
-          @user.subjects.destroy_all
-          params["subs"].each do |sub|
-            next if sub == ""
-            @user.subjects << Subject.find_by(subject: sub)
-          end
+      end
+      #save subjects
+      if params["subs"]
+        @user.subjects.destroy_all
+        params["subs"].each do |sub|
+          next if sub == ""
+          @user.subjects << Subject.find_by(subject: sub)
         end
-        if params["add-subs"]
-          more_subs = params["add-subs"].split(",").map(&:strip)
-          more_subs.each do |sub|
-            subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+      end
+      if params["add-subs"]
+        more_subs = params["add-subs"].split(",").map(&:strip)
+        more_subs.each do |sub|
+          subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
 
-            @user.subjects << Subject.find_or_create_by(subject: subject)
-          end
+          @user.subjects << Subject.find_or_create_by(subject: subject)
         end
-        #save organizations
-        if params["orgs"]
-          @user.organizations.destroy_all
-          params["orgs"].each do |org|
-            next if org == ""
-            @user.organizations << Organization.find_by(name: org)
-          end
-        end
-        if params["add-orgs"]
-          more_orgs = params["add-orgs"].split(",").map(&:strip)
-          more_orgs.each do |org|
-            name = org.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+      end
+      if params["add-language"]
+        more_subs = params["add-language"].split(",").map(&:strip)
+        more_subs.each do |sub|
+          subject = sub.split(" ").map do |word| word.downcase.capitalize end.join(" ")
 
-            @user.organizations << Organization.find_or_create_by(name: name)
-          end
+          @user.subjects << Subject.find_or_create_by(subject: subject)
         end
-        #save references
-        if params["sources"]
-          @user.sources.destroy_all
-          params["sources"].each do |source|
-            next if source == ""
-            @user.sources << Source.find_or_create_by(source_name: source)
-          end
+      end
+      #save organizations
+      if params["orgs"]
+        @user.organizations.destroy_all
+        params["orgs"].each do |org|
+          next if org == ""
+          @user.organizations << Organization.find_by(name: org)
         end
-        if params['more-sources']
-          more_sources = params['more_sources'].split(',').map(&:strip)
-          more_sources.each do |source|
-            source_name = source.split('  ').map do |word| word.downcase.capitalize end.join(' ')
-            @user.sources << Sources.find_or_create_by(source_name: source_name)
-          end
+      end
+      if params["add-orgs"]
+        more_orgs = params["add-orgs"].split(",").map(&:strip)
+        more_orgs.each do |org|
+          name = org.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+          @user.organizations << Organization.find_or_create_by(name: name)
         end
+      end
+      #save references
+      if params["sources"]
+        @user.sources.destroy_all
+        params["sources"].each do |source|
+          next if source == ""
+          @user.sources << Source.find_or_create_by(source_name: source)
+        end
+      end
+      if params['add-sources']
+        more_sources = params['add-sources'].split(',').map(&:strip)
+        more_sources.each do |source|
+          source_name = source.split('  ').map do |word| word.downcase.capitalize end.join(' ')
+          @user.sources << Sources.find_or_create_by(source_name: source_name)
+        end
+      end
+      if params["add-flyer"]
+        more_sources = params["add-flyer"].split(",").map(&:strip)
+        more_sources.each do |source|
+          source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+          @user.sources << Source.find_or_create_by(source_name: source_name)
+        end
+      end
+      if params["add-college"]
+        more_sources = params["add-college"].split(",").map(&:strip)
+        more_sources.each do |source|
+          source_name = source.split(" ").map do |word| word.downcase.capitalize end.join(" ")
+
+          @user.sources << Source.find_or_create_by(source_name: source_name)
+        end
+      end
+      if params["grade_pref"]
+        @user.grade_pref = params["grade_pref"]
+      end
+      if params["location_pref"]
+        @user.location_pref = params["location_pref"]
+      end
       if @user.update(user_params)
+        if params["register2019"] == "both"
+          UserMailer.teacher_both_email(@user).deliver_now
+        end
+        if params["register2019"] == "bank"
+          UserMailer.teacher_email(@user).deliver_now
+        end
+        if params["register2019"] == "jobfaironly"
+          UserMailer.teacher_fair_email(@user).deliver_now
+        end
         format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -499,7 +640,7 @@ class UsersController < ApplicationController
                                  :endorses, :previous, :subs, :relocation,
                                  :orgs, :additional, :years, :grade_pref,
                                  :positions, :school, :resume_id,
-                                 :location_pref, :sources)
+                                 :location_pref, :sources, :job_title)
   end
 
   def authorize

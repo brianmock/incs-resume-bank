@@ -54,25 +54,29 @@
   <br />
 <% end %>
 <h3>Job Seeker Details</h3>
-<label>Name:</label> <%= @user.prefix == 'N/A' ? '' : @user.prefix%> <%= @user.first_name%> <%=@user.last_name%><br>
-<label>Email:</label> <%= @user.email%><br>
-<label>Phone:</label> <%= @user.phone_number %><br>
-<label>City of Residence:</label> <%= @user.city %><br>
-<label>Licensed in Illinois:</label> <% if @user.il_licensed != "Other" %><%= @user.il_licensed %><% else %>Licensed in different state<% end %><br>
-<label>Licenses:</label> <%= @user.licenses.map{|lic| lic.name }.join(", ") %><br>
-<label>Positions Desired:</label> <%= @user.positions.map{|pos| pos.title }.join(", ") %><br>
-<label>Endorsements:</label> <%= @user.endorsements.map{|endo| endo.name }.join(", ") %><br>
-<label>Grade Preference:</label> <%= @user.grade_pref %><br>
-<label>Preferred Subjects:</label> <%= @user.subjects.map{|subj| subj.subject}.join(", ")%><br>
-<label>Highest Degree:</label> <%= @user.degree %><br>
-<label>College Major:</label> <%= @user.major %><br>
-<label>Years of Experience:</label> <%= @user.years %><br>
-<label>Location Preference:</label> <%= @user.location_pref%> <br>
-<label>Current or Previous Organizations:</label> <%= @user.organizations.map{|org| org.name }.join(", ") %><br>
-<label>Additional Information:</label> <div class="additional-info"><p><%= @user.additional %></p></div><br>
+<label><strong>Name:</strong></label> <%= @user.prefix == 'N/A' ? '' : @user.prefix%> <%= @user.first_name%> <%=@user.last_name%><br>
+<label><strong>Email:</strong></label> <%= @user.email%><br>
+<label><strong>Phone:</strong></label> <%= @user.phone_number %><br>
+<label><strong>Registered for 2019 Fair:</strong></label> <%= @user.register2019 == 'both' || @user.register2019 == 'jobfaironly' ? 'Yes' : 'NO' %><br>
+<label><strong>City of Residence:</strong></label> <%= @user.city %><br>
+<label><strong>State of Residence:</strong></label> <%= @user.state%><br>
+<label><strong>Highest Degree Earned:</strong></label> <%= @user.degree %><br>
+<label><strong>Major:</strong></label> <%= @user.major %><br>
+<label><strong>Graduate Degree Concentration:</strong></label> <%= @user.masters_concentration%><br>
+<label><strong>Licensed in Illinois:</strong></label> <% if @user.il_licensed != "Other" %><%= @user.il_licensed %><% else %>Licensed in different state<% end %><br>
+<label><strong>Licenses:</strong></label> <%= @user.licenses.map{|lic| lic.name }.to_sentence %><br>
+<label><strong>Endorsements:</strong></label> <%= @user.endorsements.map{|endo| endo.name }.to_sentence %><br>
+<label><strong>Years of Experience:</strong></label> <%= @user.years %><br>
+<label><strong>Preferred Grade(s):</strong></label> <%= @user.grade_pref ? @user.grade_pref.to_sentence : '' %><br>
+<label><strong>Location Preference:</strong></label> <%= @user.location_pref ? @user.location_pref.to_sentence : '' %> <br>
+<label><strong>Prior Charter Experience:</strong></label> <%= @user.previous ? 'Yes' : 'No' %> <br>
+<label><strong>Preferred Position(s):</strong></label> <%= @user.positions.map{|pos| pos.title }.to_sentence %><br>
+<label><strong>Preferred Subject(s):</strong></label> <%= @user.subjects.map{|subj| subj.subject}.to_sentence %><br>
+<label><strong>Additional Information:</strong></label> <div class="additional-info"><p><%= @user.additional %></p></div><br>
 
 <% if @current_user.access == "admin" || (@current_user.access == "teacher" && @current_user.id == @user.id) %>
   <div class="actions">
+    <%= button_to "Return to Home Page", root_path, :class => "btn btn-info btn-deactivate", :method => :get %>
     <%= button_to "Edit Information", edit_user_path, :class => "btn btn-primary", :method => :get %>
     <%= button_to "Delete Profile", @user, :class => "btn btn-danger", :method => :delete, :confirm => 'Are you sure you want to remove yourself from the INCS Resume Bank?' %>
   </div>

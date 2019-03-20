@@ -1,10 +1,20 @@
 class UserMailer < ApplicationMailer
   include SendGrid
-  default from: '"Allison Jack" <AJack@incschools.org>'
+  default from: '"Anne Levy Brown" <alevybrown@incschools.org>'
   def teacher_email(user)
     @user = user
     @url = "http://www.teacherjobfair.org"
-    mail(to:@user.email, subject: 'Thanks for submitting to the INCS Resume Bank')
+    mail(to:@user.email, subject: 'INCS Resume Bank Registration Confirmation')
+  end
+  def teacher_both_email(user)
+    @user = user
+    @url = "http://www.teacherjobfair.org"
+    mail(to:@user.email, subject: 'INCS Job Fair & Resume Bank Registration Confirmation')
+  end
+  def teacher_fair_email(user)
+    @user = user
+    @url = "http://www.teacherjobfair.org"
+    mail(to:@user.email, subject: 'INCS Job Fair Registration Confirmation')
   end
 
   def school_email(user)
@@ -15,13 +25,13 @@ class UserMailer < ApplicationMailer
 
   def steph_email(user)
     @user = user
-    mail(to:'AJack@incschools.org', subject: 'New school leader signed up for resume bank')
+    mail(to:'AJack@incschools.org', cc: 'alevybrown@incschools.org', subject: 'New school leader signed up for resume bank')
   end
 
   def school_activated_email(user)
     @user = user
     @url = "http://www.teacherjobfair.org"
-    mail(to:@user.email, subject: "Registration approved. Happy searching!")
+    mail(to:@user.email, subject: "INCS Resume Bank Account Activated")
   end
 
   def forgot_password(user, pass, url)

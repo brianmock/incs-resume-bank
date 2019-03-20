@@ -14,12 +14,20 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, on: :create, message: "Password confirmation must match password"
   validates_confirmation_of :email, on: :create, message: "Email confirmation must match email"
   with_options if: :is_teacher? do |teacher|
-    teacher.validates :zip, presence: { message: "Zip code can't be blank" }
     teacher.validates :years, presence: { message: "Years of experience can't be blank" }
+    teacher.validates :grade_pref, presence: { message: "Add your preferred grade level" }
+    teacher.validates :location_pref, presence: { message: "Add where you are willing to teach" }
+    teacher.validates :previous, inclusion: { in: [true, false], message: "Select an option for previous charter experience" }
     teacher.validates :il_licensed, presence: { message: "IL license status can't be blank" }
     teacher.validates :licenses_helds, presence: { message: "Add your currently held licenses" } 
     teacher.validates :position_choices, presence: { message: "Add your desired position(s)" } 
     teacher.validates :endorsements_completed, presence: { message: "Add your completed endorsements" } 
+    teacher.validates :references, presence: { message: "Add how you heard about the INCS Resume Bank" } 
+    teacher.validates :register2019, presence: { message: "Add what you would like to do" } 
+  end
+  with_options if: :is_school? do |school|
+    school.validates :job_title, presence: { message: "Job title can't be blank" }
+    school.validates :school, presence: { message: "School can't be blank" }
   end
   has_many :resumes, foreign_key: "teacher_id"
   has_many :licenses_helds, foreign_key: "teacher_id"
@@ -39,6 +47,10 @@ class User < ActiveRecord::Base
 
   def is_teacher?
     self.access == 'teacher'
+  end
+
+  def is_school?
+    self.access == 'school' || self.access == 'pending'
   end
 
   def is_active?
@@ -67,8 +79,8 @@ class User < ActiveRecord::Base
   end
 
   def self.to_csv(results)
-    attributes = ['prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'register2017', 'register2018', 'register2019', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous', 'location_pref', 'additional', 'created_at']
-    headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered 2016?', 'Registered 2017?', 'Registered 2018?', 'Registered 2019?', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Registered On', 'Positions Desired', 'Licenses Held', 'Subjects Desired', 'Reference Sources']
+    attributes = ['prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'register2017', 'register2018', 'register2019', 'created_at', 'updated_at', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous', 'location_pref', 'additional']
+    headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered 2016?', 'Registered 2017?', 'Registered 2018?', 'Registered 2019?', 'Registered On', 'Updated At', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Positions Desired', 'Licenses Held', 'Subjects Desired', 'Reference Sources']
 
     CSV.generate(headers: true) do |csv|
       csv << headers

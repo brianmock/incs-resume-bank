@@ -22,13 +22,11 @@ module UsersHelper
   end
   def resume_bank_references
     [
-      'Flyer',
       'INCS website',
       'INCS email',
-      'INCS Twitter',
-      'INCS Facebook',
+      'Facebook',
       'Eventbrite',
-      'Friend or colleague',
+      'Twitter',
       'Craigslist',
       'Idealist',
       'Indeed',
@@ -40,6 +38,31 @@ module UsersHelper
       'Surge Institute',
       'Austin Weekly',
       'Wednesday Journal',
+      'Friend or colleague',
+    ]
+  end
+
+  def search_license_choices
+    [
+      {
+        title: 'Professional Educator License (PEL)',
+        values: [
+          'Teacher',
+          'School Support Personnel',
+          'Administrative',
+        ],
+      }, {
+        title: 'Educator License with Stipulations (ELS)',
+        values: [
+          'ELS Provisional Educator (ELS PEDU)', 
+          'ELS Endorsed as a Paraprofessional (ELS PARA)',
+        ],
+      }, {
+        title: 'Other', 
+        values: [
+          'Substitute Teaching License',
+        ],
+      }
     ]
   end
 
@@ -62,7 +85,7 @@ module UsersHelper
         title: 'Other', 
         values: [
           'Substitute Teaching License',
-          'None'
+          'None, I do not have an educator\'s license.'
         ],
       }
     ]
@@ -114,7 +137,7 @@ module UsersHelper
       }, {
         title: 'Other', 
         values: [
-          'None',
+          'None, I do not have any endorsements.',
         ],
       }
     ]
@@ -463,6 +486,17 @@ module UsersHelper
     ]
   end
 
+  def search_degrees
+    [
+      "No preference",
+      "Associate",
+      "Bachelor's",
+      "Master's",
+      "Doctorate",
+    ]
+  end
+
+
   def exp_years
     [
       0,
@@ -497,6 +531,31 @@ module UsersHelper
     ]
   end
 
+  def selectable_subjects
+    [
+      'General Education',
+      'Bilingual Teacher',
+      'English Language Learners',
+      'Special Education',
+      'Mathematics',
+      'Science',
+      'Language Arts',
+      'Social Studies',
+      'Art',
+      'Music',
+      'Physical Education',
+    ]
+  end
+
+  def locations 
+    [
+      "Chicago",
+      "Collar Counties (surrounding Chicago)",
+      "Greater Illinois (more than 1 hour from Chicago)",
+      "Central or Southern Illinois",
+    ]
+  end
+
   def grades
     [
       "Pre K",
@@ -511,7 +570,6 @@ module UsersHelper
 
   def grades_search
     [
-      "Any",
       "Pre-k",
       "Kindergarten",
       "Primary (1st-2nd)",
@@ -523,7 +581,7 @@ module UsersHelper
 
   def prefixes
     [
-      "N/A",
+      "Dr.",
       "Mr.",
       "Ms.",
     ]
