@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   resources :subjects, only: [:destroy]
   root "welcome#index"
 
+  get '/faq', :to => redirect('/uploads/faq.pdf')
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
