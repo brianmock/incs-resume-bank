@@ -274,7 +274,7 @@
     <em class="label-bold"><%= f.label(:location_pref, "Where are you willing to work? (Check all that apply) *") %></em><br>
     <ul class="checkbox-grid2">
       <% locations.each do |loc| %>
-        <% if @user.location_pref.include?(loc) %>
+        <% if @user.location_pref && @user.location_pref.include?(loc) %>
           <li><input type="checkbox" name="location_pref[]" value="<%= loc %>" checked/>
         <% else %>
           <li><input type="checkbox" name="location_pref[]" value="<%= loc %>" />
