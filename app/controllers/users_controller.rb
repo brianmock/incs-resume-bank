@@ -413,15 +413,17 @@ class UsersController < ApplicationController
         else
           session[:user_id] = @user.id
           if @user.access == "teacher"
-            if @user.register2019 == "both"
-              UserMailer.teacher_both_email(@user).deliver_now
-            end
-            if @user.register2019 == "bank"
+            @user.register2019 = "both"
+            @user.save
+            # if @user.register2019 == "both"
+            #   UserMailer.teacher_both_email(@user).deliver_now
+            # end
+            # if @user.register2019 == "bank"
               UserMailer.teacher_email(@user).deliver_now
-            end
-            if @user.register2019 == "jobfaironly"
-              UserMailer.teacher_fair_email(@user).deliver_now
-            end
+            # end
+            # if @user.register2019 == "jobfaironly"
+            #   UserMailer.teacher_fair_email(@user).deliver_now
+            # end
             format.html { redirect_to new_resume_path(@resume) }
           elsif @user.access == "pending"
             UserMailer.steph_email(@user).deliver_now

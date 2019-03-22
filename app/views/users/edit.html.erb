@@ -14,17 +14,17 @@
 
   <h3>Update your info below and click submit</h3><br>
 
-  <div class="field">
-    <label><em class="label-bold">2019 INCS Teacher & Administrator Job Fair Registration Status *</em></label><br>
-    <div class="field-radio">
-      <%= f.radio_button(:register2019, "both") %>
-      <%= f.label(:name, "Register for the 2019 INCS Teacher & Administrator Job Fair.", class: 'flex-one') %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:register2019, "bank") %>
-      <%= f.label(:name, "Unregister from the 2019 INCS Teacher & Administrator Job Fair.", class: 'flex-one') %><br>
-    </div>
-  </div>
+  <%# <div class="field"> %>
+  <%#   <label><em class="label-bold">2019 INCS Teacher & Administrator Job Fair Registration Status *</em></label><br> %>
+  <%#   <div class="field-radio"> %>
+  <%#     <%= f.radio_button(:register2019, "both") %1> %>
+  <%#     <%= f.label(:name, "Register for the 2019 INCS Teacher & Administrator Job Fair.", class: 'flex-one') %1><br> %>
+  <%#   </div> %>
+  <%#   <div class="field-radio"> %>
+  <%#     <%= f.radio_button(:register2019, "bank") %1> %>
+  <%#     <%= f.label(:name, "Unregister from the 2019 INCS Teacher & Administrator Job Fair.", class: 'flex-one') %1><br> %>
+  <%#   </div> %>
+  <%# </div> %>
 
   <%= f.hidden_field :access, value: "teacher" %>
   <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>

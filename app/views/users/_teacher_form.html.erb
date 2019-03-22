@@ -12,9 +12,12 @@
     </div>
   <% end %>
 
+  <h2>To attend the Job Fair, <a href="https://www.eventbrite.com/e/incs-teacher-administrator-job-fair-tickets-59197879451">register here</a>.</h2>
+
+  <h3>To join the Online Resume Bank:</h3>
   <ul class="register-content-list">
-    <li><strong>Returning users:</strong> <a href="/sessions/new">Log in</a> to review and edit your profile and register for the 2019 job fair. Click <a href="/users/getreset">here</a> if you need to reset your password.</li>
     <li><strong>New Users:</strong> Please fill out the survey below and select "Next" at the bottom to upload your resume and complete your Job Fair/Resume Bank registration.
+    <li><strong>Returning users:</strong> <a href="/sessions/new">Log in</a> to review and edit your profile. Click <a href="/users/getreset">here</a> if you need to reset your password.</li>
     </li>
   </ul>
   <br>
@@ -22,22 +25,22 @@
   <h5>We recommend answering questions, even when not required, to increase chances of being identified by a school.</h5>   
   <h4>If you have any trouble with this form, please contact <a href="mailto:alevybrown@incschools.org?subject=Resume Bank Question">alevybrown@incschools.org</a>.</h4><br><br> 
 
-  <div class="field">
-    <label><em class="label-bold">What would you like to do? *</em></label><br>
-    <label><em class="label-bold">If you have already signed up in previous years, please <a href="/sessions/new">log in</a> to register for the 2019 teacher job fair.</em></label><br>
-    <div class="field-radio">
-      <%= f.radio_button(:register2019, "both") %>
-      <%= f.label(:name, "Register for the 2019 INCS Teacher & Administrator Job Fair and Online Resume Bank.", class: 'flex-one') %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:register2019, "bank") %>
-      <%= f.label(:name, "Add my resume to the INCS Online Resume Bank only.", class: 'flex-one') %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:register2019, "jobfaironly") %>
-      <%= f.label(:name, "Register for the 2019 INCS Teacher & Administrator Job Fair only. (Note: Your resume is required to register you for the Job Fair, but we will not include it in our online database or share it with hiring managers if you select this option.)", class: 'flex-one') %>
-    </div>
-  </div>
+  <%# <div class="field"> %>
+  <%#   <label><em class="label-bold">What would you like to do? *</em></label><br> %>
+  <%#   <label><em class="label-bold">If you have already signed up in previous years, please <a href="/sessions/new">log in</a> to register for the 2019 teacher job fair.</em></label><br> %>
+  <%#   <div class="field-radio"> %>
+  <%#     <%= f.radio_button(:register2019, "both") %1> %>
+  <%#     <%= f.label(:name, "Register for the 2019 INCS Teacher & Administrator Job Fair and Online Resume Bank.", class: 'flex-one') %1><br> %>
+  <%#   </div> %>
+  <%#   <div class="field-radio"> %>
+  <%#     <%= f.radio_button(:register2019, "bank") %1> %>
+  <%#     <%= f.label(:name, "Add my resume to the INCS Online Resume Bank only.", class: 'flex-one') %1><br> %>
+  <%#   </div> %>
+  <%#   <div class="field-radio"> %>
+  <%#     <%= f.radio_button(:register2019, "jobfaironly") %1> %>
+  <%#     <%= f.label(:name, "Register for the 2019 INCS Teacher & Administrator Job Fair only. (Note: Your resume is required to register you for the Job Fair, but we will not include it in our online database or share it with hiring managers if you select this option.)", class: 'flex-one') %1> %>
+  <%#   </div> %>
+  <%# </div> %>
 
   <%= f.hidden_field :access, value: "teacher" %>
   <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
