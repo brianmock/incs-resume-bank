@@ -227,7 +227,7 @@
     <em class="label-bold"><%= f.label(:grade_pref, "Preferred Grade Level (Check all that apply) *") %></em><br>
     <ul class="checkbox-grid2">
       <% grades.each do |grade| %>
-        <% if @user.grade_pref.include?(grade) %>
+        <% if @user.grade_pref && @user.grade_pref.include?(grade) %>
           <li><input type="checkbox" name="grade_pref[]" value="<%= grade %>" checked/>
         <% else %>
           <li><input type="checkbox" name="grade_pref[]" value="<%= grade %>" />
