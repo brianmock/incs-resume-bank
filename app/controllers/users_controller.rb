@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if @current_user.register2019 == 'bank' || @current_user.register2019.nil?
       @current_user.register2019 = 'both'
       @current_user.save
-      UserMailer.teacher_both_email(@user).deliver_now
+      UserMailer.teacher_both_email(@current_user).deliver_now
       redirect_to user_path(@current_user), notice: 'You have been registered for the 2019 INCS Teacher Job Fair'
     else
       redirect_to user_path(@current_user), notice: 'You have already registered for the 2019 INCS Teacher Job Fair'
