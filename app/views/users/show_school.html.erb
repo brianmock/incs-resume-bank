@@ -14,7 +14,8 @@
   </div><br>
 
   <div class="field7">
-    <%= text_field_tag :search, params[:search], placeholder: "Search by name" %>
+    <em><%= label_tag(:search, "Search by candidate name") %></em><br>
+    <%= text_field_tag :search, params[:search] %>
   </div><br>
 
   <div class="field7">
