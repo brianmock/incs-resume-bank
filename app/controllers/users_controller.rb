@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if @current_user.register2019 == 'bank' || @current_user.register2019.nil?
       @current_user.register2019 = 'both'
       @current_user.save
-      UserMailer.teacher_both_email(@user).deliver_now
+      UserMailer.teacher_both_email(@current_user).deliver_now
       redirect_to user_path(@current_user), notice: 'You have been registered for the 2019 INCS Teacher Job Fair'
     else
       redirect_to user_path(@current_user), notice: 'You have already registered for the 2019 INCS Teacher Job Fair'
@@ -136,17 +136,17 @@ class UsersController < ApplicationController
   def download_teachers
     case params["filter"]
     when 'bank-only'
-      @users = User.where('access' => 'teacher').where('register2018= ? OR register2019= ? OR register= ?', 'bank', 'bank', 'bank')
+      @users = User.where('access' => 'teacher').where('register2018= ? OR register2019= ?', 'bank', 'bank')
       @header = 'Candidates only registered with Resume Bank'
       @filter = 'bank-only'
-    when '2018-job-fair'
-      @users = User.where('access' => 'teacher').where(:register2018 => ['both', 'jobfaironly'])
-      @header = 'All Candidates registered for 2018 Teacher Job Fair'
-      @filter = '2018-job-fair'
     when '2019-job-fair'
       @users = User.where('access' => 'teacher').where(:register2019 => ['both', 'jobfaironly'])
       @header = 'All Candidates registered for 2019 Teacher Job Fair'
       @filter = '2019-job-fair'
+    when '2018-job-fair'
+      @users = User.where('access' => 'teacher').where(:register2018 => ['both', 'jobfaironly'])
+      @header = 'All Candidates registered for 2018 Teacher Job Fair'
+      @filter = '2018-job-fair'
     when '2018-job-fair-only'
       @users = User.where('access' => 'teacher').where(:register2018 => 'jobfaironly')
       @header = 'All Candidates only registered for 2018 Teacher Job Fair (no resume bank)'
@@ -168,6 +168,14 @@ class UsersController < ApplicationController
 
   def search
     @users = User.where('access' => 'teacher').with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
+
+    @users = @users.uniq { |u| u.id }
+
+    @users = @users.where(updated_at: (Time.now - 24.months)..Time.now)
+
+    if params["search"]
+      @users = @users.where("CONCAT_WS(' ', lower(first_name), lower(last_name)) LIKE ?", "%#{params["search"].downcase}%")
+    end
 
     if params["years"] && params["years"] != "Any"
       @users = @users.where("years >= ?", params["years"])
@@ -220,7 +228,7 @@ class UsersController < ApplicationController
     end
 
     if params["registered"] == "2019"
-      @users = @users.where("register2019 IN (?)", ["both", "jobfaironly"])
+      @users = @users.where("register2019 IN (?)", ["both"])
     end
 
     if params["registered"] == "6"
@@ -237,12 +245,95 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { 
-        @users = @users.uniq { |u| u.id }.paginate(page: params[:page], per_page: 25)
+        @users = @users.paginate(page: params[:page], per_page: 25)
         render :index
       }
       format.csv {
         send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"
       }
+    end
+  end
+
+  def download_search
+    @users = User.where('access' => 'teacher').with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
+
+    @users = @users.uniq { |u| u.id }
+
+    @users = @users.where(updated_at: (Time.now - 24.months)..Time.now)
+
+    if params["search"]
+      @users = @users.where("CONCAT_WS(' ', lower(first_name), lower(last_name)) LIKE ?", "%#{params["search"].downcase}%")
+    end
+
+    if params["years"] && params["years"] != "Any"
+      @users = @users.where("years >= ?", params["years"])
+    end
+
+    if params["positions"]
+      @users = @users.where('positions.title IN (?)', params["positions"])
+    end
+
+    if params["degree"] && params["degree"] != "No preference"
+      degrees = [
+        "Associate",
+        "Associate in progress",
+        "Bachelor's",
+        "Bachelor's in progress",
+        "Master's",
+        "Master's in progress",
+        "Doctorate",
+        "Doctorate in progress",
+      ]
+
+      degree_queries = {
+        "Associate" => degrees,
+        "Bachelor's" => degrees[2..-1],
+        "Master's" => degrees[4..-1],
+        "Doctorate" => degrees[6..-1],
+      }
+
+      @users = @users.where("degree IN (?)", degree_queries[params["degree"]])
+    end
+
+    if params["il_licensed"]
+      @users = @users.where(il_licensed: params["il_licensed"])
+    end
+
+    if params["subjects"]
+      @users = @users.where('subjects.subject IN (?)', params["subjects"])
+    end
+
+    if params["licenses"]
+      @users = @users.where('licenses.name IN (?)', params["licenses"])
+    end
+
+    if params["endorses"]
+      @users = @users.where('endorsements.name IN (?)', params["endorses"])
+    end
+
+    if params["grade_pref"]
+      @users = @users.where("grade_pref && ARRAY[?]::text[]", params["grade_pref"])
+    end
+
+    if params["registered"] == "2019"
+      @users = @users.where("register2019 IN (?)", ["both"])
+    end
+
+    if params["registered"] == "6"
+      @users = @users.where(updated_at: (Time.now - 6.months)..Time.now)
+    end
+
+    if params["registered"] == "12"
+      @users = @users.where(updated_at: (Time.now - 12.months)..Time.now)
+    end
+
+    if params["location_pref"]
+      @users = @users.where("location_pref && ARRAY[?]::text[]", params["location_pref"])
+    end
+
+    respond_to do |format|
+      format.html { send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
+      format.csv { send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
     end
   end
 
@@ -413,15 +504,17 @@ class UsersController < ApplicationController
         else
           session[:user_id] = @user.id
           if @user.access == "teacher"
-            if @user.register2019 == "both"
-              UserMailer.teacher_both_email(@user).deliver_now
-            end
-            if @user.register2019 == "bank"
+            @user.register2019 = "both"
+            @user.save
+            # if @user.register2019 == "both"
+            #   UserMailer.teacher_both_email(@user).deliver_now
+            # end
+            # if @user.register2019 == "bank"
               UserMailer.teacher_email(@user).deliver_now
-            end
-            if @user.register2019 == "jobfaironly"
-              UserMailer.teacher_fair_email(@user).deliver_now
-            end
+            # end
+            # if @user.register2019 == "jobfaironly"
+            #   UserMailer.teacher_fair_email(@user).deliver_now
+            # end
             format.html { redirect_to new_resume_path(@resume) }
           elsif @user.access == "pending"
             UserMailer.steph_email(@user).deliver_now
@@ -640,7 +733,8 @@ class UsersController < ApplicationController
                                  :endorses, :previous, :subs, :relocation,
                                  :orgs, :additional, :years, :grade_pref,
                                  :positions, :school, :resume_id,
-                                 :location_pref, :sources, :job_title)
+                                 :location_pref, :sources, :job_title, 
+                                 :search)
   end
 
   def authorize

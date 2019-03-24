@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, message: "This email address is already in the Resume Bank. Please log in using the button in the top right corner of the page."
   validates :first_name, presence: { message: "First name can't be blank" }
   validates :last_name, presence: { message: "Last name can't be blank" }
-  validates :email, presence: { message: "Email can't be blank" }
+  validates_presence_of :email, on: :create, message: "Email can't be blank"
   validates_presence_of :email_confirmation, on: :create, message: "Email confirmation can't be blank"
   validates_presence_of :password, on: :create, message: "Password can't be blank"
   validates_presence_of :password_confirmation, on: :create, message: "Password confirmation can't be blank"
@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
     teacher.validates :position_choices, presence: { message: "Add your desired position(s)" } 
     teacher.validates :endorsements_completed, presence: { message: "Add your completed endorsements" } 
     teacher.validates :references, presence: { message: "Add how you heard about the INCS Resume Bank" } 
-    teacher.validates :register2019, presence: { message: "Add what you would like to do" } 
+    # teacher.validates :register2019, presence: { message: "Add what you would like to do" } 
   end
   with_options if: :is_school? do |school|
     school.validates :job_title, presence: { message: "Job title can't be blank" }
@@ -81,6 +81,7 @@ class User < ActiveRecord::Base
   def self.to_csv(results)
     attributes = ['prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'register2017', 'register2018', 'register2019', 'created_at', 'updated_at', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous', 'location_pref', 'additional']
     headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered 2016?', 'Registered 2017?', 'Registered 2018?', 'Registered 2019?', 'Registered On', 'Updated At', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Positions Desired', 'Licenses Held', 'Subjects Desired', 'Reference Sources']
+    # headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered 2016?', 'Registered 2017?', 'Registered 2018?', 'Registered 2019?', 'Registered On', 'Updated At', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info']
 
     CSV.generate(headers: true) do |csv|
       csv << headers

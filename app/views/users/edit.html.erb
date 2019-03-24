@@ -14,17 +14,17 @@
 
   <h3>Update your info below and click submit</h3><br>
 
-  <div class="field">
-    <label><em class="label-bold">2019 INCS Teacher & Administrator Job Fair Registration Status *</em></label><br>
-    <div class="field-radio">
-      <%= f.radio_button(:register2019, "both") %>
-      <%= f.label(:name, "Register for the 2019 INCS Teacher & Administrator Job Fair.", class: 'flex-one') %><br>
-    </div>
-    <div class="field-radio">
-      <%= f.radio_button(:register2019, "bank") %>
-      <%= f.label(:name, "Unregister from the 2019 INCS Teacher & Administrator Job Fair.", class: 'flex-one') %><br>
-    </div>
-  </div>
+  <%# <div class="field"> %>
+  <%#   <label><em class="label-bold">2019 INCS Teacher & Administrator Job Fair Registration Status *</em></label><br> %>
+  <%#   <div class="field-radio"> %>
+  <%#     <%= f.radio_button(:register2019, "both") %1> %>
+  <%#     <%= f.label(:name, "Register for the 2019 INCS Teacher & Administrator Job Fair.", class: 'flex-one') %1><br> %>
+  <%#   </div> %>
+  <%#   <div class="field-radio"> %>
+  <%#     <%= f.radio_button(:register2019, "bank") %1> %>
+  <%#     <%= f.label(:name, "Unregister from the 2019 INCS Teacher & Administrator Job Fair.", class: 'flex-one') %1><br> %>
+  <%#   </div> %>
+  <%# </div> %>
 
   <%= f.hidden_field :access, value: "teacher" %>
   <% if @resume != nil %><input type="hidden" name="resume_id" value="<%= @resume.id %>" /><% end %>
@@ -39,26 +39,6 @@
   <div class="field field-flex">
     <em class="teacher-label"><%= f.label(:name, "Last name *") %></em>
     <%= f.text_field :last_name %>
-  </div>
-
-  <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "Enter a resume bank login email *") %></em>
-    <%= f.text_field :email, class: 'med-field' %>
-  </div>
-
-  <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "Please confirm your email address *") %></em>
-    <%= f.text_field :email_confirmation, class: 'med-field' %>
-  </div>
-
-  <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "Enter a resume bank password *") %></em>
-    <%= f.password_field :password %>
-  </div>
-
-  <div class="field field-flex">
-    <em class="teacher-label"><%= f.label(:name, "Please confirm your password *") %></em>
-    <%= f.password_field :password_confirmation %>
   </div>
 
   <div class="field field-flex">
@@ -247,7 +227,7 @@
     <em class="label-bold"><%= f.label(:grade_pref, "Preferred Grade Level (Check all that apply) *") %></em><br>
     <ul class="checkbox-grid2">
       <% grades.each do |grade| %>
-        <% if @user.grade_pref.include?(grade) %>
+        <% if @user.grade_pref && @user.grade_pref.include?(grade) %>
           <li><input type="checkbox" name="grade_pref[]" value="<%= grade %>" checked/>
         <% else %>
           <li><input type="checkbox" name="grade_pref[]" value="<%= grade %>" />
@@ -261,7 +241,7 @@
     <em class="label-bold"><%= f.label(:location_pref, "Where are you willing to work? (Check all that apply) *") %></em><br>
     <ul class="checkbox-grid2">
       <% locations.each do |loc| %>
-        <% if @user.location_pref.include?(loc) %>
+        <% if @user.location_pref && @user.location_pref.include?(loc) %>
           <li><input type="checkbox" name="location_pref[]" value="<%= loc %>" checked/>
         <% else %>
           <li><input type="checkbox" name="location_pref[]" value="<%= loc %>" />

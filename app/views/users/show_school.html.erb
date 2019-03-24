@@ -1,25 +1,29 @@
 <h1>Search for job seekers below! </h1>
-<h3>To review all job seekers in the INCS Resume Bank, please leave filters blank and select “search” below.</h3>
 
 <%= form_tag('/users/search', :method => 'get') do %>
   <div class="field7">
     <em><%= label_tag(:name, "Which profiles would you like to see?")%></em><br>
     <%= radio_button_tag(:registered, "2019") %>
-    <%= label_tag(:name, "Job seekers registered for the 2019 Teacher & Administrator Job Fair") %><br>
+    <%= label_tag(:name, "Job seekers registered for the 2019 Teacher & Administrator Job Fair", for: "registered_2019") %><br>
     <%= radio_button_tag(:registered, "6") %>
-    <%= label_tag(:name, "Job seekers who joined/updated their Resume Bank profiles in past 6 months") %><br>
+    <%= label_tag(:name, "Job seekers who joined/updated their Resume Bank profiles in past 6 months including those registered for 2019 Job Fair", for: "registered_6") %><br>
     <%= radio_button_tag(:registered, "12") %>
-    <%= label_tag(:name, "Job seekers who joined/updated their Resume Bank profiles in past 12 months") %><br>
+    <%= label_tag(:name, "Job seekers who joined/updated their Resume Bank profiles in past 12 months including those registered for 2019 Job Fair", for: "registered_12") %><br>
     <%= radio_button_tag(:registered, "All") %>
-    <%= label_tag(:name, "All job seekers in INCS Online Resume Bank") %><br>
+    <%= label_tag(:name, "All job seekers in INCS Online Resume Bank", for: "registered_All") %><br>
+  </div><br>
+
+  <div class="field7">
+    <em><%= label_tag(:search, "Search by candidate name") %></em><br>
+    <%= text_field_tag :search, params[:search] %>
   </div><br>
 
   <div class="field7">
     <em><%= label_tag(:location_pref, "Location preference") %></em><br>
     <ul class="checkbox-grid2">
     <% locations.each do |loc| %>
-        <li class="field-flex"><input type="checkbox" name="location_pref[]" value="<%= loc %>" />
-    <label class="flex-one"><%= loc %></label></li>
+      <li class="field-flex"><input id="<%= loc %>" type="checkbox" name="location_pref[]" value="<%= loc %>" />
+        <label for="<%= loc %>" style="margin: 0" class="flex-one"><%= loc %></label></li>
     <% end %>
     </ul>
   </div><br>
@@ -38,8 +42,8 @@
     <label class="label-bold"><em>Desired position(s)</em></label><br>
     <ul class="checkbox-grid2">
     <% position_options.each do |pos| %>
-        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
-    <label class="flex-one"><%= pos %></label></li>
+      <li class="field-flex"><input id="<%= pos %>" type="checkbox" name="positions[]" value="<%= pos %>" />
+        <label for="<%= pos %>" style="margin: 0" class="flex-one"><%= pos %></label></li>
     <% end %>
     </ul>
   </div>
@@ -48,8 +52,8 @@
     <em><%= label_tag(:name, "Grade Level(s) of Position") %></em>
     <ul class="checkbox-grid2">
     <% grades_search.each do |grade| %>
-        <li class="field-flex"><input type="checkbox" name="grade_pref[]" value="<%= grade %>" />
-    <label class="flex-one"><%= grade %></label></li>
+      <li class="field-flex"><input id="<%= grade %>" type="checkbox" name="grade_pref[]" value="<%= grade %>" />
+        <label for="<%= grade %>" style="margin: 0" class="flex-one"><%= grade %></label></li>
     <% end %>
     </ul>
   </div><br>
@@ -58,8 +62,8 @@
     <em><%= label_tag(:name, "Subject Area(s) (for teaching or coaching positions)") %></em><br>
     <ul class="checkbox-grid">
       <% selectable_subjects.each do |subj| %>
-        <li class="field-flex"><input type="checkbox" name="subjects[]" value="<%= subj %>" />
-        <label style="margin: 0" class="flex-one"><%= subj %></label></li>
+        <li class="field-flex"><input id="<%= subj %>" type="checkbox" name="subjects[]" value="<%= subj %>" />
+          <label for="<%= subj %>" style="margin: 0" class="flex-one"><%= subj %></label></li>
       <% end %>
     </ul><br>
   </div>
@@ -67,13 +71,13 @@
   <div class="field7">
     <em><%= label_tag(:name, "Educator Licensure Status")%></em><br>
     <%= radio_button_tag(:il_licensed, "Yes") %>
-    <%= label_tag(:name, "Licensed in Illinois") %><br>
+    <%= label_tag(:name, "Licensed in Illinois", for: "il_licensed_Yes") %><br>
     <%= radio_button_tag(:il_licensed, "Other") %>
-    <%= label_tag(:name, "Licensed in another state") %><br>
+    <%= label_tag(:name, "Licensed in another state", for: "il_licensed_Other") %><br>
     <%= radio_button_tag(:il_licensed, "Educator Prep Program") %>
-    <%= label_tag(:name, "Enrolled in an educator preparation program") %><br>
+    <%= label_tag(:name, "Enrolled in an educator preparation program", for: "il_licensed_Educator_Prep_Program") %><br>
     <%= radio_button_tag(:il_licensed, "No") %>
-    <%= label_tag(:name, "Not licensed") %><br>
+    <%= label_tag(:name, "Not licensed", for: "il_licensed_No") %><br>
   </div><br>
 
   <div class="field7">
@@ -88,13 +92,13 @@
       <% lic[:values].each do |value| %>
         <% if lic[:title] %>
           <div class="field-radio-indent">
-            <input type="checkbox" name="licenses[]" value="<%= value %>" u>
-            <label><%= value %></label><br>
+            <input id="<%= value %>" type="checkbox" name="licenses[]" value="<%= value %>" u>
+            <label style="margin: 0" for="<%= value %>"><%= value %></label><br>
           </div>
         <% else %>
           <div class="field-radio">
-            <input type="checkbox" name="licenses[]" value="<%= value %>" />
-            <label><%= value %></label><br>
+            <input id="<%= value %>" type="checkbox" name="licenses[]" value="<%= value %>" />
+            <label style="margin: 0" for="<%= value %>"><%= value %></label><br>
           </div>
         <% end %>
       <% end %>
@@ -112,13 +116,13 @@
       <% endo[:values].each do |value| %>
         <% if endo[:title] %>
           <div class="field-radio-indent">
-            <input type="checkbox" name="endorses[]" value="<%= value %>" u>
-            <label><%= value %></label><br>
+            <input id="<%= value %>" type="checkbox" name="endorses[]" value="<%= value %>" u>
+            <label style="margin: 0" for="<%= value %>"><%= value %></label><br>
           </div>
         <% else %>
           <div class="field-radio">
-            <input type="checkbox" name="endorses[]" value="<%= value %>" />
-            <label><%= value %></label><br>
+            <input id="<%= value %>" type="checkbox" name="endorses[]" value="<%= value %>" />
+            <label style="margin: 0" for="<%= value %>"><%= value %></label><br>
           </div>
         <% end %>
       <% end %>
