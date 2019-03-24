@@ -1,5 +1,4 @@
 <h1>Search for job seekers below! </h1>
-<h3>To review all job seekers in the INCS Resume Bank, please leave filters blank and select “search” below.</h3>
 
 <%= form_tag('/users/search', :method => 'get') do %>
   <div class="field7">
@@ -7,9 +6,9 @@
     <%= radio_button_tag(:registered, "2019") %>
     <%= label_tag(:name, "Job seekers registered for the 2019 Teacher & Administrator Job Fair") %><br>
     <%= radio_button_tag(:registered, "6") %>
-    <%= label_tag(:name, "Job seekers who joined/updated their Resume Bank profiles in past 6 months") %><br>
+    <%= label_tag(:name, "Job seekers who joined/updated their Resume Bank profiles in past 6 months including those registered for 2019 Job Fair") %><br>
     <%= radio_button_tag(:registered, "12") %>
-    <%= label_tag(:name, "Job seekers who joined/updated their Resume Bank profiles in past 12 months") %><br>
+    <%= label_tag(:name, "Job seekers who joined/updated their Resume Bank profiles in past 12 months including those registered for 2019 Job Fair") %><br>
     <%= radio_button_tag(:registered, "All") %>
     <%= label_tag(:name, "All job seekers in INCS Online Resume Bank") %><br>
   </div><br>
