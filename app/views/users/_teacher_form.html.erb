@@ -118,27 +118,27 @@
     <ul class="checkbox-grid2">
       <% resume_bank_references.each do |source| %>
         <% if @user.sources.map{|source| source.source_name}.include?(source) %>
-          <li><input type="checkbox" name="sources[]" value="<%= source %>" checked/>
+          <li><input id="<%= source %>" type="checkbox" name="sources[]" value="<%= source %>" checked/>
         <% else %>
-          <li><input type="checkbox" name="sources[]" value="<%= source %>" />
+          <li><input id="<%= source %>" type="checkbox" name="sources[]" value="<%= source %>" />
         <% end %>
-        <label><%= source %></label></li>
+        <label for="<%= source %>"><%= source %></label></li>
       <% end %>
     </ul>
   </div>
   <div class="field2">
-    <input type="checkbox" name="sources[]" value="Flyer"/>
-    <label>Flyer (Please specify where you saw/received it.)</label>
+    <input id="Flyer" type="checkbox" name="sources[]" value="Flyer"/>
+    <label for="Flyer">Flyer (Please specify where you saw/received it.)</label>
     <input type="text" name="add-flyer" value="" /><br>
   </div>
   <div class="field2">
-    <input type="checkbox" name="sources[]" value="College/University Jobs Board, Newsletter, or staff"/>
-    <label>College/university jobs board, newsletter, or staff. (Please specify which one.)</label>
+    <input id="College" type="checkbox" name="sources[]" value="College/University Jobs Board, Newsletter, or staff"/>
+    <label for="College">College/university jobs board, newsletter, or staff. (Please specify which one.)</label>
     <input type="text" name="add-college" value="" /><br>
   </div>
   <div class="field2">
-    <input type="checkbox" name="sources[]" value="Other"/>
-    <label>Other (Please specify so that we may thank our partners.)</label>
+    <input id="OtherSource" type="checkbox" name="sources[]" value="Other"/>
+    <label for="OtherSource">Other (Please specify so that we may thank our partners.)</label>
     <input type="text" name="add-sources" value="" /><br>
   </div>
   <br>
@@ -163,20 +163,20 @@
     <%= f.label(:name, "Do you hold an educator's license in Illinois? *") %></em><br>
     <div class="field-radio">
       <%= f.radio_button(:il_licensed, "Yes") %>
-      <%= f.label(:name, "Yes") %><br>
+      <%= f.label(:name, "Yes", for: "user_il_licensed_yes") %><br>
     </div>
     <div class="field-radio">
       <%= f.radio_button(:il_licensed, "No") %>
-      <%= f.label(:name, "No") %><br>
+      <%= f.label(:name, "No", for: "user_il_licensed_no") %><br>
     </div>
     <div class="field-radio">
       <%= f.radio_button(:il_licensed, "Other") %>
-      <%= f.label(:name, "I am licensed in another state.")%>
+      <%= f.label(:name, "I am licensed in another state.", for: "user_il_licensed_other")%>
       <%= link_to "Click here for Illinois license information", "/uploads/licCheatSheet.pdf" %>
     </div>
     <div class="field-radio">
       <%= f.radio_button(:il_licensed, "Educator Prep Program") %>
-      <%= f.label(:name, "I am enrolled in an educator preparation program.") %><br>
+      <%= f.label(:name, "I am enrolled in an educator preparation program.", for: "user_il_licensed_educator_prep_program") %><br>
     </div>
   </div>
   <br>
@@ -193,27 +193,27 @@
         <% if lic[:title] %>
           <div class="field-radio-indent">
             <% if @user.licenses.map{|lic| lic.name}.include?(value) %>
-              <input type="checkbox" name="licenses[]" value="<%= value %>" checked/>
+              <input id="<%= value %>" type="checkbox" name="licenses[]" value="<%= value %>" checked/>
             <% else %>
-              <input type="checkbox" name="licenses[]" value="<%= value %>" />
+              <input id="<%= value %>" type="checkbox" name="licenses[]" value="<%= value %>" />
             <% end %>
-            <label><%= value %></label><br>
+            <label for="<%= value %>"><%= value %></label><br>
           </div>
         <% else %>
           <div class="field-radio">
             <% if @user.licenses.map{|lic| lic.name}.include?(value) %>
-              <input type="checkbox" name="licenses[]" value="<%= value %>" checked/>
+              <input id="<%= value %>" type="checkbox" name="licenses[]" value="<%= value %>" checked/>
             <% else %>
-              <input type="checkbox" name="licenses[]" value="<%= value %>" />
+              <input id="<%= value %>" type="checkbox" name="licenses[]" value="<%= value %>" />
             <% end %>
-            <label><%= value %></label><br>
+            <label id="<%= value %>"><%= value %></label><br>
           </div>
         <% end %>
       <% end %>
     <% end %>
     <div class="field-radio-indent">
-      <input type="checkbox" name="licenses[]" value="Other"/>
-      <label>Other (if multiple, separate with a comma)</label>
+      <input id="OtherLic" type="checkbox" name="licenses[]" value="Other"/>
+      <label for="OtherLic">Other (if multiple, separate with a comma)</label>
       <input type="text" name="add-licenses" value="" />
     </div>
   </div><br>
@@ -230,28 +230,28 @@
         <% if endo[:title] %>
           <div class="field-radio-indent">
             <% if @user.endorsements.map{|endo| endo.name}.include?(value) %>
-              <input type="checkbox" name="endorses[]" value="<%= value %>" checked/>
+              <input id="<%= value %>" type="checkbox" name="endorses[]" value="<%= value %>" checked/>
             <% else %>
-              <input type="checkbox" name="endorses[]" value="<%= value %>" />
+              <input id="<%= value %>" type="checkbox" name="endorses[]" value="<%= value %>" />
             <% end %>
-            <label><%= value %></label><br>
+            <label for="<%= value %>"><%= value %></label><br>
           </div>
         <% else %>
           <div class="field-radio">
             <% if @user.endorsements.map{|endo| endo.name}.include?(value) %>
-              <input type="checkbox" name="endorses[]" value="<%= value %>" checked/>
+              <input id="<%= value %>" type="checkbox" name="endorses[]" value="<%= value %>" checked/>
             <% else %>
-              <input type="checkbox" name="endorses[]" value="<%= value %>" />
+              <input id="<%= value %>" type="checkbox" name="endorses[]" value="<%= value %>" />
             <% end %>
-            <label><%= value %></label><br>
+            <label for="<%= value %>"><%= value %></label><br>
           </div>
         <% end %>
       <% end %>
     <% end %>
   </div>
   <div class="field-radio-indent-other">
-    <input type="checkbox" name="endorses[]" value="Other"/>
-    <label>Other (if multiple, separate with a comma)</label>
+    <input id="OtherEnd" type="checkbox" name="endorses[]" value="Other"/>
+    <label for="OtherEnd">Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-endorses" value="" />
   </div><br>
 
@@ -265,11 +265,11 @@
     <ul class="checkbox-grid2">
       <% grades.each do |grade| %>
         <% if @user.grade_pref.include?(grade) %>
-          <li><input type="checkbox" name="grade_pref[]" value="<%= grade %>" checked/>
+          <li><input id=<%= grade %>"" type="checkbox" name="grade_pref[]" value="<%= grade %>" checked/>
         <% else %>
-          <li><input type="checkbox" name="grade_pref[]" value="<%= grade %>" />
+          <li><input id=<%= grade %>"" type="checkbox" name="grade_pref[]" value="<%= grade %>" />
         <% end %>
-        <label><%= grade %></label></li>
+        <label for=<%= grade %>""><%= grade %></label></li>
       <% end %>
     </ul>
   </div><br>
@@ -279,11 +279,11 @@
     <ul class="checkbox-grid2">
       <% locations.each do |loc| %>
         <% if @user.location_pref && @user.location_pref.include?(loc) %>
-          <li><input type="checkbox" name="location_pref[]" value="<%= loc %>" checked/>
+          <li><input id="<%= loc %>" type="checkbox" name="location_pref[]" value="<%= loc %>" checked/>
         <% else %>
-          <li><input type="checkbox" name="location_pref[]" value="<%= loc %>" />
+          <li><input id="<%= loc %>" type="checkbox" name="location_pref[]" value="<%= loc %>" />
         <% end %>
-        <label><%= loc %></label></li>
+        <label for="<%= loc %>"><%= loc %></label></li>
       <% end %>
     </ul>
   </div><br>
@@ -293,11 +293,11 @@
     <%= f.label(:name, "Do you have previous experience in a charter? *") %></em><br>
     <div class="field-radio">
       <%= f.radio_button(:previous, true) %>
-      <%= f.label(:name, "Yes") %><br>
+      <%= f.label(:name, "Yes", for: "user_previous_true") %><br>
     </div>
     <div class="field-radio">
       <%= f.radio_button(:previous, false) %>
-      <%= f.label(:name, "No") %><br>
+      <%= f.label(:name, "No", for: "user_previous_false") %><br>
     </div>
   </div><br>
 
@@ -306,17 +306,17 @@
     <ul class="checkbox-grid2">
     <% position_options.each do |pos| %>
       <% if @user.positions.map{|pos| pos.title}.include?(pos) %>
-        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" checked/>
+        <li class="field-flex"><input id="<%= pos %>" type="checkbox" name="positions[]" value="<%= pos %>" checked/>
       <% else %>
-        <li class="field-flex"><input type="checkbox" name="positions[]" value="<%= pos %>" />
+        <li class="field-flex"><input id="<%= pos %>" type="checkbox" name="positions[]" value="<%= pos %>" />
       <% end %>
-    <label class="flex-one no-margin"><%= pos %></label></li>
+      <label for="<%= pos %>" class="flex-one no-margin"><%= pos %></label></li>
     <% end %>
     </ul>
   </div>
   <div class="field2">
-    <input type="checkbox" name="positions[]" value="Other"/>
-    <label>Other (if multiple, separate with a comma)</label>
+    <input id="OtherPos" type="checkbox" name="positions[]" value="Other"/>
+    <label for="OtherPos">Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-positions" value="" />
   </div>
   <br>
@@ -326,22 +326,22 @@
     <ul class="checkbox-grid">
       <% selectable_subjects.each do |sub| %>
         <% if @user.subjects.map{|sub| sub.subject}.include?(sub) %>
-          <li><input type="checkbox" name="subs[]" value="<%= sub %>" checked/>
+          <li><input id="<%= sub %>" type="checkbox" name="subs[]" value="<%= sub %>" checked/>
         <% else %>
-          <li><input type="checkbox" name="subs[]" value="<%= sub %>" />
+          <li><input id="<%= sub %>" type="checkbox" name="subs[]" value="<%= sub %>" />
         <% end %>
-        <label><%= sub %></label></li>
+        <label for="<%= sub %>"><%= sub %></label></li>
       <% end %>
     </ul>
   </div>
   <div class="field2">
-    <input type="checkbox" name="subs[]" value=""/>
-    <label>Foreign Language (Please specify language.)</label>
+    <input id="Lang" type="checkbox" name="subs[]" value=""/>
+    <label for="Lang">Foreign Language (Please specify language.)</label>
     <input type="text" name="add-language" value="" /><br>
   </div>
   <div class="field2">
-    <input type="checkbox" name="subs[]" value="Other"/>
-    <label>Other (if multiple, separate with a comma)</label>
+    <input id="OtherSub" type="checkbox" name="subs[]" value="Other"/>
+    <label for="OtherSub">Other (if multiple, separate with a comma)</label>
     <input type="text" name="add-subs" value="" /><br>
   </div>
   <br>
