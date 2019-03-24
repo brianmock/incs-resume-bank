@@ -58,8 +58,8 @@ body > div > table > thead > tr > th{
 
 .container {
   margin-bottom: 25px;
-  max-width:750px;
-  min-width:750px;
+  max-width:850px;
+  min-width:850px;
 }
 
 .additional-info {
