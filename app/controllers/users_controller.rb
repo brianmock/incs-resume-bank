@@ -173,6 +173,10 @@ class UsersController < ApplicationController
 
     @users = @users.where(updated_at: (Time.now - 24.months)..Time.now)
 
+    if params["search"]
+      @users = @users.where("CONCAT_WS(' ', lower(first_name), lower(last_name)) LIKE ?", "%#{params["search"].downcase}%")
+    end
+
     if params["years"] && params["years"] != "Any"
       @users = @users.where("years >= ?", params["years"])
     end
@@ -646,7 +650,8 @@ class UsersController < ApplicationController
                                  :endorses, :previous, :subs, :relocation,
                                  :orgs, :additional, :years, :grade_pref,
                                  :positions, :school, :resume_id,
-                                 :location_pref, :sources, :job_title)
+                                 :location_pref, :sources, :job_title, 
+                                 :search)
   end
 
   def authorize
