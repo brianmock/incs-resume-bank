@@ -704,7 +704,7 @@ class UsersController < ApplicationController
     else
       @user.destroy
       respond_to do |format|
-        format.html { redirect_to users_pending_url, notice: 'User was successfully deleted.' }
+        format.html { redirect_back(fallback_location: '/', notice: 'User was successfully deleted.') }
         format.json { head :no_content }
       end
     end
