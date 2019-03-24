@@ -168,6 +168,9 @@ class UsersController < ApplicationController
 
   def search
     @users = User.where('access' => 'teacher').with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
+
+    @users = @users.uniq { |u| u.id }
+
     @users = @users.where(updated_at: (Time.now - 24.months)..Time.now)
 
     if params["years"] && params["years"] != "Any"
@@ -238,7 +241,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { 
-        @users = @users.uniq { |u| u.id }.paginate(page: params[:page], per_page: 25)
+        @users = @users.paginate(page: params[:page], per_page: 25)
         render :index
       }
       format.csv {
