@@ -169,8 +169,6 @@ class UsersController < ApplicationController
   def search
     @users = User.where('access' => 'teacher').with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
 
-    @users = @users.uniq { |u| u.id }
-
     @users = @users.where(updated_at: (Time.now - 24.months)..Time.now)
 
     if params["search"]
@@ -245,10 +243,14 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { 
+        @users = @users.uniq { |u| u.id }
+
         @users = @users.paginate(page: params[:page], per_page: 25)
         render :index
       }
       format.csv {
+        @users = @users.uniq { |u| u.id }
+
         send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"
       }
     end
@@ -256,8 +258,6 @@ class UsersController < ApplicationController
 
   def download_search
     @users = User.where('access' => 'teacher').with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
-
-    @users = @users.uniq { |u| u.id }
 
     @users = @users.where(updated_at: (Time.now - 24.months)..Time.now)
 
@@ -332,6 +332,8 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
+      @users = @users.uniq { |u| u.id }
+
       format.html { send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
       format.csv { send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
     end
