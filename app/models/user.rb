@@ -86,10 +86,10 @@ class User < ActiveRecord::Base
       csv << headers
       results.each do |teacher|
         array = attributes.map { |attr| teacher.send(attr) }
-        array << teacher.position_choices.pluck(:title).join(',')
-        array << teacher.licenses_helds.pluck(:name).join(',')
-        array << teacher.preferences.pluck(:subject).join(',')
-        array << teacher.references.pluck(:source_name).join(',')
+        array << teacher.positions.pluck(:title).join(',')
+        array << teacher.licenses.pluck(:name).join(',')
+        array << teacher.subjects.pluck(:subject).join(',')
+        array << teacher.sources.pluck(:source_name).join(',')
         # array << teacher.resumes.first.attachment.url
         csv << array
       end
