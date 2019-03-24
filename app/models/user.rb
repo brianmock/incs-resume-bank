@@ -80,17 +80,17 @@ class User < ActiveRecord::Base
 
   def self.to_csv(results)
     attributes = ['prefix', 'first_name', 'last_name', 'email', 'phone_number', 'street', 'street_second', 'city', 'state', 'zip', 'country', 'register', 'register2017', 'register2018', 'register2019', 'created_at', 'updated_at', 'il_licensed', 'degree', 'major', 'masters_concentration', 'years', 'grade_pref', 'previous', 'location_pref', 'additional']
-    # headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered 2016?', 'Registered 2017?', 'Registered 2018?', 'Registered 2019?', 'Registered On', 'Updated At', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Positions Desired', 'Licenses Held', 'Subjects Desired', 'Reference Sources']
-    headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered 2016?', 'Registered 2017?', 'Registered 2018?', 'Registered 2019?', 'Registered On', 'Updated At', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info']
+    headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered 2016?', 'Registered 2017?', 'Registered 2018?', 'Registered 2019?', 'Registered On', 'Updated At', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info', 'Positions Desired', 'Licenses Held', 'Subjects Desired', 'Reference Sources']
+    # headers = ['Prefix', 'First Name', 'Last Name', 'Email', 'Phone', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Country', 'Registered 2016?', 'Registered 2017?', 'Registered 2018?', 'Registered 2019?', 'Registered On', 'Updated At', 'IL License', 'Degree', 'Major', 'Masters Concentration', 'Years of Experience', 'Grade Preference', 'Previous Charter Work?', 'Location Preference', 'Additional Info']
 
     CSV.generate(headers: true) do |csv|
       csv << headers
       results.each do |teacher|
         array = attributes.map { |attr| teacher.send(attr) }
-        # array << teacher.positions.pluck(:title).join(',')
-        # array << teacher.licenses.pluck(:name).join(',')
-        # array << teacher.subjects.pluck(:subject).join(',')
-        # array << teacher.sources.pluck(:source_name).join(',')
+        array << teacher.positions.pluck(:title).join(',')
+        array << teacher.licenses.pluck(:name).join(',')
+        array << teacher.subjects.pluck(:subject).join(',')
+        array << teacher.sources.pluck(:source_name).join(',')
         # array << teacher.resumes.first.attachment.url
         csv << array
       end

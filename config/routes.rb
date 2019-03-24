@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'users/teachers' => 'users#show_all_teachers'
   get 'users/teachers-csv' => 'users#download_teachers'
   get 'users/search' => 'users#search'
+  get 'users/search-csv' => 'users#download_search'
   resources :users
 
   get 'admin' => 'admin#index'

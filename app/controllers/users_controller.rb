@@ -254,6 +254,89 @@ class UsersController < ApplicationController
     end
   end
 
+  def download_search
+    @users = User.where('access' => 'teacher').with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
+
+    @users = @users.uniq { |u| u.id }
+
+    @users = @users.where(updated_at: (Time.now - 24.months)..Time.now)
+
+    if params["search"]
+      @users = @users.where("CONCAT_WS(' ', lower(first_name), lower(last_name)) LIKE ?", "%#{params["search"].downcase}%")
+    end
+
+    if params["years"] && params["years"] != "Any"
+      @users = @users.where("years >= ?", params["years"])
+    end
+
+    if params["positions"]
+      @users = @users.where('positions.title IN (?)', params["positions"])
+    end
+
+    if params["degree"] && params["degree"] != "No preference"
+      degrees = [
+        "Associate",
+        "Associate in progress",
+        "Bachelor's",
+        "Bachelor's in progress",
+        "Master's",
+        "Master's in progress",
+        "Doctorate",
+        "Doctorate in progress",
+      ]
+
+      degree_queries = {
+        "Associate" => degrees,
+        "Bachelor's" => degrees[2..-1],
+        "Master's" => degrees[4..-1],
+        "Doctorate" => degrees[6..-1],
+      }
+
+      @users = @users.where("degree IN (?)", degree_queries[params["degree"]])
+    end
+
+    if params["il_licensed"]
+      @users = @users.where(il_licensed: params["il_licensed"])
+    end
+
+    if params["subjects"]
+      @users = @users.where('subjects.subject IN (?)', params["subjects"])
+    end
+
+    if params["licenses"]
+      @users = @users.where('licenses.name IN (?)', params["licenses"])
+    end
+
+    if params["endorses"]
+      @users = @users.where('endorsements.name IN (?)', params["endorses"])
+    end
+
+    if params["grade_pref"]
+      @users = @users.where("grade_pref && ARRAY[?]::text[]", params["grade_pref"])
+    end
+
+    if params["registered"] == "2019"
+      @users = @users.where("register2019 IN (?)", ["both"])
+    end
+
+    if params["registered"] == "6"
+      @users = @users.where(updated_at: (Time.now - 6.months)..Time.now)
+    end
+
+    if params["registered"] == "12"
+      @users = @users.where(updated_at: (Time.now - 12.months)..Time.now)
+    end
+
+    if params["location_pref"]
+      @users = @users.where("location_pref && ARRAY[?]::text[]", params["location_pref"])
+    end
+
+    respond_to do |format|
+      format.html { send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
+      format.csv { send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
+    end
+  end
+
   def pending
     @users = User.where(access: "pending")
     render :pending_index

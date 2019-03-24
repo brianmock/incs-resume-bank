@@ -14,9 +14,7 @@
 <% end %>
 
 <% if User.find(session[:user_id]).access == "admin" || User.find(session[:user_id]).access == "school"%>
-  <%= form_tag(users_search_path(params.merge(format: 'csv'))) do %>
-  <%= submit_tag 'Generate CSV', class: "btn btn-info export"%>
-  <% end %>
+  <%= link_to 'Generate CSV', users_search_csv_path(params.merge(format: 'csv')), class: "btn btn-info export", download: true %>
 <% end %>
 
 <%= will_paginate @users %>
