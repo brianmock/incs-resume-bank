@@ -168,6 +168,7 @@ class UsersController < ApplicationController
 
   def search
     @users = User.where('access' => 'teacher').with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
+    @users = @users.where(updated_at: (Time.now - 24.months)..Time.now)
 
     if params["years"] && params["years"] != "Any"
       @users = @users.where("years >= ?", params["years"])
@@ -220,7 +221,7 @@ class UsersController < ApplicationController
     end
 
     if params["registered"] == "2019"
-      @users = @users.where("register2019 IN (?)", ["both", "jobfaironly"])
+      @users = @users.where("register2019 IN (?)", ["both"])
     end
 
     if params["registered"] == "6"
