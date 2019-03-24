@@ -180,7 +180,7 @@ class UsersController < ApplicationController
     end
 
     if params["positions"]
-      @users = @users.where('positions.title IN (?)', params["positions"])
+      @users = @users.where('positions.title IN (?)', params["positions"]).references(:positions)
     end
 
     if params["degree"] && params["degree"] != "No preference"
@@ -210,15 +210,15 @@ class UsersController < ApplicationController
     end
 
     if params["subjects"]
-      @users = @users.where('subjects.subject IN (?)', params["subjects"])
+      @users = @users.where('subjects.subject IN (?)', params["subjects"]).references(:subjects)
     end
 
     if params["licenses"]
-      @users = @users.where('licenses.name IN (?)', params["licenses"])
+      @users = @users.where('licenses.name IN (?)', params["licenses"]).references(:licenses)
     end
 
     if params["endorses"]
-      @users = @users.where('endorsements.name IN (?)', params["endorses"])
+      @users = @users.where('endorsements.name IN (?)', params["endorses"]).references(:endorsements)
     end
 
     if params["grade_pref"]
@@ -300,15 +300,15 @@ class UsersController < ApplicationController
     end
 
     if params["subjects"]
-      @users = @users.where('subjects.subject IN (?)', params["subjects"])
+      @users = @users.where('subjects.subject IN (?)', params["subjects"]).references(:subjects)
     end
 
     if params["licenses"]
-      @users = @users.where('licenses.name IN (?)', params["licenses"])
+      @users = @users.where('licenses.name IN (?)', params["licenses"]).references(:licenses)
     end
 
     if params["endorses"]
-      @users = @users.where('endorsements.name IN (?)', params["endorses"])
+      @users = @users.where('endorsements.name IN (?)', params["endorses"]).references(:endorsements)
     end
 
     if params["grade_pref"]
