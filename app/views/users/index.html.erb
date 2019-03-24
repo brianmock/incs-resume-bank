@@ -14,7 +14,9 @@
 <% end %>
 
 <% if User.find(session[:user_id]).access == "admin" || User.find(session[:user_id]).access == "school"%>
+  <label>Download CSV of results (can take up to 30 seconds to complete)</label>
   <%= link_to 'Generate CSV', users_search_csv_path(params.merge(format: 'csv')), class: "btn btn-info export", download: true %>
+  <br>
 <% end %>
 
 <%= will_paginate @users %>
