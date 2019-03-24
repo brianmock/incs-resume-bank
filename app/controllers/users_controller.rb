@@ -136,17 +136,17 @@ class UsersController < ApplicationController
   def download_teachers
     case params["filter"]
     when 'bank-only'
-      @users = User.where('access' => 'teacher').where('register2018= ? OR register2019= ? OR register= ?', 'bank', 'bank', 'bank')
+      @users = User.where('access' => 'teacher').where('register2018= ? OR register2019= ?', 'bank', 'bank')
       @header = 'Candidates only registered with Resume Bank'
       @filter = 'bank-only'
-    when '2018-job-fair'
-      @users = User.where('access' => 'teacher').where(:register2018 => ['both', 'jobfaironly'])
-      @header = 'All Candidates registered for 2018 Teacher Job Fair'
-      @filter = '2018-job-fair'
     when '2019-job-fair'
       @users = User.where('access' => 'teacher').where(:register2019 => ['both', 'jobfaironly'])
       @header = 'All Candidates registered for 2019 Teacher Job Fair'
       @filter = '2019-job-fair'
+    when '2018-job-fair'
+      @users = User.where('access' => 'teacher').where(:register2018 => ['both', 'jobfaironly'])
+      @header = 'All Candidates registered for 2018 Teacher Job Fair'
+      @filter = '2018-job-fair'
     when '2018-job-fair-only'
       @users = User.where('access' => 'teacher').where(:register2018 => 'jobfaironly')
       @header = 'All Candidates only registered for 2018 Teacher Job Fair (no resume bank)'
