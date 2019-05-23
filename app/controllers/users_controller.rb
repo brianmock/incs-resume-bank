@@ -506,7 +506,7 @@ class UsersController < ApplicationController
         else
           session[:user_id] = @user.id
           if @user.access == "teacher"
-            @user.register2019 = "both"
+            # @user.register2019 = "both"
             @user.save
             # if @user.register2019 == "both"
             #   UserMailer.teacher_both_email(@user).deliver_now
@@ -673,15 +673,6 @@ class UsersController < ApplicationController
         @user.location_pref = params["location_pref"]
       end
       if @user.update(user_params)
-        if params["register2019"] == "both"
-          UserMailer.teacher_both_email(@user).deliver_now
-        end
-        if params["register2019"] == "bank"
-          UserMailer.teacher_email(@user).deliver_now
-        end
-        if params["register2019"] == "jobfaironly"
-          UserMailer.teacher_fair_email(@user).deliver_now
-        end
         format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
