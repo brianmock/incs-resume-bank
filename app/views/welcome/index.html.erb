@@ -4,103 +4,104 @@
       <%= flash[:notice] %>
     </div>
   <% end %>
-  <h1 class="main-header">Welcome to the INCS Online Resume Bank.</h1>
-  <h1 class="main-header">Join us at the 2019 INCS Teacher & Administrator Job Fair on April 6!</h1>
+  <h1 class="main-header">Welcome to the INCS Online Resume Bank</h1>
 
-
-  <% if session[:user_id] && User.find(session[:user_id]).access == 'pending' %>
-    <div class="alert alert-info">Thank you for your registration. Please allow up to one week for INCS staff to process approval of your account. You have received an email with further information.</div>
-  <% else %>
-    <h3 class="sub-header">Register for the Job Fair and Resume Bank below.</h3>
+  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'pending' %>
+    <p>Thank you for your registration. Please allow up to 2 business days for INCS staff to process approval of your account. You have received an email with further information.</p>
   <% end %>
 
-  <% if session[:user_id] == nil %>
-    <div class="main-container">
-      <%= button_to "Job Seeker Registration", users_new_teacher_path, method: :get, class: "btn btn-info main-btn"%>
-      <%= button_to "Hiring Manager Registration", users_new_school_path, method: :get, class: "btn btn-info main-btn"%>
-    </div>
-  <% end %>
-
-  <% if session[:user_id] != nil && User.find(session[:user_id]).access == 'teacher' && User.find(session[:user_id]).register2019 != 'both' && User.find(session[:user_id]).register2019 != 'jobfaironly' %>
-    <div class="main-container">
-    <%= button_to "Register for Job Fair", users_register_path, method: :post, class: "btn btn-info main-btn" %>
-    </div>
-  <% end %>
 
   <p class="main-content">
+
     <p class="main-content">
-    The Illinois Network of Charter Schools (INCS) will host our annual Teacher & Administrator Job Fair on <span class="boldBig">Saturday, April 6, 2019</span>. Meet leaders from charter public schools across Illinois who are seeking hundreds of teachers, social workers, counselors, nurses, and school administrators, among other roles. If you&apos;re a highly-qualified candidate ready to TEACH,  LEAD and SUCCEED in a mission-driven public school, this is the place to be!
+    Illinois charter public schools are seeking to hire talented teachers, teacher leaders, social workers, counselors, nurses, administrators and many other roles.
+    </p>
+
+    <p class="main-content">
+    Please click “Job Seeker Registration” to join the INCS Online Resume Bank and share your professional profile and resume with charter school hiring managers year-round.
+    </p>
+
+    <p class ="main-content">
+    Illinois charter public school hiring managers may click on “School Hiring Manager Registration” to join Resume Bank and search for candidates. 
     </p>
     <br>
 
+    <% if session[:user_id] == nil %>
+      <div class="main-container">
+        <%= button_to "Candidate Resume Bank Registration", users_new_teacher_path, method: :get, class: "btn btn-info main-btn"%>
+        <%= button_to "Hiring Manager Registration", users_new_school_path, method: :get, class: "btn btn-info main-btn"%>
+      </div>
+      <br>
+    <% end %>
+
     <p class="main-content">
-      <strong>Job Seekers will have the opportunity to:</strong>
-      <ul class="main-content-list">
-        <li>Meet recruiters representing over 100 charter public school campuses.</li>
-        <li>Post your resume in the INCS Online Resume Bank, which is circulated to Illinois charter school hiring
-managers year-round.</li>
-        <li>Interview on-site with schools looking to hire exceptional talent.*</li>
-      </ul>
+      <strong>Job Seeker Tips and Resources:</strong>
+      <p class="main-content">
+      Joining Resume Bank allows charter recruiters to find you. We strongly recommend that you also research current charter openings and <strong>apply directly with the schools</strong>. 
+      <ol class="main-content-list">
+        <li>Visit <a href="https://www.incschools.org/jobs-at-charter-schools/">Jobs at Charter Schools</a> on the INCS website to find job openings from across the charter sector.</li>
+        <li><a href="https://www.incschools.org/find-a-charter-school/?">Research charter schools</a> and find the ones that are right for you.</li>
+        <li>Visit charter school and charter network websites to find the most up-to-date job openings.</li>
+      </ol>
+      </p>
+
+      <p class="main-content"><strong>Job Seeker Resources:</strong></p>
+      <p class="main-content">
+        <ul>
+          <li><a href="https://www.teacherjobfair.org/uploads/FAQ.pdf">Teaching in Charter Schools FAQ (Frequently Asked Questions)</a></li>
+          <li><a href="https://www.teacherjobfair.org/uploads/licCheatSheet.pdf">Illinois Educator Licensure Guide</a></li>
+        </ul>
+      </p>
+
+      <p class="main-content"><strong>About Charter Schools:</strong></p>
+      <p class="main-content">
+      Charter schools are free, independent neighborhood public schools open to all children, including students who are English language learners and students with special needs. Charter schools do not have special entrance requirements and have the freedom to be innovative, while being held accountable for advancing student achievement.
+      </p>
+
+      <p class="main-content">
+      Each charter public school is unique – both inside and out. Some may focus on college preparation, math and science, and others integrate the arts into each subject. While the possibilities are endless, charter public schools aim to provide a range of options so that parents can choose the school that best fits their child’s needs. 
+      </p>
+
+      <p class="main-content">
+      Likewise, educators can choose to work for charters with missions, educational approaches and professional cultures aligned to their own beliefs and work styles. Visit <a href="https://www.incschools.org">www.incschools.org</a> to learn more about charter public schools.
+      </p>
+
+    </p>
+
+  </p>
+
+  <p class="main-content">
+    <h2 class="main-header">2019 INCS Job Fair Recap</h2>
+    <p class="main-content">
+    The Illinois Network of Charter Schools (INCS) hosted its 14th annual <strong>Teacher & Administrator Job Fair</strong> Saturday, April 6. Representatives from charter public schools across the state attended to recruit high-quality talent to fill their job vacancies, including teaching, school leadership, social work, and administrative positions. Hundreds of job seekers attended the event. 
+    </p>
+
+    <p class="main-content-row">
+      <%= image_tag("job_fair_one.png") %>
+      <%= image_tag("job_fair_two.png") %>
     </p>
 
     <p class="main-content">
-      <strong>Job Seeker Resources:</strong>
-      <ul class="main-content-list">
-        <li>
-          <%= link_to "Teaching in Charter Schools FAQ (Frequently Asked Questions)", "/uploads/FAQ.pdf" %>
-        </li>
-        <li>
-          <%= link_to "Illinois Educator Licensure Guide", "/uploads/licCheatSheet.pdf" %>
-        </li>
-      </ul>
-    </p>
-
-
-    <p class="main-content">
-      <strong>Schools will have the opportunity to:</strong>
-      <ul class="main-content-list">
-        <li>Meet with hundreds of educators.</li>
-        <li>View job seekers’ resumes ahead of time using the INCS Online Resume Bank.</li>
-        <li>Invite candidates for on-site interviews following the Meet and Greet session, if you wish.</li>
-        <li>School leaders may learn more about the fair and register <a target="_blank" href="https://events.eventzilla.net/e/incs-teacher--administrator-job-fair-2019-2138732584">here</a></li>
-      </ul>
-    </p>
-
-    <p class="main-content"><strong>Agenda:</strong></p>
-    <ul class="main-content-list">
-      <li>9:00 am - 9:30 am: School Set-up</li>
-      <li>9:15 am - 10:00 am: Job Seeker Registration</li>
-      <li>10:00 am - 12:00 pm: Meet and Greet between Job Seekers and Schools</li>
-      <li>12:00 pm - 1:30 pm: On-site Interviews (by invitation from charter school leaders only*)</li>
-    </ul>
-
-    <p class="main-content">
-    *Interviews are conducted at the discretion of charter school leaders, who may contact job seekers in advance or invite them in person at the fair. INCS has no additional information about interviews.
-    </p>
-
-    <p class="main-content"><strong>Location:</strong></p>
-    <p class="main-content">
-    <a href="https://nobleschools.org/speer/">ITW David Speer Academy, a campus of the Noble Network of Charter Schools</a><br>
-    <a href="https://www.google.com/maps/place/5321+W+Grand+Ave,+Chicago,+IL+60639/@41.9170545,-87.7623176,17.75z/data=!4m5!3m4!1s0x880fccbe24f9db4d:0x643ae861c8b1c78c!8m2!3d41.9172487!4d-87.759881">5321 W. Grand Ave</a><br> Chicago, IL 60639
-    </p>
-
-    <p class="main-content"><strong>Parking:</strong></p>
-    <p class="main-content">
-      Parking is available on Grand Avenue and in the Prosser Career Academy parking lot, on the north side of Grand, just west of Long Avenue.
-    </p>
-    <br>
-
-    <p class="main-content">
-      Did you know INCS also has a <span class="bold">jobs board</span>? <a href="https://www.incschools.org/jobs-at-charter-schools/">Click here</a> to browse current openings in Illinois charter public schools.
+    Candidates and school leaders mingled during the meet and greet portion of the job fair. Dozens of candidates also interviewed with prospective employers on-site.
     </p>
 
     <p class="main-content">
-      To find a charter public school near you, please visit us <a href="https://www.incschools.org/about-charters/find-a-charter-school/">here</a>.
+    Valerie Butron said she was glad she attended the INCS job fair. “I had great conversations and am excited about the opportunities that I learned about today," she remarked. "I would recommend the fair to anyone looking to explore a career in charter schools in Illinois.”  "
+    </p>
+
+    <p class="main-content-row">
+      <%= image_tag("job_fair_three.png") %>
+      <%= image_tag("job_fair_four.png") %>
     </p>
 
     <p class="main-content">
-      If you have questions or would like to receive outreach materials, please contact Anne Levy Brown, INCS Charter Growth Manager, at <%=mail_to("alevybrown@incschools.org")%>
+    Teresa Jarrett, another job seeker, gave the fair a "10 out of 10 rating," saying she would highly recommend it to others. “The school leaders were engaging, and I met with representatives who truly care about kids and their educational experiences.”
     </p>
+
+    <p class="main-content">
+    INCS would like to thank ITW David Speer Academy, a campus of the Noble Network of Charter Schools, our sponsors, <a href="http://www.cstnchicago.com/">Charter Substitute Teacher Network</a>, <a href="http://www.hallagans.com">Hallagan Business Machines</a>, <a href="https://holbergfinancial.com/#/">Holberg Financial</a>, our official recruitment partners, <a href="https://www.bradley.edu/scc">Bradley University Smith Career Center</a>, <a href="https://education.depaul.edu/Pages/default.aspx">DePaul University College of Education</a>, <a href="https://www.sesp.northwestern.edu/msed/">Northwestern University Master of Science in Education</a>, <a href="https://www.sxu.edu/">Saint Xavier University College of Art and Sciences: Education</a> and <a href="http://national.careerservices.wgu.edu/">Western Governors University Career and Professional Development Center</a>, and the many other colleges and universities and partner organizations who assisted with outreach to job seekers for helping to make this event a success!
+    </p>
+
   </p>
 
   <p class="main-content grayed">

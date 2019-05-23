@@ -55,6 +55,16 @@ p {
   text-align: justify;
 }
 
+.main-content-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 24px 0px;
+  > img {
+    height: max-content;
+  }
+}
+
 .main-content-list {
   font-size: 1.2em;
   color: #717171;
