@@ -9,8 +9,7 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
       if @user.access == "teacher"
-        # redirect_to user_path(@user)
-        redirect_to user_path(@user), notice: 'Thank you for logging in to the INCS Job Fair Registration and Resume Bank site. Please review your information below and make any desired updates. Any active documents and your updated Job Seeker Details will be accessible to charter school leaders.'
+        redirect_to user_path(@user), notice: 'Thank you for logging in to the INCS Online Resume Bank site. Please review your information below and make any desired updates (scroll down and click "Edit Information"). Any active documents and your updated Job Seeker Details will be accessible to charter school leaders.'
       elsif @user.access == "school"
         redirect_to school_path(@user)
       elsif @user.access == "pending"

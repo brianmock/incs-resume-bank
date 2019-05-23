@@ -169,8 +169,6 @@ class UsersController < ApplicationController
   def search
     @users = User.where('access' => 'teacher').with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
 
-    @users = @users.uniq { |u| u.id }
-
     @users = @users.where(updated_at: (Time.now - 24.months)..Time.now)
 
     if params["search"]
@@ -182,7 +180,7 @@ class UsersController < ApplicationController
     end
 
     if params["positions"]
-      @users = @users.where('positions.title IN (?)', params["positions"])
+      @users = @users.where('positions.title IN (?)', params["positions"]).references(:positions)
     end
 
     if params["degree"] && params["degree"] != "No preference"
@@ -212,15 +210,15 @@ class UsersController < ApplicationController
     end
 
     if params["subjects"]
-      @users = @users.where('subjects.subject IN (?)', params["subjects"])
+      @users = @users.where('subjects.subject IN (?)', params["subjects"]).references(:subjects)
     end
 
     if params["licenses"]
-      @users = @users.where('licenses.name IN (?)', params["licenses"])
+      @users = @users.where('licenses.name IN (?)', params["licenses"]).references(:licenses)
     end
 
     if params["endorses"]
-      @users = @users.where('endorsements.name IN (?)', params["endorses"])
+      @users = @users.where('endorsements.name IN (?)', params["endorses"]).references(:endorsements)
     end
 
     if params["grade_pref"]
@@ -245,10 +243,14 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { 
+        @users = @users.uniq { |u| u.id }
+
         @users = @users.paginate(page: params[:page], per_page: 25)
         render :index
       }
       format.csv {
+        @users = @users.uniq { |u| u.id }
+
         send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"
       }
     end
@@ -256,8 +258,6 @@ class UsersController < ApplicationController
 
   def download_search
     @users = User.where('access' => 'teacher').with_active_resumes.includes(:positions, :subjects, :licenses, :sources, :endorsements)
-
-    @users = @users.uniq { |u| u.id }
 
     @users = @users.where(updated_at: (Time.now - 24.months)..Time.now)
 
@@ -300,15 +300,15 @@ class UsersController < ApplicationController
     end
 
     if params["subjects"]
-      @users = @users.where('subjects.subject IN (?)', params["subjects"])
+      @users = @users.where('subjects.subject IN (?)', params["subjects"]).references(:subjects)
     end
 
     if params["licenses"]
-      @users = @users.where('licenses.name IN (?)', params["licenses"])
+      @users = @users.where('licenses.name IN (?)', params["licenses"]).references(:licenses)
     end
 
     if params["endorses"]
-      @users = @users.where('endorsements.name IN (?)', params["endorses"])
+      @users = @users.where('endorsements.name IN (?)', params["endorses"]).references(:endorsements)
     end
 
     if params["grade_pref"]
@@ -332,6 +332,8 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
+      @users = @users.uniq { |u| u.id }
+
       format.html { send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
       format.csv { send_data User.to_csv(@users), :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=INCS_results-#{Time.now.strftime('%d-%m-%Y_%H-%M-%S')}.csv"}
     end
@@ -504,7 +506,7 @@ class UsersController < ApplicationController
         else
           session[:user_id] = @user.id
           if @user.access == "teacher"
-            @user.register2019 = "both"
+            # @user.register2019 = "both"
             @user.save
             # if @user.register2019 == "both"
             #   UserMailer.teacher_both_email(@user).deliver_now
@@ -671,15 +673,6 @@ class UsersController < ApplicationController
         @user.location_pref = params["location_pref"]
       end
       if @user.update(user_params)
-        if params["register2019"] == "both"
-          UserMailer.teacher_both_email(@user).deliver_now
-        end
-        if params["register2019"] == "bank"
-          UserMailer.teacher_email(@user).deliver_now
-        end
-        if params["register2019"] == "jobfaironly"
-          UserMailer.teacher_fair_email(@user).deliver_now
-        end
         format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -702,7 +695,7 @@ class UsersController < ApplicationController
     else
       @user.destroy
       respond_to do |format|
-        format.html { redirect_to users_pending_url, notice: 'User was successfully deleted.' }
+        format.html { redirect_back(fallback_location: '/', notice: 'User was successfully deleted.') }
         format.json { head :no_content }
       end
     end
