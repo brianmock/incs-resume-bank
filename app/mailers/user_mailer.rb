@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
   include SendGrid
-  default from: '"Allison Jack" <ajack@incschools.org>'
+  default from: '"Anne Levy Brown" <alevybrown@incschools.org>'
   def teacher_email(user)
     @user = user
     @url = "http://www.teacherjobfair.org"
@@ -25,7 +25,7 @@ class UserMailer < ApplicationMailer
 
   def steph_email(user)
     @user = user
-    mail(to:'AJack@incschools.org', subject: 'New school leader signed up for resume bank')
+    mail(to:'AJack@incschools.org', cc: 'alevybrown@incschools.org', subject: 'New school leader signed up for resume bank')
   end
 
   def school_activated_email(user)

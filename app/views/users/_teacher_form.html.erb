@@ -2,7 +2,7 @@
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= "Error".pluralize(@user.errors.count)%>:</h2>
-      <h4>Please contact <a href="mailto:ajack@incschools.org?subject=Resume Bank Question">ajack@incschools.org</a> if you are having trouble completing the form.</h4>
+      <h4>Please contact <a href="mailto:alevybrown@incschools.org?subject=Resume Bank Question">alevybrown@incschools.org</a> if you are having trouble completing the form.</h4>
 
       <ul>
       <% @user.errors.messages.each do |message| %>
@@ -16,14 +16,15 @@
 
   <h3>To join the Online Resume Bank:</h3>
   <ul class="register-content-list">
-    <li><strong>New Users:</strong> Please fill out the survey below and select "Next" at the bottom to upload your resume.</li>
+    <li><strong>New Users:</strong> Please fill out the survey below and select "Next" at the bottom to upload your resume and complete your Job Fair/Resume Bank registration.
     <li><strong>Returning users:</strong> <a href="/sessions/new">Log in</a> to review and edit your profile. Click <a href="/users/getreset">here</a> if you need to reset your password.</li>
+    </li>
   </ul>
   <br>
   <h3>New User Registration for Resume Bank</h3>
   <br>
   <h5>We recommend answering questions, even when not required, to increase chances of being identified by a school.</h5>   
-  <h4>If you have any trouble with this form, please contact <a href="mailto:ajack@incschools.org?subject=Resume Bank Question">ajack@incschools.org</a>.</h4><br><br> 
+  <h4>If you have any trouble with this form, please contact <a href="mailto:alevybrown@incschools.org?subject=Resume Bank Question">alevybrown@incschools.org</a>.</h4><br><br> 
 
   <%# <div class="field"> %>
   <%#   <label><em class="label-bold">What would you like to do? *</em></label><br> %>
