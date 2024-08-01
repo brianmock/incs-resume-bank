@@ -30,7 +30,7 @@ gem 'will_paginate', '~> 3.1.0'
 # emailing gem
 gem 'carrierwave', '~> 0.9'
 
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'autoprefixer-rails'
 
 gem 'bcrypt'
